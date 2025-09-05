@@ -1,5 +1,5 @@
 {
-  "name": "100-days-web",
+  "name": "100days",
   "version": "1.0.0",
   "description": "100 Days of Web Components",
   "main": "server/server.js",

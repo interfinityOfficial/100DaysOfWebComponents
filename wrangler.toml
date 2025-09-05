@@ -2,5 +2,5 @@ name = "100days"
 main = "worker.js"
 compatibility_date = "2025-09-05"
 
-[site]
+[assets]
 bucket = "./public"

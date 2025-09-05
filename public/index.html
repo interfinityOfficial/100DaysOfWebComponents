@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/icon.png">
+    <title>1/100</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="square" id="square-1"></div>
+        <div class="square" id="square-2"></div>
+        <div class="square" id="square-3"></div>
+        <div class="square" id="square-4"></div>
+        <div class="square" id="square-5"></div>
+        <div class="square" id="square-6"></div>
+        <div class="square" id="square-7"></div>
+    </main>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            user-select: none;
+            -webkit-user-select: none;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+            gap: 0px;
+        }
+
+        .square {
+            -webkit-tap-highlight-color: transparent;
+            width: calc(100vw / 7);
+            height: calc(100vw / 7);
+            background-color: #fff;
+            transform-origin: center;
+
+            transition: all 2s ease;
+        }
+
+        .square:not(.square-active):hover,
+        .square-active {
+            scale: 1;
+            transform: rotate(360deg);
+            border-radius: 100%;
+        }
+
+        .square-active {
+            scale: 0.7;
+        }
+    </style>
+
+    <script>
+        let date = new Date();
+        let day = date.getDay();
+        let square = document.getElementById(`square-${day + 1}`);
+
+        window.onload = () => {
+            square.classList.add('square-active');
+        }
+
+        document.querySelectorAll('.square').forEach(square => {
+            square.addEventListener('click', () => {
+                document.querySelectorAll('.square').forEach(square => {
+                    square.classList.remove('square-active');
+                });
+                square.classList.add('square-active');
+            });
+        });
+    </script>
+</body>
+
+</html>

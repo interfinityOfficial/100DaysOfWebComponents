@@ -2,10 +2,9 @@ export default {
     async fetch(request, env, ctx) {
       const url = new URL(request.url);
   
-      // API route: /api/ip
       if (url.pathname === "/api/ip") {
         let ip =
-          request.headers.get("cf-connecting-ip") || // Cloudflare's provided client IP
+          request.headers.get("cf-connecting-ip") ||
           request.headers.get("x-forwarded-for") ||
           request.headers.get("x-real-ip") ||
           "";
@@ -35,7 +34,6 @@ export default {
         );
       }
   
-      // Serve static assets from /public (or root folder defined in wrangler.toml)
       return env.ASSETS.fetch(request);
     },
   };

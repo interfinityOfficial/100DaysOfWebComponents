@@ -9,6 +9,7 @@
 </head>
 
 <body>
+
     <main>
         <div class="square" id="square-1"></div>
         <div class="square" id="square-2"></div>
@@ -66,6 +67,7 @@
         let date = new Date();
         let day = date.getDay();
         let square = document.getElementById(`square-${day + 1}`);
+
         window.onload = () => {
             square.classList.add('square-active');
         }

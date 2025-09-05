@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/icon.png">
+    <title>3/100</title>
+</head>
+<body>
+    <main>
+        
+    </main>
+
+    <style>
+        body {
+            margin: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        main {
+            width: 98vw;
+            padding: 1vw;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 1vw;
+        }
+
+        .dot, .dash, .space {
+            width: calc((100vw - 2vw - 1vw * 9) / 10);
+            height: calc((100vw - 2vw - 1vw * 9) / 10);
+        }
+
+        .dot {
+            border-radius: 50%;
+            background-color: #fff;
+
+            animation: dot-animation 0.5s ease-in-out;
+        }
+
+        .dash {
+            background-color: #fff;
+
+            animation: dash-animation 0.5s ease-in-out;
+        }
+
+        .space {
+            background-color: transparent;
+        }
+
+        @keyframes dot-animation {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes dash-animation {
+            0% {
+                transform-origin: left;
+                transform: scaleX(0);
+            }
+            100% {
+                transform-origin: left;
+                transform: scaleX(1);
+            }
+        }
+
+        @media(max-width: 800px) {
+            main {
+                width: 96vw;
+                padding: 2vw;
+                gap: 2vw;
+            }
+            .dot, .dash, .space {
+                width: calc((100vw - 4vw - 2vw * 4) / 5);
+                height: calc((100vw - 4vw - 2vw * 4) / 5);
+            }
+        }
+    </style>
+
+    <script>
+        async function fetchIPAddress() {
+            try {
+                const response = await fetch('/api/ip');
+                const data = await response.json();
+                return data.ip; 
+            } catch (error) {
+                console.error('Error fetching IP:', error);
+                return '127.0.0.1';
+            }
+        }
+
+        function IPToMorse(ip) {
+            const morse = {
+                '0': '-----',
+                '1': '.----',
+                '2': '..---',
+                '3': '...--',
+                '4': '....-',
+                '5': '.....',
+                '6': '-....',
+                '7': '--...',
+                '8': '---..',
+                '9': '----.',
+                'a': '.-',
+                'b': '-...',
+                'c': '-.-.',
+                'd': '-..',
+                'e': '.',
+                'f': '..-.',
+            };
+
+            if (ip.includes(':') && !ip.includes('.')) {
+                // IPv6
+                return ip.split(':').map(segment => {
+                    return segment.split('').map(char => morse[char.toLowerCase()] || '').join('');
+                }).join(' ');
+            } else {
+                // IPv4
+                return ip.split('.').map(octet =>
+                    octet.split('').map(digit => morse[digit]).join('')
+                ).join(' ');
+            }
+        }
+
+        function createMorseElements(morseString) {
+            let morse = morseString;
+
+            const main = document.querySelector('main');
+            main.innerHTML = '';
+
+            let char = morse[0];
+
+            let interval = setInterval(() => {
+                console.log(char);
+                if (char === '.') {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    main.appendChild(dot);
+                    scrollToBottom();
+                } else if (char === '-') {
+                    const dash = document.createElement('div');
+                    dash.className = 'dash';
+                    main.appendChild(dash);
+                    scrollToBottom();
+                } else if (char === ' ') {
+                    const space = document.createElement('div');
+                    space.className = 'space';
+                    main.appendChild(space);
+                    scrollToBottom();
+                }
+                if (morse.length > 1) {
+                    morse = morse.slice(1);
+                    char = morse[0];
+                } else {
+                    clearInterval(interval);
+                }
+            }, 500);
+
+            function scrollToBottom() {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        async function displayIPMorse() {
+            const ip = await fetchIPAddress();
+            const morseCode = IPToMorse(ip);
+            console.log(`IP Address: ${ip}`);
+            console.log(`Morse Code: ${morseCode}`);
+            createMorseElements(morseCode);
+        }
+
+        displayIPMorse();
+    </script>
+</body>
+</html>

@@ -88,7 +88,7 @@
     <script>
         async function fetchIPAddress() {
             try {
-                const response = await fetch('/api/ip');
+                const response = await fetch('/api/ip/');
                 const data = await response.json();
                 return data.ip; 
             } catch (error) {

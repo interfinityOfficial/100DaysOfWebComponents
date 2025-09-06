@@ -2,7 +2,7 @@ export default {
     async fetch(request, env, ctx) {
       const url = new URL(request.url);
   
-      if (url.pathname === "/api/ip") {
+      if (url.pathname === "/api/ip/") {
         let ip =
           request.headers.get("cf-connecting-ip") ||
           request.headers.get("x-forwarded-for") ||

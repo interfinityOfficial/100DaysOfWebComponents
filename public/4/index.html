@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/icon.png">
+    <title>4/100</title>
+</head>
+<body>
+    <main>
+        <div class="selection-container">
+            <div class="option" id="option-1">S</div>
+            <div class="option" id="option-2">M</div>
+            <div class="option" id="option-3">T</div>
+            <div class="option" id="option-4">W</div>
+            <div class="option" id="option-5">T</div>
+            <div class="option" id="option-6">F</div>
+            <div class="option" id="option-7">S</div>
+            <div class="selection"></div>
+        </div>
+    </main>
+
+    <style>
+        @font-face {
+            font-family: "SpaceMonoBold";
+            src: url("/assets/SpaceMono-Bold.ttf") format("truetype");
+            font-weight: bold;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            user-select: none;
+            -webkit-user-select: none;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
+
+        main {
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            gap: 1.5vw;
+            padding: 1.5vw;
+        }
+
+        .option {
+            width: calc(100% - 3vw);
+            border-radius: 1.5vw;
+            aspect-ratio: 1/1;
+            border: max(2px, 0.3vw) solid rgba(255, 255, 255, 0.1);
+            padding: 1.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: "SpaceMonoBold", sans-serif;
+            font-weight: bold;
+            font-size: 4vw;
+
+            z-index: 2;
+
+            transition: border 0.5s ease-in-out, color 0.5s ease-in-out;
+        }
+
+        .option:hover {
+            color: rgba(255, 255, 255, 0.2);
+            border: max(2px, 0.3vw) solid rgba(255, 255, 255, 0.2);
+        }
+
+        .selection {
+            position: absolute;
+            top: 1.5vw;
+            left: 1.5vw;
+            border-radius: 1.5vw;
+            width: calc((100% - 12vw) / 7);
+            aspect-ratio: 1/1;
+            background-color: #fff;
+
+            z-index: 1;
+
+            transition: all 0.5s ease-in-out;
+        }
+
+        .select-1 .selection {
+            left: 1.5vw;
+            transform: rotate(0deg);
+        }
+
+        .select-1 #option-1 {
+            color: #000;
+        }
+
+        .select-2 .selection {
+            left: calc((100% - 12vw) / 7 + 3vw);
+            transform: rotate(90deg);
+        }
+
+        .select-2 #option-2 {
+            color: #000;
+        }
+
+        .select-3 .selection {
+            left: calc((100% - 12vw) / 7 * 2 + 4.5vw);
+            transform: rotate(180deg);
+        }
+
+        .select-3 #option-3 {
+            color: #000;
+        }
+
+        .select-4 .selection {
+            left: calc((100% - 12vw) / 7 * 3 + 6vw);
+            transform: rotate(270deg);
+        }
+
+        .select-4 #option-4 {
+            color: #000;
+        }
+
+        .select-5 .selection {
+            left: calc((100% - 12vw) / 7 * 4 + 7.5vw);
+            transform: rotate(360deg);
+        }
+
+        .select-5 #option-5 {
+            color: #000;
+        }
+
+        .select-6 .selection {
+            left: calc((100% - 12vw) / 7 * 5 + 9vw);
+            transform: rotate(450deg);
+        }
+
+        .select-6 #option-6 {
+            color: #000;
+        }
+
+        .select-7 .selection {
+            left: calc((100% - 12vw) / 7 * 6 + 10.5vw);
+            transform: rotate(540deg);
+        }
+
+        .select-7 #option-7 {
+            color: #000;
+        }
+    </style>
+
+    <script>
+        const selectionContainer = document.querySelector('.selection-container');
+        
+        let date = new Date();
+        let day = date.getDay();
+        selectionContainer.classList.add(`select-${day + 1}`);
+
+        document.getElementById('option-1').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-2', 'select-3', 'select-4', 'select-5', 'select-6', 'select-7');
+            selectionContainer.classList.add('select-1');
+        });
+
+        document.getElementById('option-2').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-3', 'select-4', 'select-5', 'select-6', 'select-7');
+            selectionContainer.classList.add('select-2');
+        });
+
+        document.getElementById('option-3').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-2', 'select-4', 'select-5', 'select-6', 'select-7');
+            selectionContainer.classList.add('select-3');
+        });
+
+        document.getElementById('option-4').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-2', 'select-3', 'select-5', 'select-6', 'select-7');
+            selectionContainer.classList.add('select-4');
+        });
+
+        document.getElementById('option-5').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-2', 'select-3', 'select-4', 'select-6', 'select-7');
+            selectionContainer.classList.add('select-5');
+        });
+
+        document.getElementById('option-6').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-2', 'select-3', 'select-4', 'select-5', 'select-7');
+            selectionContainer.classList.add('select-6');
+        });
+
+        document.getElementById('option-7').addEventListener('click', () => {
+            selectionContainer.classList.remove('select-1', 'select-2', 'select-3', 'select-4', 'select-5', 'select-6');
+            selectionContainer.classList.add('select-7');
+        });
+    </script>
+</body>
+</html>

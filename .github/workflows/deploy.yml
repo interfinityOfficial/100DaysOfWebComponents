@@ -21,8 +21,8 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         script: |
-          cd /opt/networked-media/100days
-          git pull origin main || git clone git@github.com:interfinityOfficial/100DaysOfWebComponents.git 100days
-          cd /opt/networked-media/100days
+          cd /opt/100days
+          git pull origin main || git clone git@github.com:interfinityOfficial/100DaysOfWebComponents.git /opt/100days
+          cd /opt/100days
           npm install --production
           pm2 reload all || pm2 start server.js --name 100days

@@ -27,4 +27,4 @@ jobs:
           git pull origin main || git pull git@github.com:interfinityOfficial/100DaysOfWebComponents.git 100days
           cd /opt/projects/100days
           npm install --production
-          pm2 reload all || pm2 start server.js --name 100days
+          pm2 reload all || pm2 start server.js --name 100days -- PORT=3001

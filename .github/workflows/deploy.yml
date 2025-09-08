@@ -1,0 +1,28 @@
+name: Deploy Node.js App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Deploy to server via SSH
+      uses: appleboy/ssh-action@v1
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: 22
+        script: |
+          cd /opt/networked-media/100days
+          git pull origin main || git clone git@github.com:interfinityOfficial/100DaysOfWebComponents.git 100days
+          cd /opt/networked-media/100days
+          npm install --production
+          pm2 reload all || pm2 start server.js --name 100days

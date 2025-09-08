@@ -1,0 +1,19 @@
+{
+  "name": "100days-nodejs",
+  "version": "1.0.0",
+  "description": "100 Days of Code project adapted for Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": ["100days", "nodejs", "express"],
+  "author": "",
+  "license": "MIT"
+}

@@ -56,7 +56,7 @@ app.get('/api/ip/', (req, res) => {
 });
 
 // Catch all handler for SPA - serve index.html for any unmatched routes
-app.get('*', (req, res) => {
+app.all('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

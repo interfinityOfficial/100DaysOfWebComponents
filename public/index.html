@@ -5,82 +5,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/icon.png">
-    <title>1/100</title>
+    <title>100 Days of Web Components</title>
 </head>
 
 <body>
 
     <main>
-        <div class="square" id="square-1"></div>
-        <div class="square" id="square-2"></div>
-        <div class="square" id="square-3"></div>
-        <div class="square" id="square-4"></div>
-        <div class="square" id="square-5"></div>
-        <div class="square" id="square-6"></div>
-        <div class="square" id="square-7"></div>
+        <div class="logo">
+            &lt;<span class="logo-blue">100-days</span>&gt;<br>
+            &nbsp;<span class="logo-black">of</span><br>
+            &nbsp;<span class="logo-black">Web</span><br>
+            &nbsp;<span class="logo-black">Components</span><br>
+            &lt;/<span class="logo-blue">100-days</span>&gt;<br>
+            <br>
+            &lt;/<span class="logo-blue">start</span>&gt;<br>
+            &nbsp;<span class="logo-black">view day 1</span><br>
+            &nbsp;<span class="logo-black">at</span><br>
+            &nbsp;<a href="/1/" class="logo-black link">100.inthecreat.ing/1/</a><br>
+            &nbsp;<span class="logo-black">and edit the</span><br>
+            &nbsp;<span class="logo-black">/1/</span><br>
+            &nbsp;<span class="logo-black">to view all the days</span><br>
+            &lt;/<span class="logo-blue">start</span>&gt;<br>
+            <br>
+            &lt;/<span class="logo-blue">about</span>&gt;<br>
+            &nbsp;<span class="logo-black">by Charles Zhang</span><br>
+            &nbsp;<span class="logo-black">check out my blog</span><br>
+            &nbsp;<span class="logo-black">at</span><br>
+            &nbsp;<a href="https://inthecreat.ing" class="logo-black link">inthecreat.ing</a><br>
+            &lt;/<span class="logo-blue">about</span>&gt;
+        </div>
     </main>
 
     <style>
+        @font-face {
+            font-family: "SFMonoBold";
+            src: url("/assets/SFMono-Bold.woff2") format("woff2");
+            font-weight: bold;
+        }
+
         body {
             margin: 0;
-            overflow: hidden;
             display: flex;
             user-select: none;
             -webkit-user-select: none;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start;
+            align-items: flex-start;
             width: 100vw;
-            height: 100vh;
-            background-color: #000;
+            background-color: #fff;
         }
 
         main {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-            gap: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3.76vw;
         }
 
-        .square {
-            -webkit-tap-highlight-color: transparent;
-            width: calc(100vw / 7);
-            height: calc(100vw / 7);
-            background-color: #fff;
-            transform-origin: center;
-
-            transition: all 2s ease;
+        .logo {
+            width: fit-content;
+            font-family: "SFMonoBold", sans-serif;
+            line-height: normal;
+            font-weight: bold;
+            font-size: min(6.8vw, 30px);
+            text-align: left;
+            color: rgba(200, 200, 200, 1);
         }
 
-        .square:not(.square-active):hover,
-        .square-active {
-            scale: 1;
-            transform: rotate(360deg);
-            border-radius: 100%;
+        .logo-blue {
+            color: rgba(70, 131, 255, 1);
         }
 
-        .square-active {
-            scale: 0.7;
+        .logo-black {
+            color: rgba(0, 0, 0, 1);
         }
+
+        /* @media(max-width: 450px) {
+            .logo {
+                font-size: 28px;
+            }
+        }
+
+        @media(max-width: 421px) {
+            .logo {
+                font-size: 26px;
+            }
+        }
+
+        @media(max-width: 394px) {
+            .logo {
+                font-size: 24px;
+            }
+        }
+
+        @media(max-width: 367px) {
+            .logo {
+                font-size: 22px;
+            }
+        }
+
+        @media(max-width: 340px) {
+            .logo {
+                font-size: 20px;
+            }
+        }
+
+        @media(max-width: 312px) {
+            .logo {
+                font-size: 18px;
+            }
+        }
+
+        @media(max-width: 285px) {
+            .logo {
+                font-size: 16px;
+            }
+        } */
     </style>
-
-    <script>
-        let date = new Date();
-        let day = date.getDay();
-        let square = document.getElementById(`square-${day + 1}`);
-
-        window.onload = () => {
-            square.classList.add('square-active');
-        }
-
-        document.querySelectorAll('.square').forEach(square => {
-            square.addEventListener('click', () => {
-                document.querySelectorAll('.square').forEach(square => {
-                    square.classList.remove('square-active');
-                });
-                square.classList.add('square-active');
-            });
-        });
-    </script>
 </body>
 
 </html>

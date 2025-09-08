@@ -22,7 +22,7 @@ jobs:
         port: 22
         script: |
           cd /opt/100days
-          git pull origin main || git clone git@github.com:interfinityOfficial/100DaysOfWebComponents.git /opt/100days
+          git pull origin main || git pull git@github.com:interfinityOfficial/100DaysOfWebComponents.git /opt/100days
           cd /opt/100days
           npm install --production
           pm2 reload all || pm2 start server.js --name 100days

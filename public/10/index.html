@@ -70,14 +70,14 @@
         background-size: cover;
         background-position: center;
         border: 2px solid #fff;
-        transform: translate(0%, calc(100% + 50px)) rotate(20deg);
+        transform: translate(0%, calc(var(--photo-section-height)/2 - 60px)) rotate(20deg);
         transform-origin: center center;
 
         transition: transform 0.5s ease-in-out, translate 0.5s ease-in-out, width 0.5s ease-in-out, left 0.5s ease-in-out, bottom 0.5s ease-in-out;
       }
 
       .photo:hover {
-        transform: translate(0%, calc(100% + 20px)) rotate(20deg);
+        transform: translate(0%, calc(var(--photo-section-height)/2 - 100px)) rotate(20deg);
       }
 
       .show-photo-1 .photo {
@@ -93,6 +93,12 @@
       photo.addEventListener('click', () => {
         photoSection.classList.toggle('show-photo-1');
       });
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        document.documentElement.style.setProperty('--photo-section-height', `${entries[0].contentRect.height}px`);
+      });
+
+      resizeObserver.observe(photoSection);
     </script>
   </body>
 </html>

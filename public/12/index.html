@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png">
+    <title>Day 12/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="month-picker" id="month-picker">
+        <div class="month-list" id="month-list"></div>
+        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.41 9.41">
+            <g id="Layer_1-2" data-name="Layer_1">
+              <path d="M.88,5.55c-.26,0-.47-.08-.64-.23s-.24-.36-.24-.62.08-.46.24-.62.37-.23.64-.23h6.62l2.28.12c.23.01.42.08.55.21s.21.3.21.52-.07.39-.21.52-.32.2-.55.21l-2.28.12H.88ZM6.74,9.41c-.25,0-.45-.08-.61-.23s-.23-.35-.23-.58c0-.13.03-.24.08-.34s.12-.19.19-.27l1.31-1.31,2.13-1.97-2.13-1.97-1.31-1.32c-.08-.07-.14-.16-.19-.26s-.08-.21-.08-.34c0-.23.08-.42.23-.58s.36-.23.61-.23c.11,0,.21.02.31.07s.2.11.29.2l3.81,3.81c.17.17.26.38.26.63s-.09.46-.26.63l-3.82,3.81c-.18.18-.37.27-.59.27Z"/>
+            </g>
+        </svg>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        user-select: none;
+        -webkit-user-select: none;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .month-picker {
+        height: 100%;
+        overflow: scroll;
+        scrollbar-width: none;
+        /* scroll-snap-type: y mandatory; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .month-picker::-webkit-scrollbar {
+        display: none;
+      }
+
+      .month-list {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .month {
+        display: flex;
+        text-align: left;
+        font-family: "SpaceMonoBold", sans-serif;
+        font-weight: bold;
+        width: 100%;
+        font-size: 40px;
+        padding-bottom: 3px;
+        line-height: 1.6;
+        color: #fff;
+        opacity: 0.3;
+        cursor: pointer;
+        transition: opacity 0.25s ease-in-out;
+        scroll-snap-align: center;
+      }
+
+      .month.highlighted {
+        opacity: 1;
+      }
+
+      .arrow-icon {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: calc(-100% - var(--picker-width)/2 - 30px) -50%;
+        width: 30px;
+        fill: #fff;
+      }
+    </style>
+
+    <script>
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const monthList = document.getElementById("month-list");
+      const picker = document.getElementById("month-picker");
+
+      let highlightedMonth = null;
+
+      const repeats = 5;
+      for (let i = 0; i < repeats; i++) {
+        months.forEach((m) => {
+          const month = document.createElement("div");
+          month.className = "month";
+          month.textContent = m;
+
+          // Add click handler to snap to center
+          month.addEventListener("click", () => {
+            snapToMonth(month);
+          });
+
+          monthList.appendChild(month);
+        });
+      }
+
+      function highlightClosestMonth() {
+        const centerY = picker.clientHeight / 2;
+        const monthElements = picker.querySelectorAll(".month");
+
+        let closestMonth = null;
+        let closestDistance = Infinity;
+
+        monthElements.forEach((monthEl) => {
+          const rect = monthEl.getBoundingClientRect();
+          const monthCenterY = rect.top + rect.height / 2;
+          const pickerRect = picker.getBoundingClientRect();
+          const relativeCenterY = monthCenterY - pickerRect.top;
+
+          const distance = Math.abs(relativeCenterY - centerY);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestMonth = monthEl;
+          }
+        });
+
+        if (highlightedMonth && highlightedMonth !== closestMonth) {
+          highlightedMonth.classList.remove("highlighted");
+        }
+
+        if (closestMonth && closestMonth !== highlightedMonth) {
+          closestMonth.classList.add("highlighted");
+          highlightedMonth = closestMonth;
+          console.log("Highlighted month:", highlightedMonth.textContent);
+        }
+
+        return closestMonth;
+      }
+
+      function snapToNearestMonth() {
+        const closestMonth = highlightClosestMonth();
+        if (!closestMonth) return;
+
+        const monthRect = closestMonth.getBoundingClientRect();
+        const pickerRect = picker.getBoundingClientRect();
+        const centerY = picker.clientHeight / 2;
+
+        const monthCenterY = monthRect.top + monthRect.height / 2;
+        const relativeCenterY = monthCenterY - pickerRect.top;
+        const scrollOffset = relativeCenterY - centerY;
+
+        picker.scrollBy({
+          top: scrollOffset,
+          behavior: 'smooth'
+        });
+      }
+
+      // Function to snap to a specific month
+      function snapToMonth(targetMonth) {
+        if (!targetMonth) return;
+
+        console.log("Clicked month:", targetMonth.textContent);
+
+        const monthRect = targetMonth.getBoundingClientRect();
+        const pickerRect = picker.getBoundingClientRect();
+        const centerY = picker.clientHeight / 2;
+
+        // Calculate how much to scroll to center the clicked month
+        const monthCenterY = monthRect.top + monthRect.height / 2;
+        const relativeCenterY = monthCenterY - pickerRect.top;
+        const scrollOffset = relativeCenterY - centerY;
+
+        // Smooth scroll to the centered position
+        picker.scrollBy({
+          top: scrollOffset,
+          behavior: 'smooth'
+        });
+
+        // Update highlight immediately
+        if (highlightedMonth && highlightedMonth !== targetMonth) {
+          highlightedMonth.classList.remove("highlighted");
+        }
+        targetMonth.classList.add("highlighted");
+        highlightedMonth = targetMonth;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.fonts.ready.then(() => {
+          let scrollTimer;
+          const scrollStopDelay = 150;
+          let isInitialLoad = true;
+          const itemHeight = picker.querySelector(".month").offsetHeight;
+          document.documentElement.style.setProperty("--picker-width", picker.clientWidth + "px");
+
+          const currentMonthIndex = new Date().getMonth();
+
+          picker.scrollTop = months.length/2 * itemHeight + currentMonthIndex * itemHeight + itemHeight/2 - (document.documentElement.clientHeight - itemHeight * 12)/2;
+
+          highlightClosestMonth();
+
+          setTimeout(() => {
+            isInitialLoad = false;
+          }, 10);
+
+          picker.addEventListener("scroll", () => {
+            const maxScroll = monthList.scrollHeight - picker.clientHeight;
+
+            if (picker.scrollTop < itemHeight) {
+              picker.scrollTop += months.length * itemHeight;
+            } else if (picker.scrollTop > maxScroll - itemHeight) {
+              picker.scrollTop -= months.length * itemHeight;
+            }
+
+            highlightClosestMonth();
+
+            if (!isInitialLoad) {
+              clearTimeout(scrollTimer);
+              scrollTimer = setTimeout(() => {
+                snapToNearestMonth();
+              }, scrollStopDelay);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

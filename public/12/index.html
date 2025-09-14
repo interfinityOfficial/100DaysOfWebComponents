@@ -3,17 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/assets/icon.png">
+    <link rel="icon" href="/assets/icon.png" />
     <title>Day 12/100</title>
   </head>
   <body>
     <main>
       <div class="month-picker" id="month-picker">
         <div class="month-list" id="month-list"></div>
-        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.41 9.41">
-            <g id="Layer_1-2" data-name="Layer_1">
-              <path d="M.88,5.55c-.26,0-.47-.08-.64-.23s-.24-.36-.24-.62.08-.46.24-.62.37-.23.64-.23h6.62l2.28.12c.23.01.42.08.55.21s.21.3.21.52-.07.39-.21.52-.32.2-.55.21l-2.28.12H.88ZM6.74,9.41c-.25,0-.45-.08-.61-.23s-.23-.35-.23-.58c0-.13.03-.24.08-.34s.12-.19.19-.27l1.31-1.31,2.13-1.97-2.13-1.97-1.31-1.32c-.08-.07-.14-.16-.19-.26s-.08-.21-.08-.34c0-.23.08-.42.23-.58s.36-.23.61-.23c.11,0,.21.02.31.07s.2.11.29.2l3.81,3.81c.17.17.26.38.26.63s-.09.46-.26.63l-3.82,3.81c-.18.18-.37.27-.59.27Z"/>
-            </g>
+        <svg
+          class="arrow-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 11.41 9.41"
+        >
+          <g id="Layer_1-2" data-name="Layer_1">
+            <path
+              d="M.88,5.55c-.26,0-.47-.08-.64-.23s-.24-.36-.24-.62.08-.46.24-.62.37-.23.64-.23h6.62l2.28.12c.23.01.42.08.55.21s.21.3.21.52-.07.39-.21.52-.32.2-.55.21l-2.28.12H.88ZM6.74,9.41c-.25,0-.45-.08-.61-.23s-.23-.35-.23-.58c0-.13.03-.24.08-.34s.12-.19.19-.27l1.31-1.31,2.13-1.97-2.13-1.97-1.31-1.32c-.08-.07-.14-.16-.19-.26s-.08-.21-.08-.34c0-.23.08-.42.23-.58s.36-.23.61-.23c.11,0,.21.02.31.07s.2.11.29.2l3.81,3.81c.17.17.26.38.26.63s-.09.46-.26.63l-3.82,3.81c-.18.18-.37.27-.59.27Z"
+            />
+          </g>
         </svg>
       </div>
     </main>
@@ -31,6 +37,7 @@
         display: flex;
         user-select: none;
         -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
         justify-content: center;
         align-items: center;
         width: 100vw;
@@ -49,6 +56,7 @@
       .month-picker {
         height: 100%;
         overflow: scroll;
+        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         /* scroll-snap-type: y mandatory; */
         display: flex;
@@ -90,9 +98,33 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        translate: calc(-100% - var(--picker-width)/2 - 30px) -50%;
+        translate: calc(-100% - var(--picker-width) / 2 - 30px) -50%;
         width: 30px;
         fill: #fff;
+        opacity: 1;
+        transition: opacity 0.25s ease-out, translate 0.25s ease-out;
+      }
+
+      .arrow-icon.scrolling {
+        translate: calc(-100% - var(--picker-width) / 2 - 60px) -50%;
+        opacity: 0.3;
+      }
+
+      @media (max-width: 600px) {
+        .month {
+          font-size: 35px;
+          padding-bottom: 2px;
+        }
+
+        .arrow-icon {
+          width: 25px;
+          translate: calc(-100% - var(--picker-width) / 2 - 20px) -50%;
+        }
+
+        .arrow-icon.scrolling {
+          translate: calc(-100% - var(--picker-width) / 2 - 40px) -50%;
+          opacity: 0.3;
+        }
       }
     </style>
 
@@ -114,6 +146,7 @@
 
       const monthList = document.getElementById("month-list");
       const picker = document.getElementById("month-picker");
+      const arrowIcon = document.querySelector(".arrow-icon");
 
       let highlightedMonth = null;
 
@@ -161,7 +194,6 @@
         if (closestMonth && closestMonth !== highlightedMonth) {
           closestMonth.classList.add("highlighted");
           highlightedMonth = closestMonth;
-          console.log("Highlighted month:", highlightedMonth.textContent);
         }
 
         return closestMonth;
@@ -181,15 +213,21 @@
 
         picker.scrollBy({
           top: scrollOffset,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
+
+        // Remove scrolling class after snap animation completes
+        setTimeout(() => {
+          arrowIcon.classList.remove("scrolling");
+        }, 300);
       }
 
       // Function to snap to a specific month
       function snapToMonth(targetMonth) {
         if (!targetMonth) return;
 
-        console.log("Clicked month:", targetMonth.textContent);
+        // Add scrolling class during click animation
+        arrowIcon.classList.add("scrolling");
 
         const monthRect = targetMonth.getBoundingClientRect();
         const pickerRect = picker.getBoundingClientRect();
@@ -203,7 +241,7 @@
         // Smooth scroll to the centered position
         picker.scrollBy({
           top: scrollOffset,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
 
         // Update highlight immediately
@@ -212,6 +250,10 @@
         }
         targetMonth.classList.add("highlighted");
         highlightedMonth = targetMonth;
+
+        setTimeout(() => {
+          arrowIcon.classList.remove("scrolling");
+        }, 300);
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -220,11 +262,31 @@
           const scrollStopDelay = 150;
           let isInitialLoad = true;
           const itemHeight = picker.querySelector(".month").offsetHeight;
-          document.documentElement.style.setProperty("--picker-width", picker.clientWidth + "px");
+          document.documentElement.style.setProperty(
+            "--picker-width",
+            picker.clientWidth + "px"
+          );
 
           const currentMonthIndex = new Date().getMonth();
 
-          picker.scrollTop = months.length/2 * itemHeight + currentMonthIndex * itemHeight + itemHeight/2 - (document.documentElement.clientHeight - itemHeight * 12)/2;
+          picker.scrollTop =
+            (months.length / 2) * itemHeight +
+            currentMonthIndex * itemHeight +
+            itemHeight / 2 -
+            (document.documentElement.clientHeight - itemHeight * 12) / 2;
+
+          window.onresize = () => {
+            const itemHeight = picker.querySelector(".month").offsetHeight;
+            document.documentElement.style.setProperty(
+              "--picker-width",
+              picker.clientWidth + "px"
+            );
+            picker.scrollTop =
+              (months.length / 2) * itemHeight +
+              currentMonthIndex * itemHeight +
+              itemHeight / 2 -
+              (document.documentElement.clientHeight - itemHeight * 12) / 2;
+          };
 
           highlightClosestMonth();
 
@@ -232,24 +294,42 @@
             isInitialLoad = false;
           }, 10);
 
-          picker.addEventListener("scroll", () => {
-            const maxScroll = monthList.scrollHeight - picker.clientHeight;
+          let previousScrollPosition = picker.scrollTop;
+          picker.addEventListener(
+            "scroll",
+            () => {
+              const currentScrollPosition = picker.scrollTop;
+              if (currentScrollPosition === previousScrollPosition) {
+                return;
+              }
+              previousScrollPosition = currentScrollPosition;
+              const maxScroll = monthList.scrollHeight - picker.clientHeight;
 
-            if (picker.scrollTop < itemHeight) {
-              picker.scrollTop += months.length * itemHeight;
-            } else if (picker.scrollTop > maxScroll - itemHeight) {
-              picker.scrollTop -= months.length * itemHeight;
-            }
+              if (picker.scrollTop < itemHeight) {
+                picker.scrollTop += months.length * itemHeight;
+              } else if (picker.scrollTop > maxScroll - itemHeight) {
+                picker.scrollTop -= months.length * itemHeight;
+              }
 
-            highlightClosestMonth();
+              // Add scrolling class immediately
+              arrowIcon.classList.add("scrolling");
 
-            if (!isInitialLoad) {
-              clearTimeout(scrollTimer);
-              scrollTimer = setTimeout(() => {
-                snapToNearestMonth();
-              }, scrollStopDelay);
-            }
-          });
+              highlightClosestMonth();
+
+              if (!isInitialLoad) {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                  snapToNearestMonth();
+                }, scrollStopDelay);
+              } else {
+                // Also remove scrolling class during initial load after delay
+                setTimeout(() => {
+                  arrowIcon.classList.remove("scrolling");
+                }, scrollStopDelay);
+              }
+            },
+            { passive: true }
+          );
         });
       });
     </script>

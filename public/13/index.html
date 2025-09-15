@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 13/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="timer" id="timer">
+        <div class="timer-progress">
+          <div class="timer-progress-text-1" id="timer-progress-text-1"></div>
+        </div>
+        <div class="timer-progress-text-2" id="timer-progress-text-2"></div>
+        <div class="complete-screen" id="complete-screen">
+          <div class="complete-text">
+            <span id="complete-text-seconds">60</span> SECONDS<br />TIME IS UP
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .timer {
+        width: 100%;
+        height: max(10vh, 200px);
+        display: flex;
+      }
+
+      .timer-progress {
+        position: fixed;
+        overflow: hidden;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        height: max(10vh, 200px);
+        background-color: #fff;
+        display: flex;
+
+        transition: height 0.5s ease-in-out;
+      }
+
+      .timer-progress-text-1,
+      .timer-progress-text-2 {
+        width: max-content;
+        white-space: nowrap;
+        font-family: "SpaceMonoBold", sans-serif;
+        font-weight: bold;
+        font-size: 24px;
+        padding-left: 12px;
+        padding-top: 4px;
+        color: #000;
+      }
+
+      .timer-progress-text-2 {
+        color: #fff;
+      }
+
+      .timer:hover .timer-progress {
+        width: calc(var(--mouseXPercent));
+      }
+
+      .timer-active .timer-progress,
+      .timer-active:hover .timer-progress {
+        width: calc(var(--timerPercent));
+      }
+
+      .complete-screen {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0%;
+        pointer-events: none;
+
+        transition: opacity 0.25s ease-in-out;
+      }
+
+      .complete-text {
+        width: fit-content;
+        color: #000;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: "SpaceMonoBold", sans-serif;
+        text-align: center;
+      }
+
+      .timer-complete .complete-screen {
+        opacity: 100%;
+        pointer-events: auto;
+      }
+    </style>
+
+    <script>
+      let mouseXPercent = 100;
+
+      let timerStarted = false;
+      let maxTime = 60 * 1000;
+      let time = 0;
+      let timerInterval = null;
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const timer = document.getElementById("timer");
+        const timerProgressText1 = document.getElementById(
+          "timer-progress-text-1"
+        );
+        const timerProgressText2 = document.getElementById(
+          "timer-progress-text-2"
+        );
+        const completeScreen = document.getElementById("complete-screen");
+        const completeTextSeconds = document.getElementById(
+          "complete-text-seconds"
+        );
+
+        timer.addEventListener("mousemove", (event) => {
+          const mouseX = event.clientX;
+          mouseXPercent = (mouseX / document.documentElement.clientWidth) * 100;
+          let displaySeconds = `${Math.round(
+            ((mouseXPercent / 100) * maxTime) / 1000
+          )}`;
+          if (displaySeconds.length < 2) {
+            displaySeconds = "0" + displaySeconds;
+          }
+          timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+          timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+          document.documentElement.style.setProperty(
+            "--mouseXPercent",
+            mouseXPercent + "%"
+          );
+        });
+
+        timer.addEventListener("mouseleave", () => {
+          console.log("mouseleave");
+          mouseXPercent = 100;
+          let displaySeconds = `${Math.round(maxTime / 1000)}`;
+          if (displaySeconds.length < 2) {
+            displaySeconds = "0" + displaySeconds;
+          }
+          timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+          timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+          document.documentElement.style.setProperty(
+            "--mouseXPercent",
+            mouseXPercent + "%"
+          );
+        });
+
+        document.documentElement.style.setProperty(
+          "--mouseXPercent",
+          mouseXPercent + "%"
+        );
+        let displaySeconds = `${Math.round(maxTime / 1000)}`;
+        if (displaySeconds.length < 2) {
+          displaySeconds = "0" + displaySeconds;
+        }
+        timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+        timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+        timer.addEventListener("click", () => {
+          if (!timerStarted && !timer.classList.contains("timer-complete")) {
+            timerStarted = true;
+            timer.classList.add("timer-active");
+            time = Math.round((mouseXPercent / 100) * maxTime);
+            let completeSeconds = `${Math.round(time / 1000)}`;
+            if (completeSeconds.length < 2) {
+              completeSeconds = "0" + completeSeconds;
+            }
+            completeTextSeconds.textContent = completeSeconds;
+
+            startCountdown(
+              time,
+              (remaining) => {
+                let displaySeconds = `${Math.round(remaining / 1000)}`;
+                if (displaySeconds.length < 2) {
+                  displaySeconds = "0" + displaySeconds;
+                }
+                timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+                timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+                document.documentElement.style.setProperty(
+                  "--timerPercent",
+                  (remaining / maxTime) * 100 + "%"
+                );
+              },
+              () => {
+                let displaySeconds = `0`;
+                if (displaySeconds.length < 2) {
+                  displaySeconds = "0" + displaySeconds;
+                }
+                timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+                timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+                timer.classList.add("timer-complete");
+                setTimeout(() => {
+                  timer.classList.remove("timer-active");
+                }, 500);
+              }
+            );
+          }
+        });
+
+        completeScreen.addEventListener("click", () => {
+          timer.classList.remove("timer-complete");
+          document.documentElement.style.setProperty(
+            "--mouseXPercent",
+            "100%"
+          );
+          let displaySeconds = `${Math.round(maxTime / 1000)}`;
+          if (displaySeconds.length < 2) {
+            displaySeconds = "0" + displaySeconds;
+          }
+          timerProgressText1.textContent = `${displaySeconds} SECONDS`;
+          timerProgressText2.textContent = `${displaySeconds} SECONDS`;
+          setTimeout(() => {
+            timerStarted = false;
+          }, 500);
+        });
+      });
+
+      function startCountdown(durationMs, onTick, onComplete) {
+        const start = performance.now();
+        const end = start + durationMs;
+
+        function tick() {
+          const now = performance.now();
+          let remaining = end - now;
+
+          if (remaining <= 0) {
+            onTick(0);
+            if (onComplete) onComplete();
+          } else {
+            onTick(remaining);
+            requestAnimationFrame(tick);
+          }
+        }
+
+        tick();
+      }
+    </script>
+  </body>
+</html>

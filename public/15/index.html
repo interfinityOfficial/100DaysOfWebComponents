@@ -207,9 +207,9 @@
           const minutes = now.getMinutes();
           const hours = now.getHours();
 
-          const totalSeconds = seconds + milliseconds / 1000;
-          const totalMinutes = minutes + seconds / 60;
-          const totalHours = hours + minutes / 60;
+          let totalSeconds = seconds + milliseconds / 1000;
+          let totalMinutes = minutes + seconds / 60;
+          let totalHours = hours + minutes / 60;
 
           if (totalSeconds > 0 && totalSeconds <= 15) {
             secondTop.style.width = `${(totalSeconds * 100) / 15}%`;
@@ -241,6 +241,10 @@
             minuteLeft.style.height = `0%`;
           } else if (totalMinutes > 45 && totalMinutes <= 60) {
             minuteLeft.style.height = `${((totalMinutes - 45) * 100) / 15}%`;
+          }
+
+          if (totalHours > 12) {
+            totalHours -= 12;
           }
 
           if (totalHours > 0 && totalHours <= 3) {

@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/icon.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
     <title>Day 15/100</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <div class="clock">
-            <div class="hour">
-                <div class="hour-top" id="hour-top"></div>
-                <div class="hour-right" id="hour-right"></div>
-                <div class="hour-bottom" id="hour-bottom"></div>
-                <div class="hour-left" id="hour-left"></div>
-            </div>
-            <div class="minute">
-                <div class="minute-top" id="minute-top"></div>
-                <div class="minute-right" id="minute-right"></div>
-                <div class="minute-bottom" id="minute-bottom"></div>
-                <div class="minute-left" id="minute-left"></div>
-            </div>
-            <div class="second">
-                <div class="second-top" id="second-top"></div>
-                <div class="second-right" id="second-right"></div>
-                <div class="second-bottom" id="second-bottom"></div>
-                <div class="second-left" id="second-left"></div>
-            </div>
+      <div class="clock">
+        <div class="hour">
+          <div class="hour-top" id="hour-top"></div>
+          <div class="hour-right" id="hour-right"></div>
+          <div class="hour-bottom" id="hour-bottom"></div>
+          <div class="hour-left" id="hour-left"></div>
+
+          <div class="hour-text-1">12</div>
+          <div class="hour-text-2">3</div>
+          <div class="hour-text-3">6</div>
+          <div class="hour-text-4">9</div>
         </div>
+        <div class="minute">
+          <div class="minute-top" id="minute-top"></div>
+          <div class="minute-right" id="minute-right"></div>
+          <div class="minute-bottom" id="minute-bottom"></div>
+          <div class="minute-left" id="minute-left"></div>
+        </div>
+        <div class="second">
+          <div class="second-top" id="second-top"></div>
+          <div class="second-right" id="second-right"></div>
+          <div class="second-bottom" id="second-bottom"></div>
+          <div class="second-left" id="second-left"></div>
+        </div>
+      </div>
     </main>
 
     <style>
-        body {
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
         margin: 0;
         overflow: hidden;
         display: flex;
@@ -55,27 +66,29 @@
 
       .clock {
         position: relative;
-        width: min(80vw, 200px);
-        height: min(80vw, 200px);
+        width: min(70vw, 200px);
+        height: min(70vw, 200px);
       }
-      
-      .second, .minute, .hour {
+
+      .second,
+      .minute,
+      .hour {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         /* outline: 4px solid rgb(50, 50, 50); */
-        outline-offset: calc(min(1.6vw, 4px) * -1);
+        outline-offset: calc(min(1.4vw, 4px) * -1);
       }
 
       .second {
-        width: calc(100% - min(1.6vw, 4px) * 8);
-        height: calc(100% - min(1.6vw, 4px) * 8);
+        width: calc(100% - min(1.4vw, 4px) * 8);
+        height: calc(100% - min(1.4vw, 4px) * 8);
       }
 
       .minute {
-        width: calc(100% - min(1.6vw, 4px) * 4);
-        height: calc(100% - min(1.6vw, 4px) * 4);
+        width: calc(100% - min(1.4vw, 4px) * 4);
+        height: calc(100% - min(1.4vw, 4px) * 4);
       }
 
       .hour {
@@ -83,126 +96,176 @@
         height: 100%;
       }
 
-      .second-top, .second-right, .second-bottom, .second-left, .minute-top, .minute-right, .minute-bottom, .minute-left, .hour-top, .hour-right, .hour-bottom, .hour-left {
+      .second-top,
+      .second-right,
+      .second-bottom,
+      .second-left,
+      .minute-top,
+      .minute-right,
+      .minute-bottom,
+      .minute-left,
+      .hour-top,
+      .hour-right,
+      .hour-bottom,
+      .hour-left {
         background-color: #fff;
       }
-      
-      .second-top, .minute-top, .hour-top {
+
+      .second-top,
+      .minute-top,
+      .hour-top {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: min(1.6vw, 4px);
+        height: min(1.4vw, 4px);
       }
 
-      .second-right, .minute-right, .hour-right {
+      .second-right,
+      .minute-right,
+      .hour-right {
         position: absolute;
         top: 0;
         right: 0;
         height: 100%;
-        width: min(1.6vw, 4px);
+        width: min(1.4vw, 4px);
       }
 
-      .second-bottom, .minute-bottom, .hour-bottom {
+      .second-bottom,
+      .minute-bottom,
+      .hour-bottom {
         position: absolute;
         bottom: 0;
         right: 0;
         width: 100%;
-        height: min(1.6vw, 4px);
+        height: min(1.4vw, 4px);
       }
 
-      .second-left, .minute-left, .hour-left {
+      .second-left,
+      .minute-left,
+      .hour-left {
         position: absolute;
         left: 0;
         bottom: 0;
         height: 100%;
-        width: min(1.6vw, 4px);
+        width: min(1.4vw, 4px);
+      }
+
+      .hour-text-1,
+      .hour-text-2,
+      .hour-text-3,
+      .hour-text-4 {
+        position: absolute;
+        font-family: "SpaceMonoBold", monospace;
+        font-weight: bold;
+        font-size: min(8.4vw, 24px);
+        color: #fff;
+      }
+
+      .hour-text-1 {
+        top: calc(min(12.5125vw, 35.75px) * -1);
+        left: 0;
+      }
+
+      .hour-text-2 {
+        top: calc(min(3.5vw, 10px) * -1);
+        right: calc(min(8.4vw, 24px) * -1);
+      }
+
+      .hour-text-3 {
+        bottom: calc(min(12.5125vw, 35.75px) * -1);
+        right: 0;
+      }
+
+      .hour-text-4 {
+        bottom: calc(min(3.5vw, 10px) * -1);
+        left: calc(min(8.4vw, 24px) * -1);
       }
     </style>
 
     <script>
-        const secondTop = document.getElementById('second-top');
-        const secondRight = document.getElementById('second-right');
-        const secondBottom = document.getElementById('second-bottom');
-        const secondLeft = document.getElementById('second-left');
+      const secondTop = document.getElementById("second-top");
+      const secondRight = document.getElementById("second-right");
+      const secondBottom = document.getElementById("second-bottom");
+      const secondLeft = document.getElementById("second-left");
 
-        const minuteTop = document.getElementById('minute-top');
-        const minuteRight = document.getElementById('minute-right');
-        const minuteBottom = document.getElementById('minute-bottom');
-        const minuteLeft = document.getElementById('minute-left');
+      const minuteTop = document.getElementById("minute-top");
+      const minuteRight = document.getElementById("minute-right");
+      const minuteBottom = document.getElementById("minute-bottom");
+      const minuteLeft = document.getElementById("minute-left");
 
-        const hourTop = document.getElementById('hour-top');
-        const hourRight = document.getElementById('hour-right');
-        const hourBottom = document.getElementById('hour-bottom');
-        const hourLeft = document.getElementById('hour-left');
-        
-        function startSmoothClock() {
-            function tick() {
-                const now = new Date();
-                const milliseconds = now.getMilliseconds();
-                const seconds = now.getSeconds();
-                const minutes = now.getMinutes();
-                const hours = now.getHours();
+      const hourTop = document.getElementById("hour-top");
+      const hourRight = document.getElementById("hour-right");
+      const hourBottom = document.getElementById("hour-bottom");
+      const hourLeft = document.getElementById("hour-left");
 
-                const totalSeconds = seconds + milliseconds / 1000;
-                const totalMinutes = minutes + seconds / 60;
-                const totalHours = hours + minutes / 60;
-                
-                if (totalSeconds > 0 && totalSeconds <= 15) {
-                    secondTop.style.width = `${totalSeconds * 100 / 15}%`;
-                    secondRight.style.height = `0%`;
-                    secondBottom.style.width = `0%`;
-                    secondLeft.style.height = `0%`;
-                } else if (totalSeconds > 15 && totalSeconds <= 30) {
-                    secondRight.style.height = `${(totalSeconds - 15) * 100 / 15}%`;
-                    secondBottom.style.width = `0%`;
-                    secondLeft.style.height = `0%`;
-                } else if (totalSeconds > 30 && totalSeconds <= 45) {
-                    secondBottom.style.width = `${(totalSeconds - 30) * 100 / 15}%`;
-                    secondLeft.style.height = `0%`;
-                } else if (totalSeconds > 45 && totalSeconds <= 60) {
-                    secondLeft.style.height = `${(totalSeconds - 45) * 100 / 15}%`;
-                }
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          const milliseconds = now.getMilliseconds();
+          const seconds = now.getSeconds();
+          const minutes = now.getMinutes();
+          const hours = now.getHours();
 
-                if (totalMinutes > 0 && totalMinutes <= 15) {
-                    minuteTop.style.width = `${totalMinutes * 100 / 15}%`;
-                    minuteRight.style.height = `0%`;
-                    minuteBottom.style.width = `0%`;
-                    minuteLeft.style.height = `0%`;
-                } else if (totalMinutes > 15 && totalMinutes <= 30) {
-                    minuteRight.style.height = `${(totalMinutes - 15) * 100 / 15}%`;
-                    minuteBottom.style.width = `0%`;
-                    minuteLeft.style.height = `0%`;
-                } else if (totalMinutes > 30 && totalMinutes <= 45) {
-                    minuteBottom.style.width = `${(totalMinutes - 30) * 100 / 15}%`;
-                    minuteLeft.style.height = `0%`;
-                } else if (totalMinutes > 45 && totalMinutes <= 60) {
-                    minuteLeft.style.height = `${(totalMinutes - 45) * 100 / 15}%`;
-                }
+          const totalSeconds = seconds + milliseconds / 1000;
+          const totalMinutes = minutes + seconds / 60;
+          const totalHours = hours + minutes / 60;
 
-                if (totalHours > 0 && totalHours <= 3) {
-                    hourTop.style.width = `${totalHours * 100 / 3}%`;
-                    hourRight.style.height = `0%`;
-                    hourBottom.style.width = `0%`;
-                    hourLeft.style.height = `0%`;
-                } else if (totalHours > 3 && totalHours <= 6) {
-                    hourRight.style.height = `${(totalHours - 3) * 100 / 3}%`;
-                    hourBottom.style.width = `0%`;
-                    hourLeft.style.height = `0%`;
-                } else if (totalHours > 6 && totalHours <= 9) {
-                    hourBottom.style.width = `${(totalHours - 6) * 100 / 3}%`;
-                    hourLeft.style.height = `0%`;
-                } else if (totalHours > 9 && totalHours <= 12) {
-                    hourLeft.style.height = `${(totalHours - 9) * 100 / 3}%`;
-                }
+          if (totalSeconds > 0 && totalSeconds <= 15) {
+            secondTop.style.width = `${(totalSeconds * 100) / 15}%`;
+            secondRight.style.height = `0%`;
+            secondBottom.style.width = `0%`;
+            secondLeft.style.height = `0%`;
+          } else if (totalSeconds > 15 && totalSeconds <= 30) {
+            secondRight.style.height = `${((totalSeconds - 15) * 100) / 15}%`;
+            secondBottom.style.width = `0%`;
+            secondLeft.style.height = `0%`;
+          } else if (totalSeconds > 30 && totalSeconds <= 45) {
+            secondBottom.style.width = `${((totalSeconds - 30) * 100) / 15}%`;
+            secondLeft.style.height = `0%`;
+          } else if (totalSeconds > 45 && totalSeconds <= 60) {
+            secondLeft.style.height = `${((totalSeconds - 45) * 100) / 15}%`;
+          }
 
-                requestAnimationFrame(tick);
-            }
+          if (totalMinutes > 0 && totalMinutes <= 15) {
+            minuteTop.style.width = `${(totalMinutes * 100) / 15}%`;
+            minuteRight.style.height = `0%`;
+            minuteBottom.style.width = `0%`;
+            minuteLeft.style.height = `0%`;
+          } else if (totalMinutes > 15 && totalMinutes <= 30) {
+            minuteRight.style.height = `${((totalMinutes - 15) * 100) / 15}%`;
+            minuteBottom.style.width = `0%`;
+            minuteLeft.style.height = `0%`;
+          } else if (totalMinutes > 30 && totalMinutes <= 45) {
+            minuteBottom.style.width = `${((totalMinutes - 30) * 100) / 15}%`;
+            minuteLeft.style.height = `0%`;
+          } else if (totalMinutes > 45 && totalMinutes <= 60) {
+            minuteLeft.style.height = `${((totalMinutes - 45) * 100) / 15}%`;
+          }
 
-            tick();
+          if (totalHours > 0 && totalHours <= 3) {
+            hourTop.style.width = `${(totalHours * 100) / 3}%`;
+            hourRight.style.height = `0%`;
+            hourBottom.style.width = `0%`;
+            hourLeft.style.height = `0%`;
+          } else if (totalHours > 3 && totalHours <= 6) {
+            hourRight.style.height = `${((totalHours - 3) * 100) / 3}%`;
+            hourBottom.style.width = `0%`;
+            hourLeft.style.height = `0%`;
+          } else if (totalHours > 6 && totalHours <= 9) {
+            hourBottom.style.width = `${((totalHours - 6) * 100) / 3}%`;
+            hourLeft.style.height = `0%`;
+          } else if (totalHours > 9 && totalHours <= 12) {
+            hourLeft.style.height = `${((totalHours - 9) * 100) / 3}%`;
+          }
+
+          requestAnimationFrame(tick);
         }
 
-        startSmoothClock();
+        tick();
+      }
+
+      startSmoothClock();
     </script>
-</body>
+  </body>
 </html>

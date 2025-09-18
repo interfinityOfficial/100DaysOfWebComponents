@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 16/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="hours" id="hours"></div>
+      <div class="minutes" id="minutes"></div>
+      <div class="seconds" id="seconds"></div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        display: flex;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: fit-content;
+        min-height: calc(100vh - 10px * 2);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .seconds,
+      .minutes,
+      .hours {
+        width: calc(100vw - 10px * 2);
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .second,
+      .minute,
+      .hour {
+        width: calc((100vw - 10px * 31) / 30);
+        aspect-ratio: 1 / 1;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 100%;
+      }
+
+      .second {
+        width: calc((100vw - 10px * 31) / 30 / 3);
+        aspect-ratio: 1 / 1;
+        margin: calc((100vw - 10px * 31) / 30 / 3);
+      }
+
+      .minute {
+        background-color: transparent;
+        outline: 2px solid rgba(255, 255, 255, 1);
+        outline-offset: -2px;
+      }
+
+      @keyframes scale-in {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 1000px) {
+        main {
+          gap: 8.5px;
+          padding-top: 8.5px;
+          padding-bottom: 8.5px;
+        }
+
+        .seconds,
+        .minutes,
+        .hours {
+          width: calc(100vw - 8.5px * 2);
+          padding-left: 8.5px;
+          padding-right: 8.5px;
+          gap: 8.5px;
+        }
+
+        .second,
+        .minute,
+        .hour {
+          width: calc((100vw - 8.5px * 13) / 12);
+        }
+
+        .second {
+          width: calc((100vw - 8.5px * 13) / 12 / 3);
+          aspect-ratio: 1 / 1;
+          margin: calc((100vw - 8.5px * 13) / 12 / 3);
+        }
+      }
+
+      @media (max-width: 800px) {
+        main {
+          gap: 7px;
+          padding-top: 7px;
+          padding-bottom: 7px;
+        }
+
+        .seconds,
+        .minutes,
+        .hours {
+          width: calc(100vw - 7px * 2);
+          padding-left: 7px;
+          padding-right: 7px;
+          gap: 7px;
+        }
+
+        .second,
+        .minute,
+        .hour {
+          width: calc((100vw - 7px * 13) / 12);
+        }
+
+        .second {
+          width: calc((100vw - 7px * 13) / 12 / 3);
+          aspect-ratio: 1 / 1;
+          margin: calc((100vw - 7px * 13) / 12 / 3);
+        }
+      }
+    </style>
+
+    <script>
+      const secondsContainer = document.getElementById("seconds");
+      const minutesContainer = document.getElementById("minutes");
+      const hoursContainer = document.getElementById("hours");
+
+      function updateClock() {
+        const now = new Date();
+        let currentSeconds = now.getSeconds();
+        let currentMinutes = now.getMinutes();
+        let currentHours = now.getHours();
+
+        if (secondsContainer.children.length == currentSeconds - 1) {
+          const secondElement = document.createElement("div");
+          secondElement.className = "second";
+          secondsContainer.appendChild(secondElement);
+          secondElement.style.animation = "scale-in 0.5s ease-in-out";
+        } else {
+          secondsContainer.innerHTML = "";
+          for (let i = 0; i < currentSeconds; i++) {
+            const secondElement = document.createElement("div");
+            secondElement.className = "second";
+            secondsContainer.appendChild(secondElement);
+          }
+        }
+
+        if (minutesContainer.children.length == currentMinutes) {
+        } else if (minutesContainer.children.length == currentMinutes - 1) {
+          const minuteElement = document.createElement("div");
+          minuteElement.className = "minute";
+          minutesContainer.appendChild(minuteElement);
+          minuteElement.style.animation = "scale-in 0.5s ease-in-out";
+        } else {
+          minutesContainer.innerHTML = "";
+          for (let i = 0; i < currentMinutes; i++) {
+            const minuteElement = document.createElement("div");
+            minuteElement.className = "minute";
+            minutesContainer.appendChild(minuteElement);
+          }
+        }
+
+        if (currentHours > 12) {
+          currentHours -= 12;
+        }
+
+        if (hoursContainer.children.length == currentHours) {
+        } else if (hoursContainer.children.length == currentHours - 1) {
+          const hourElement = document.createElement("div");
+          hourElement.className = "hour";
+          hoursContainer.appendChild(hourElement);
+          hourElement.style.animation = "scale-in 0.5s ease-in-out";
+        } else {
+          hoursContainer.innerHTML = "";
+          for (let i = 0; i < currentHours; i++) {
+            const hourElement = document.createElement("div");
+            hourElement.className = "hour";
+            hoursContainer.appendChild(hourElement);
+          }
+        }
+
+        const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+        setTimeout(updateClock, millisecondsToNextSecond);
+      }
+
+      updateClock();
+    </script>
+  </body>
+</html>

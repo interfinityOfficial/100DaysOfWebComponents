@@ -217,13 +217,19 @@
             secondBottom.style.width = `0%`;
             secondLeft.style.height = `0%`;
           } else if (totalSeconds > 15 && totalSeconds <= 30) {
+            secondTop.style.width = '100%'
             secondRight.style.height = `${((totalSeconds - 15) * 100) / 15}%`;
             secondBottom.style.width = `0%`;
             secondLeft.style.height = `0%`;
           } else if (totalSeconds > 30 && totalSeconds <= 45) {
+            secondTop.style.width = '100%'
+            secondRight.style.height = '100%'
             secondBottom.style.width = `${((totalSeconds - 30) * 100) / 15}%`;
             secondLeft.style.height = `0%`;
           } else if (totalSeconds > 45 && totalSeconds <= 60) {
+            secondTop.style.width = '100%'
+            secondRight.style.height = '100%'
+            secondBottom.style.width = '100%'
             secondLeft.style.height = `${((totalSeconds - 45) * 100) / 15}%`;
           }
 
@@ -233,13 +239,19 @@
             minuteBottom.style.width = `0%`;
             minuteLeft.style.height = `0%`;
           } else if (totalMinutes > 15 && totalMinutes <= 30) {
+            minuteTop.style.width = '100%'
             minuteRight.style.height = `${((totalMinutes - 15) * 100) / 15}%`;
             minuteBottom.style.width = `0%`;
             minuteLeft.style.height = `0%`;
           } else if (totalMinutes > 30 && totalMinutes <= 45) {
+            minuteTop.style.width = '100%'
+            minuteRight.style.height = '100%'
             minuteBottom.style.width = `${((totalMinutes - 30) * 100) / 15}%`;
             minuteLeft.style.height = `0%`;
           } else if (totalMinutes > 45 && totalMinutes <= 60) {
+            minuteTop.style.width = '100%'
+            minuteRight.style.height = '100%'
+            minuteBottom.style.width = '100%'
             minuteLeft.style.height = `${((totalMinutes - 45) * 100) / 15}%`;
           }
 
@@ -253,13 +265,19 @@
             hourBottom.style.width = `0%`;
             hourLeft.style.height = `0%`;
           } else if (totalHours > 3 && totalHours <= 6) {
+            hourTop.style.width = '100%'
             hourRight.style.height = `${((totalHours - 3) * 100) / 3}%`;
             hourBottom.style.width = `0%`;
             hourLeft.style.height = `0%`;
           } else if (totalHours > 6 && totalHours <= 9) {
+            hourTop.style.width = '100%'
+            hourRight.style.height = '100%'
             hourBottom.style.width = `${((totalHours - 6) * 100) / 3}%`;
             hourLeft.style.height = `0%`;
           } else if (totalHours > 9 && totalHours <= 12) {
+            hourTop.style.width = '100%'
+            hourRight.style.height = '100%'
+            hourBottom.style.width = '100%'
             hourLeft.style.height = `${((totalHours - 9) * 100) / 3}%`;
           }
 

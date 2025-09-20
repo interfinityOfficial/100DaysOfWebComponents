@@ -13,7 +13,7 @@
           <div class="hour hour-placeholder" id="hour-placeholder">00</div>
           <div class="hour hour-next" id="hour-1">01</div>
           <div class="hour hour-current" id="hour-2">00</div>
-          <div class="hour hour-next" id="hour-3">59</div>
+          <div class="hour hour-previous" id="hour-3">12</div>
         </div>
         <div class="minutes">
           <div class="minute minute-placeholder" id="minute-placeholder">
@@ -21,7 +21,7 @@
           </div>
           <div class="minute minute-next" id="minute-1">01</div>
           <div class="minute minute-current" id="minute-2">00</div>
-          <div class="minute minute-next" id="minute-3">59</div>
+          <div class="minute minute-previous" id="minute-3">59</div>
         </div>
         <div class="seconds">
           <div class="second second-placeholder" id="second-placeholder">
@@ -29,7 +29,7 @@
           </div>
           <div class="second second-next" id="second-1">01</div>
           <div class="second second-current" id="second-2">00</div>
-          <div class="second second-next" id="second-3">59</div>
+          <div class="second second-previous" id="second-3">59</div>
         </div>
       </div>
     </main>
@@ -180,7 +180,7 @@
         if (String(currentMinutes).length < 2) {
           currentMinutes = "0" + currentMinutes;
         }
-        if (String(prevMinutes).length < 2) {
+        if (String(currentMinutes).length < 2) {
           prevMinutes = "0" + prevMinutes;
         }
         if (String(nextMinutes).length < 2) {
@@ -223,7 +223,6 @@
           // Seconds
           let secondCurrentText = document.querySelector(".second-current");
           let secondCurrentId = secondCurrentText.id;
-          console.log(secondCurrentId);
 
           let prevSeconds = currentSeconds - 1;
           let nextSeconds = currentSeconds + 1;
@@ -275,7 +274,7 @@
           let minuteCurrentText = document.querySelector(".minute-current");
           let minuteCurrentId = minuteCurrentText.id;
 
-          if (minuteCurrentText.textContent != String(currentMinutes)) {
+          if (Number(minuteCurrentText.textContent) != currentMinutes) {
             let prevMinutes = currentMinutes - 1;
             let nextMinutes = currentMinutes + 1;
 
@@ -327,7 +326,7 @@
           let hourCurrentText = document.querySelector(".hour-current");
           let hourCurrentId = hourCurrentText.id;
 
-          if (hourCurrentText.textContent != String(currentHours)) {
+          if (Number(hourCurrentText.textContent) != currentHours) {
             let prevHours = currentHours - 1;
             let nextHours = currentHours + 1;
 

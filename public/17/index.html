@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 17/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="wheel" id="wheel">
+        <div class="year" style="--i: 0">2005</div>
+        <div class="year" style="--i: 1">2006</div>
+        <div class="year" style="--i: 2">2007</div>
+        <div class="year" style="--i: 3">2008</div>
+        <div class="year" style="--i: 4">2009</div>
+        <div class="year" style="--i: 5">2010</div>
+        <div class="year" style="--i: 6">2011</div>
+        <div class="year" style="--i: 7">2012</div>
+        <div class="year" style="--i: 8">2013</div>
+        <div class="year" style="--i: 9">2014</div>
+        <div class="year" style="--i: 10">2015</div>
+        <div class="year" style="--i: 11">2016</div>
+        <div class="year" style="--i: 12">2017</div>
+        <div class="year" style="--i: 13">2018</div>
+        <div class="year" style="--i: 14">2019</div>
+        <div class="year" style="--i: 15">2020</div>
+        <div class="year" style="--i: 16">2021</div>
+        <div class="year" style="--i: 17">2022</div>
+        <div class="year" style="--i: 18">2023</div>
+        <div class="year" style="--i: 19">2024</div>
+        <div class="year" style="--i: 20">2025</div>
+      </div>
+      <div class="year year-reference" id="year-reference">1997</div>
+      <div class="wheel-cover"></div>
+
+      <div class="spacer"></div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      :root {
+        --rotate-speed: 0.45;
+        --min-rotation: -90deg;
+        --max-rotation: calc(270deg - 360deg / 21);
+        --start-rotation: -90deg;
+      }
+
+      html::-webkit-scrollbar {
+        display: none;
+      }
+
+      html {
+        scrollbar-width: none;
+        -webkit-scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      body {
+        margin: 0;
+        display: flex;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        min-height: 300vh;
+        background-color: #000;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .spacer {
+        height: max(200vh, 100vw);
+        width: 100%;
+      }
+
+      .wheel {
+        position: fixed;
+        top: 50%;
+        right: calc(46vw - var(--wheel-text-width) / 2);
+        translate: 0% -50%;
+        height: 200vh;
+        aspect-ratio: 1/1;
+        display: flex;
+        border-radius: 100%;
+
+        will-change: transform;
+      }
+
+      .wheel-cover {
+        position: fixed;
+        top: 50%;
+        right: calc(46vw - var(--wheel-text-width) / 2);
+        translate: -50% -50%;
+        height: 200vh;
+        aspect-ratio: 1/1;
+        background-color: #000;
+        z-index: 99;
+      }
+
+      .year {
+        position: absolute;
+        top: 50%;
+        right: 4vw;
+        translate: 0% -50%;
+        width: calc(50% - 4vw);
+        transform-origin: left center;
+        transform: rotate(calc(var(--i) * (360deg / 21) - 90deg));
+        text-align: right;
+        font-family: "SpaceMonoBold", sans-serif;
+        font-size: 9vh;
+        color: #fff;
+        opacity: 0.2;
+        transition: opacity 0.3s ease;
+      }
+
+      .year-reference {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: fit-content;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    </style>
+
+    <script>
+      window.onload = () => {
+        window.scrollTo(0, 0);
+        const wheel = document.getElementById("wheel");
+        const yearElements = document.querySelectorAll(".year");
+        const yearReference = document.getElementById("year-reference");
+
+        document.documentElement.style.setProperty(
+          "--wheel-text-width",
+          `${yearReference.clientWidth}px`
+        );
+        console.log(yearReference.clientWidth);
+        window.onresize = () => {
+          document.documentElement.style.setProperty(
+            "--wheel-text-width",
+            `${yearReference.clientWidth}px`
+          );
+        };
+
+        const speedMultiplier =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--rotate-speed"
+            )
+          ) || 0.45;
+        const ease = 0.12;
+
+        const minRotation =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--min-rotation"
+            )
+          ) || 0;
+        const maxRotation =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--max-rotation"
+            )
+          ) || 270 - 360 / 21;
+        const startRotation =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--start-rotation"
+            )
+          ) || 0;
+
+        const reduceMotion =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let lastScrollY = window.scrollY || window.pageYOffset;
+        let targetRotation = startRotation;
+        let currentRotation = startRotation;
+        let ticking = false;
+
+        function updateYearOpacity() {
+          const totalYears = 21;
+          const degreesPerYear = 360 / totalYears;
+
+          const normalizedRotation = (currentRotation + 90) % 360;
+          const activeIndex =
+            Math.round(normalizedRotation / degreesPerYear) % totalYears;
+
+          const finalActiveIndex =
+            activeIndex < 0 ? activeIndex + totalYears : activeIndex;
+
+          yearElements.forEach((yearEl, index) => {
+            yearEl.style.opacity = index === finalActiveIndex ? "1" : "0.2";
+          });
+        }
+
+        wheel.style.transform = `rotate(${currentRotation * -1}deg)`;
+
+        updateYearOpacity();
+
+        if (!reduceMotion) {
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("scrollend", onScrollEnd, { passive: true });
+        }
+
+        onScroll();
+
+        function onScrollEnd() {
+          console.log("scrollend");
+        }
+
+        function onScroll() {
+          const scrollY = window.scrollY || window.pageYOffset;
+          const delta = scrollY - lastScrollY;
+          lastScrollY = scrollY;
+          targetRotation += delta * speedMultiplier;
+
+          targetRotation = Math.max(
+            minRotation,
+            Math.min(maxRotation, targetRotation)
+          );
+
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+          }
+        }
+
+        function update() {
+          const diff = targetRotation - currentRotation;
+          currentRotation += diff * ease;
+          console.log(currentRotation);
+
+          wheel.style.transform = `rotate(${currentRotation * -1}deg)`;
+
+          updateYearOpacity();
+
+          if (Math.abs(diff) > 0.01) {
+            requestAnimationFrame(update);
+          } else {
+            ticking = false;
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

@@ -170,6 +170,12 @@
           }
         }
 
+        if (currentMinutes === 0) {
+            minutesContainer.style.display = "none";
+        } else {
+            minutesContainer.style.display = "flex";
+        }
+
         if (minutesContainer.children.length == currentMinutes) {
         } else if (minutesContainer.children.length == currentMinutes - 1) {
           const minuteElement = document.createElement("div");
@@ -187,6 +193,12 @@
 
         if (currentHours > 12) {
           currentHours -= 12;
+        }
+
+        if (currentHours === 0) {
+            hoursContainer.style.display = "none";
+        } else {
+            hoursContainer.style.display = "flex";
         }
 
         if (hoursContainer.children.length == currentHours) {

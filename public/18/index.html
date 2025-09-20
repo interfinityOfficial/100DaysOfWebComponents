@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 18/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="clock">
+        <div class="hours">
+          <div class="hour hour-placeholder" id="hour-placeholder">00</div>
+          <div class="hour hour-next" id="hour-1">01</div>
+          <div class="hour hour-current" id="hour-2">00</div>
+          <div class="hour hour-next" id="hour-3">59</div>
+        </div>
+        <div class="minutes">
+          <div class="minute minute-placeholder" id="minute-placeholder">
+            00
+          </div>
+          <div class="minute minute-next" id="minute-1">01</div>
+          <div class="minute minute-current" id="minute-2">00</div>
+          <div class="minute minute-next" id="minute-3">59</div>
+        </div>
+        <div class="seconds">
+          <div class="second second-placeholder" id="second-placeholder">
+            00
+          </div>
+          <div class="second second-next" id="second-1">01</div>
+          <div class="second second-current" id="second-2">00</div>
+          <div class="second second-next" id="second-3">59</div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .clock {
+        display: flex;
+      }
+
+      .hours,
+      .minutes,
+      .seconds {
+        position: relative;
+        height: calc(var(--text-height) * 3);
+        display: flex;
+        flex-direction: column;
+        font-family: "SpaceMonoBold", monospace;
+        font-weight: bold;
+        font-size: min(12vh, 20vw);
+        color: #fff;
+      }
+
+      .second,
+      .minute,
+      .hour {
+        position: absolute;
+        opacity: 0;
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .second-next,
+      .minute-next,
+      .hour-next {
+        top: 0;
+        left: 0;
+      }
+
+      .second-previous,
+      .minute-previous,
+      .hour-previous {
+        top: 100%;
+        left: 0;
+        transform: translate(0, -100%);
+      }
+
+      .second-current,
+      .minute-current,
+      .hour-current {
+        opacity: 1;
+        top: 50%;
+        left: 0;
+        transform: translate(0, -50%);
+      }
+
+      .second-placeholder,
+      .minute-placeholder,
+      .hour-placeholder {
+        position: relative;
+        opacity: 0;
+      }
+    </style>
+    <script>
+      window.onload = () => {
+        const secondPlaceholder = document.getElementById("second-placeholder");
+        document.documentElement.style.setProperty(
+          "--text-height",
+          `${secondPlaceholder.clientHeight}px`
+        );
+
+        const second1 = document.getElementById("second-1");
+        const second2 = document.getElementById("second-2");
+        const second3 = document.getElementById("second-3");
+
+        const minute1 = document.getElementById("minute-1");
+        const minute2 = document.getElementById("minute-2");
+        const minute3 = document.getElementById("minute-3");
+
+        const hour1 = document.getElementById("hour-1");
+        const hour2 = document.getElementById("hour-2");
+        const hour3 = document.getElementById("hour-3");
+
+        const now = new Date();
+        let currentSeconds = now.getSeconds();
+        let currentMinutes = now.getMinutes();
+        let currentHours = now.getHours();
+
+        // Seconds
+        let prevSeconds = currentSeconds - 1;
+        let nextSeconds = currentSeconds + 1;
+
+        if (prevSeconds < 0) {
+          prevSeconds = 59;
+        }
+        if (nextSeconds > 59) {
+          nextSeconds = 0;
+        }
+
+        if (String(currentSeconds).length < 2) {
+          currentSeconds = "0" + currentSeconds;
+        }
+        if (String(prevSeconds).length < 2) {
+          prevSeconds = "0" + prevSeconds;
+        }
+        if (String(nextSeconds).length < 2) {
+          nextSeconds = "0" + nextSeconds;
+        }
+        second1.textContent = nextSeconds;
+        second2.textContent = currentSeconds;
+        second3.textContent = prevSeconds;
+
+        // Minutes
+        let prevMinutes = currentMinutes - 1;
+        let nextMinutes = currentMinutes + 1;
+
+        if (prevMinutes < 0) {
+          prevMinutes = 59;
+        }
+        if (nextMinutes > 59) {
+          nextMinutes = 0;
+        }
+
+        if (String(currentMinutes).length < 2) {
+          currentMinutes = "0" + currentMinutes;
+        }
+        if (String(prevMinutes).length < 2) {
+          prevMinutes = "0" + prevMinutes;
+        }
+        if (String(nextMinutes).length < 2) {
+          nextMinutes = "0" + nextMinutes;
+        }
+        minute1.textContent = nextMinutes;
+        minute2.textContent = currentMinutes;
+        minute3.textContent = prevMinutes;
+
+        // Hours
+        let prevHours = currentHours - 1;
+        let nextHours = currentHours + 1;
+
+        if (prevHours < 0) {
+          prevHours = 12;
+        }
+        if (nextHours > 12) {
+          nextHours = 1;
+        }
+
+        if (String(currentHours).length < 2) {
+          currentHours = "0" + currentHours;
+        }
+        if (String(prevHours).length < 2) {
+          prevHours = "0" + prevHours;
+        }
+        if (String(nextHours).length < 2) {
+          nextHours = "0" + nextHours;
+        }
+        hour1.textContent = nextHours;
+        hour2.textContent = currentHours;
+        hour3.textContent = prevHours;
+
+        function updateClock() {
+          const now = new Date();
+          let currentSeconds = now.getSeconds();
+          let currentMinutes = now.getMinutes();
+          let currentHours = now.getHours();
+
+          // Seconds
+          let secondCurrentText = document.querySelector(".second-current");
+          let secondCurrentId = secondCurrentText.id;
+          console.log(secondCurrentId);
+
+          let prevSeconds = currentSeconds - 1;
+          let nextSeconds = currentSeconds + 1;
+
+          if (prevSeconds < 0) {
+            prevSeconds = 59;
+          }
+          if (nextSeconds > 59) {
+            nextSeconds = 0;
+          }
+
+          if (String(currentSeconds).length < 2) {
+            currentSeconds = "0" + currentSeconds;
+          }
+          if (String(prevSeconds).length < 2) {
+            prevSeconds = "0" + prevSeconds;
+          }
+          if (String(nextSeconds).length < 2) {
+            nextSeconds = "0" + nextSeconds;
+          }
+
+          if (secondCurrentId === "second-1") {
+            second1.textContent = prevSeconds;
+            second2.textContent = nextSeconds;
+            second3.textContent = currentSeconds;
+
+            second1.classList = "second second-previous";
+            second2.classList = "second second-next";
+            second3.classList = "second second-current";
+          } else if (secondCurrentId === "second-2") {
+            second1.textContent = currentSeconds;
+            second2.textContent = prevSeconds;
+            second3.textContent = nextSeconds;
+
+            second1.classList = "second second-current";
+            second2.classList = "second second-previous";
+            second3.classList = "second second-next";
+          } else if (secondCurrentId === "second-3") {
+            second1.textContent = nextSeconds;
+            second2.textContent = currentSeconds;
+            second3.textContent = prevSeconds;
+
+            second1.classList = "second second-next";
+            second2.classList = "second second-current";
+            second3.classList = "second second-previous";
+          }
+
+          // Minutes
+          let minuteCurrentText = document.querySelector(".minute-current");
+          let minuteCurrentId = minuteCurrentText.id;
+
+          if (minuteCurrentText.textContent != String(currentMinutes)) {
+            let prevMinutes = currentMinutes - 1;
+            let nextMinutes = currentMinutes + 1;
+
+            if (prevMinutes < 0) {
+              prevMinutes = 59;
+            }
+            if (nextMinutes > 59) {
+              nextMinutes = 0;
+            }
+
+            if (String(currentMinutes).length < 2) {
+              currentMinutes = "0" + currentMinutes;
+            }
+            if (String(prevMinutes).length < 2) {
+              prevMinutes = "0" + prevMinutes;
+            }
+            if (String(nextMinutes).length < 2) {
+              nextMinutes = "0" + nextMinutes;
+            }
+
+            if (minuteCurrentId === "minute-1") {
+              minute1.textContent = prevMinutes;
+              minute2.textContent = nextMinutes;
+              minute3.textContent = currentMinutes;
+
+              minute1.classList = "minute minute-previous";
+              minute2.classList = "minute minute-next";
+              minute3.classList = "minute minute-current";
+            } else if (minuteCurrentId === "minute-2") {
+              minute1.textContent = currentMinutes;
+              minute2.textContent = prevMinutes;
+              minute3.textContent = nextMinutes;
+
+              minute1.classList = "minute minute-current";
+              minute2.classList = "minute minute-previous";
+              minute3.classList = "minute minute-next";
+            } else if (minuteCurrentId === "minute-3") {
+              minute1.textContent = nextMinutes;
+              minute2.textContent = currentMinutes;
+              minute3.textContent = prevMinutes;
+
+              minute1.classList = "minute minute-next";
+              minute2.classList = "minute minute-current";
+              minute3.classList = "minute minute-previous";
+            }
+          }
+
+          // Hours
+          let hourCurrentText = document.querySelector(".hour-current");
+          let hourCurrentId = hourCurrentText.id;
+
+          if (hourCurrentText.textContent != String(currentHours)) {
+            let prevHours = currentHours - 1;
+            let nextHours = currentHours + 1;
+
+            if (prevHours < 0) {
+              prevHours = 12;
+            }
+            if (nextHours > 12) {
+              nextHours = 1;
+            }
+
+            if (String(currentHours).length < 2) {
+              currentHours = "0" + currentHours;
+            }
+            if (String(prevHours).length < 2) {
+              prevHours = "0" + prevHours;
+            }
+            if (String(nextHours).length < 2) {
+              nextHours = "0" + nextHours;
+            }
+
+            if (hourCurrentId === "hour-1") {
+              hour1.textContent = prevHours;
+              hour2.textContent = nextHours;
+              hour3.textContent = currentHours;
+
+              hour1.classList = "hour hour-previous";
+              hour2.classList = "hour hour-next";
+              hour3.classList = "hour hour-current";
+            } else if (hourCurrentId === "hour-2") {
+              hour1.textContent = currentHours;
+              hour2.textContent = prevHours;
+              hour3.textContent = nextHours;
+
+              hour1.classList = "hour hour-current";
+              hour2.classList = "hour hour-previous";
+              hour3.classList = "hour hour-next";
+            } else if (hourCurrentId === "hour-3") {
+              hour1.textContent = nextHours;
+              hour2.textContent = currentHours;
+              hour3.textContent = prevHours;
+
+              hour1.classList = "hour hour-next";
+              hour2.classList = "hour hour-current";
+              hour3.classList = "hour hour-previous";
+            }
+          }
+
+          const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+          setTimeout(updateClock, millisecondsToNextSecond);
+        }
+
+        updateClock();
+      };
+
+      window.onresize = () => {
+        const secondPlaceholder = document.getElementById("second-placeholder");
+        document.documentElement.style.setProperty(
+          "--text-height",
+          `${secondPlaceholder.clientHeight}px`
+        );
+      };
+    </script>
+  </body>
+</html>

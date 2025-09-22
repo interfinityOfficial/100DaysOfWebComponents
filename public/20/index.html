@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 20/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="clock-text">
+        <span class="heading">h</span>&nbsp;<span id="h">0</span>deg<br><span class="heading">s</span>&nbsp;<span id="s">100</span>%<br><span class="heading">l</span>&nbsp;<span id="l">50</span>%
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--hsl);
+
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .clock-text {
+        font-family: "SFMono", sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--text);
+
+        transition: color 0.5s ease-in-out;
+      }
+
+      .heading {
+        font-family: "SFMono", sans-serif;
+        font-weight: 400;
+      }
+    </style>
+
+    <script>
+      window.onload = () => {
+        const h = document.getElementById("h");
+        const s = document.getElementById("s");
+        const l = document.getElementById("l");
+
+        function updateClock() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          if (hours > 12) {
+            hours -= 12;
+          }
+
+          let hValue = (hours / 12 + minutes / 720 + seconds / 43200) * 360;
+          let sValue = (minutes / 60 + seconds / 3600) * 100;
+          let lValue = (seconds / 60) * 100;
+
+          if (hValue > 360) {
+            hValue -= 360;
+          }
+
+          if (sValue > 100) {
+            sValue -= 100;
+          }
+
+          if (lValue > 100) {
+            lValue -= 100;
+          }
+
+          h.textContent = Math.round(hValue * 10) / 10;
+          s.textContent = Math.round(sValue * 10) / 10;
+          l.textContent = Math.round(lValue * 10) / 10;
+
+          document.documentElement.style.setProperty(
+            "--hsl",
+            `hsl(${hValue}deg, ${sValue}%, ${lValue}%)`
+          );
+
+          if (lValue > 50) {
+            document.documentElement.style.setProperty("--text", "#000");
+          } else {
+            document.documentElement.style.setProperty("--text", "#fff");
+          }
+
+          const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+          setTimeout(updateClock, millisecondsToNextSecond);
+        }
+
+        updateClock();
+      };
+    </script>
+  </body>
+</html>

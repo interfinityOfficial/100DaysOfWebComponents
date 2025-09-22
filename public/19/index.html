@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 19/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="clock">
+        <div class="seconds">
+          <div class="seconds-planet" id="seconds-planet">
+            <div class="planet"></div>
+          </div>
+        </div>
+        <div class="minutes">
+            <div class="minutes-planet" id="minutes-planet">
+              <div class="planet"></div>
+            </div>
+        </div>
+        <div class="hours">
+          <div class="hours-planet" id="hours-planet">
+            <div class="planet"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .clock {
+        display: flex;
+      }
+
+      .seconds, .minutes, .hours {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: min(70vw, 70vh);
+        aspect-ratio: 1 / 1;
+        background-color: #000;
+        border-radius: 100%;
+        border: min(max(2px, 0.5vw), 4px) solid #fff;
+      }
+
+      .minutes {
+        width: calc(min(70vw, 70vh) - min(max(15px, 4vw), 40px) * 4);
+      }
+
+      .hours {
+        width: calc(min(70vw, 70vh) - min(max(15px, 4vw), 40px) * 8);
+      }
+
+      .seconds-planet, .minutes-planet, .hours-planet {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: 0% -50%;
+        transform-origin: left center;
+        transform: rotate(0deg);
+        width: calc(50% + min(max(15px, 4vw), 40px) / 2 + min(max(2px, 0.5vw), 4px) / 2);
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .planet {
+        width: min(max(15px, 4vw), 40px);
+        aspect-ratio: 1 / 1;
+        background-color: #000;
+        outline: min(max(2px, 0.5vw), 4px) solid #fff;
+        outline-offset: min(max(2px, 0.5vw), 4px) * -1;
+        border-radius: 100%;
+      }
+    </style>
+
+    <script>
+      window.onload = () => {
+        const secondsPlanet = document.getElementById("seconds-planet");
+        const minutesPlanet = document.getElementById("minutes-planet");
+        const hoursPlanet = document.getElementById("hours-planet");
+
+        function startSmoothClock() {
+          function tick() {
+            const now = new Date();
+            let milliseconds = now.getMilliseconds();
+            let seconds = now.getSeconds();
+            let minutes = now.getMinutes();
+            let hours = now.getHours();
+
+            if (hours > 12) {
+              hours -= 12;
+            }
+
+            secondsPlanet.style.transform = `rotate(${(seconds + milliseconds / 1000) * 6 - 90}deg)`;
+            minutesPlanet.style.transform = `rotate(${(minutes + seconds / 60 + milliseconds / 60000) * 6 - 90}deg)`;
+            hoursPlanet.style.transform = `rotate(${(hours + minutes / 60 + seconds / 3600 + milliseconds / 3600000) * 30 - 90}deg)`;
+
+            requestAnimationFrame(tick);
+          }
+
+          tick();
+        }
+
+        startSmoothClock();
+      };
+    </script>
+  </body>
+</html>

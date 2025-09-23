@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 21/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="clock">
+        <div class="digit" id="digit-1-1">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-1-2">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-1-3">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-1-4">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-1-5">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-1-6">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+
+        <div class="digit" id="digit-2-1">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-2-2">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-2-3">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-2-4">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-2-5">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-2-6">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+
+        <div class="digit" id="digit-3-1">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-3-2">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-3-3">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-3-4">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-3-5">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-3-6">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+
+        <div class="digit" id="digit-4-1">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-4-2">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-4-3">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-4-4">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-4-5">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-4-6">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+
+        <div class="digit" id="digit-5-1">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-5-2">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-5-3">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-5-4">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-5-5">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+        <div class="digit" id="digit-5-6">
+          <div class="circle"></div>
+          <div class="square"></div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .clock {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: min(1vw, 1vh);
+      }
+
+      .digit {
+        position: relative;
+        width: min(12vw, 12vh);
+        aspect-ratio: 1 / 1;
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .circle,
+      .square {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: #fff;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .circle {
+        border-radius: 100%;
+        transform: rotateX(180deg);
+      }
+
+      .dash {
+        transform: rotateX(0deg);
+      }
+
+      .dot {
+        transform: rotateX(180deg);
+      }
+    </style>
+
+    <!-- <script src="/lib/matter.min.js"></script> -->
+    <script>
+      window.onload = () => {
+        function digitToMorse(digit) {
+          if (digit === "0") {
+            return "-----";
+          } else if (digit === "1") {
+            return ".----";
+          } else if (digit === "2") {
+            return "..---";
+          } else if (digit === "3") {
+            return "...--";
+          } else if (digit === "4") {
+            return "....-";
+          } else if (digit === "5") {
+            return ".....";
+          } else if (digit === "6") {
+            return "-....";
+          } else if (digit === "7") {
+            return "--...";
+          } else if (digit === "8") {
+            return "---..";
+          } else if (digit === "9") {
+            return "----.";
+          }
+        }
+
+        function updateClock() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          if (hours > 12) {
+            hours -= 12;
+          }
+
+          let hoursString = String(hours);
+          let minutesString = String(minutes);
+          let secondsString = String(seconds);
+
+          let digit1 = hoursString.length > 1 ? hoursString[0] : "0";
+          let digit2 = hoursString.length > 1 ? hoursString[1] : hoursString[0];
+          let digit3 = minutesString.length > 1 ? minutesString[0] : "0";
+          let digit4 =
+            minutesString.length > 1 ? minutesString[1] : minutesString[0];
+          let digit5 = secondsString.length > 1 ? secondsString[0] : "0";
+          let digit6 =
+            secondsString.length > 1 ? secondsString[1] : secondsString[0];
+
+          let morse1 = digitToMorse(digit1);
+          let morse2 = digitToMorse(digit2);
+          let morse3 = digitToMorse(digit3);
+          let morse4 = digitToMorse(digit4);
+          let morse5 = digitToMorse(digit5);
+          let morse6 = digitToMorse(digit6);
+
+          for (let i = 0; i < morse1.length; i++) {
+            if (morse1[i] === ".") {
+              document.getElementById(`digit-${i + 1}-1`).classList =
+                "digit dot";
+            } else if (morse1[i] === "-") {
+              document.getElementById(`digit-${i + 1}-1`).classList =
+                "digit dash";
+            }
+          }
+
+          for (let i = 0; i < morse2.length; i++) {
+            if (morse2[i] === ".") {
+              document.getElementById(`digit-${i + 1}-2`).classList =
+                "digit dot";
+            } else if (morse2[i] === "-") {
+              document.getElementById(`digit-${i + 1}-2`).classList =
+                "digit dash";
+            }
+          }
+
+          for (let i = 0; i < morse3.length; i++) {
+            if (morse3[i] === ".") {
+              document.getElementById(`digit-${i + 1}-3`).classList =
+                "digit dot";
+            } else if (morse3[i] === "-") {
+              document.getElementById(`digit-${i + 1}-3`).classList =
+                "digit dash";
+            }
+          }
+
+          for (let i = 0; i < morse4.length; i++) {
+            if (morse4[i] === ".") {
+              document.getElementById(`digit-${i + 1}-4`).classList =
+                "digit dot";
+            } else if (morse4[i] === "-") {
+              document.getElementById(`digit-${i + 1}-4`).classList =
+                "digit dash";
+            }
+          }
+
+          for (let i = 0; i < morse5.length; i++) {
+            if (morse5[i] === ".") {
+              document.getElementById(`digit-${i + 1}-5`).classList =
+                "digit dot";
+            } else if (morse5[i] === "-") {
+              document.getElementById(`digit-${i + 1}-5`).classList =
+                "digit dash";
+            }
+          }
+
+          for (let i = 0; i < morse6.length; i++) {
+            if (morse6[i] === ".") {
+              document.getElementById(`digit-${i + 1}-6`).classList =
+                "digit dot";
+            } else if (morse6[i] === "-") {
+              document.getElementById(`digit-${i + 1}-6`).classList =
+                "digit dash";
+            }
+          }
+
+          const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+          setTimeout(updateClock, millisecondsToNextSecond);
+        }
+
+        updateClock();
+      };
+    </script>
+  </body>
+</html>

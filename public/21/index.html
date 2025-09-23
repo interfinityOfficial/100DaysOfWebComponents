@@ -7,7 +7,7 @@
     <title>Day 21/100</title>
   </head>
   <body>
-    <main>
+    <main id="html-clock">
       <div class="clock">
         <div class="digit" id="digit-1-1">
           <div class="circle"></div>
@@ -136,6 +136,8 @@
       </div>
     </main>
 
+    <div id="matter-canvas"></div>
+
     <style>
       body {
         margin: 0;
@@ -146,6 +148,18 @@
         width: 100vw;
         height: 100vh;
         background-color: #000;
+        cursor: pointer;
+      }
+
+      .instruction {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #666;
+        font-family: monospace;
+        font-size: 14px;
+        z-index: 10;
       }
 
       main {
@@ -197,131 +211,263 @@
       .dot {
         transform: rotateX(180deg);
       }
+
+      #matter-canvas {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #matter-canvas canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     </style>
 
-    <!-- <script src="/lib/matter.min.js"></script> -->
+    <script src="/lib/matter.min.js"></script>
     <script>
       window.onload = () => {
+        // Morse code mapping for digits 0-9
         function digitToMorse(digit) {
-          if (digit === "0") {
-            return "-----";
-          } else if (digit === "1") {
-            return ".----";
-          } else if (digit === "2") {
-            return "..---";
-          } else if (digit === "3") {
-            return "...--";
-          } else if (digit === "4") {
-            return "....-";
-          } else if (digit === "5") {
-            return ".....";
-          } else if (digit === "6") {
-            return "-....";
-          } else if (digit === "7") {
-            return "--...";
-          } else if (digit === "8") {
-            return "---..";
-          } else if (digit === "9") {
-            return "----.";
-          }
+          const morseCodes = {
+            0: "-----",
+            1: ".----",
+            2: "..---",
+            3: "...--",
+            4: "....-",
+            5: ".....",
+            6: "-....",
+            7: "--...",
+            8: "---..",
+            9: "----.",
+          };
+          return morseCodes[digit] || "-----";
         }
 
-        function updateClock() {
+        // HTML Clock Update Function
+        let clockInterval;
+
+        function updateHTMLClock() {
           const now = new Date();
-          let milliseconds = now.getMilliseconds();
-          let seconds = now.getSeconds();
-          let minutes = now.getMinutes();
           let hours = now.getHours();
+          let minutes = now.getMinutes();
+          let seconds = now.getSeconds();
 
-          if (hours > 12) {
-            hours -= 12;
-          }
+          // Convert to 12-hour format
+          if (hours > 12) hours -= 12;
+          if (hours === 0) hours = 12;
 
-          let hoursString = String(hours);
-          let minutesString = String(minutes);
-          let secondsString = String(seconds);
+          // Convert to strings and pad
+          const hoursStr = String(hours).padStart(2, "0");
+          const minutesStr = String(minutes).padStart(2, "0");
+          const secondsStr = String(seconds).padStart(2, "0");
 
-          let digit1 = hoursString.length > 1 ? hoursString[0] : "0";
-          let digit2 = hoursString.length > 1 ? hoursString[1] : hoursString[0];
-          let digit3 = minutesString.length > 1 ? minutesString[0] : "0";
-          let digit4 =
-            minutesString.length > 1 ? minutesString[1] : minutesString[0];
-          let digit5 = secondsString.length > 1 ? secondsString[0] : "0";
-          let digit6 =
-            secondsString.length > 1 ? secondsString[1] : secondsString[0];
+          // Get individual digits
+          const digits = [
+            hoursStr[0],
+            hoursStr[1],
+            minutesStr[0],
+            minutesStr[1],
+            secondsStr[0],
+            secondsStr[1],
+          ];
 
-          let morse1 = digitToMorse(digit1);
-          let morse2 = digitToMorse(digit2);
-          let morse3 = digitToMorse(digit3);
-          let morse4 = digitToMorse(digit4);
-          let morse5 = digitToMorse(digit5);
-          let morse6 = digitToMorse(digit6);
+          // Update each column based on Morse code
+          for (let col = 0; col < 6; col++) {
+            const morse = digitToMorse(digits[col]);
 
-          for (let i = 0; i < morse1.length; i++) {
-            if (morse1[i] === ".") {
-              document.getElementById(`digit-${i + 1}-1`).classList =
-                "digit dot";
-            } else if (morse1[i] === "-") {
-              document.getElementById(`digit-${i + 1}-1`).classList =
-                "digit dash";
+            for (let row = 0; row < 5; row++) {
+              const digitElement = document.getElementById(
+                `digit-${row + 1}-${col + 1}`
+              );
+              if (morse[row] === ".") {
+                digitElement.classList.remove("dash");
+                digitElement.classList.add("dot");
+              } else {
+                digitElement.classList.remove("dot");
+                digitElement.classList.add("dash");
+              }
             }
           }
-
-          for (let i = 0; i < morse2.length; i++) {
-            if (morse2[i] === ".") {
-              document.getElementById(`digit-${i + 1}-2`).classList =
-                "digit dot";
-            } else if (morse2[i] === "-") {
-              document.getElementById(`digit-${i + 1}-2`).classList =
-                "digit dash";
-            }
-          }
-
-          for (let i = 0; i < morse3.length; i++) {
-            if (morse3[i] === ".") {
-              document.getElementById(`digit-${i + 1}-3`).classList =
-                "digit dot";
-            } else if (morse3[i] === "-") {
-              document.getElementById(`digit-${i + 1}-3`).classList =
-                "digit dash";
-            }
-          }
-
-          for (let i = 0; i < morse4.length; i++) {
-            if (morse4[i] === ".") {
-              document.getElementById(`digit-${i + 1}-4`).classList =
-                "digit dot";
-            } else if (morse4[i] === "-") {
-              document.getElementById(`digit-${i + 1}-4`).classList =
-                "digit dash";
-            }
-          }
-
-          for (let i = 0; i < morse5.length; i++) {
-            if (morse5[i] === ".") {
-              document.getElementById(`digit-${i + 1}-5`).classList =
-                "digit dot";
-            } else if (morse5[i] === "-") {
-              document.getElementById(`digit-${i + 1}-5`).classList =
-                "digit dash";
-            }
-          }
-
-          for (let i = 0; i < morse6.length; i++) {
-            if (morse6[i] === ".") {
-              document.getElementById(`digit-${i + 1}-6`).classList =
-                "digit dot";
-            } else if (morse6[i] === "-") {
-              document.getElementById(`digit-${i + 1}-6`).classList =
-                "digit dash";
-            }
-          }
-
-          const millisecondsToNextSecond = 1000 - now.getMilliseconds();
-          setTimeout(updateClock, millisecondsToNextSecond);
         }
 
-        updateClock();
+        // Start HTML clock
+        updateHTMLClock();
+        clockInterval = setInterval(updateHTMLClock, 1000);
+
+        // Matter.js Setup (initially hidden)
+        let engine,
+          render,
+          circleBodies = [],
+          squareBodies = [];
+
+        function initMatterJS() {
+          // Matter.js module aliases
+          const Engine = Matter.Engine,
+            Render = Matter.Render,
+            World = Matter.World,
+            Bodies = Matter.Bodies,
+            Body = Matter.Body,
+            Runner = Matter.Runner;
+
+          // Create engine with gravity
+          engine = Engine.create();
+          engine.world.gravity.y = 0.8; // Enable gravity
+
+          // Create renderer
+          const canvasElement = document.getElementById("matter-canvas");
+
+          // Clear any existing content
+          canvasElement.innerHTML = "";
+
+          render = Render.create({
+            element: canvasElement,
+            engine: engine,
+            options: {
+              width: window.innerWidth,
+              height: window.innerHeight,
+              wireframes: false,
+              background: "#000",
+            },
+          });
+
+          // Create bodies based on current HTML clock state
+          const cols = 6;
+          const rows = 5;
+          const digitSize = Math.min(
+            0.12 * window.innerWidth,
+            0.12 * window.innerHeight
+          );
+          const gap = Math.min(
+            0.01 * window.innerWidth,
+            0.01 * window.innerHeight
+          );
+
+          // Calculate positions (matching HTML layout)
+          const totalWidth = cols * digitSize + (cols - 1) * gap;
+          const totalHeight = rows * digitSize + (rows - 1) * gap;
+          const startX = (window.innerWidth - totalWidth) / 2 + digitSize / 2;
+          const startY = (window.innerHeight - totalHeight) / 2 + digitSize / 2;
+
+          // Create walls to contain the bodies
+          const wallThickness = 50;
+          const ground = Bodies.rectangle(
+            window.innerWidth / 2,
+            window.innerHeight + wallThickness / 2,
+            window.innerWidth,
+            wallThickness,
+            { isStatic: true, render: { visible: false } }
+          );
+          const leftWall = Bodies.rectangle(
+            -wallThickness / 2,
+            window.innerHeight / 2,
+            wallThickness,
+            window.innerHeight,
+            { isStatic: true, render: { visible: false } }
+          );
+          const rightWall = Bodies.rectangle(
+            window.innerWidth + wallThickness / 2,
+            window.innerHeight / 2,
+            wallThickness,
+            window.innerHeight,
+            { isStatic: true, render: { visible: false } }
+          );
+          const ceiling = Bodies.rectangle(
+            window.innerWidth / 2,
+            -wallThickness / 2,
+            window.innerWidth,
+            wallThickness,
+            { isStatic: true, render: { visible: false } }
+          );
+
+          World.add(engine.world, [ground, leftWall, rightWall, ceiling]);
+
+          for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+              const x = startX + col * (digitSize + gap);
+              const y = startY + row * (digitSize + gap);
+
+              // Check current HTML state to determine which shape to show
+              const digitElement = document.getElementById(
+                `digit-${row + 1}-${col + 1}`
+              );
+              const isDot = digitElement.classList.contains("dot");
+
+              // Create only the visible body for physics
+              let body;
+              if (isDot) {
+                // Create circle body
+                body = Bodies.circle(x, y, digitSize / 2, {
+                  render: {
+                    fillStyle: "#fff",
+                    visible: true,
+                  },
+                  isStatic: false, // Dynamic for physics - will fall immediately
+                  restitution: 0.8,
+                  friction: 0.1,
+                });
+                circleBodies.push(body);
+                squareBodies.push(null); // Placeholder for consistent indexing
+              } else {
+                // Create square body
+                body = Bodies.rectangle(x, y, digitSize, digitSize, {
+                  render: {
+                    fillStyle: "#fff",
+                    visible: true,
+                  },
+                  isStatic: false, // Dynamic for physics - will fall immediately
+                  restitution: 0.8,
+                  friction: 0.1,
+                });
+                squareBodies.push(body);
+                circleBodies.push(null); // Placeholder for consistent indexing
+              }
+
+              // Apply small initial velocity to ensure they start moving
+              Body.setVelocity(body, {
+                x: (Math.random() - 0.5) * 2,
+                y: Math.random() * 2,
+              });
+
+              // Make sure the body is awake and will move
+              body.isSleeping = false;
+
+              World.add(engine.world, body);
+            }
+          }
+
+          // Start the engine and renderer
+          const runner = Runner.create({
+            delta: 1000 / 60, // 60 FPS
+          });
+          Runner.run(runner, engine);
+          Render.run(render);
+        }
+
+        // Click handler to switch modes
+        let isMatterMode = false;
+
+        document.addEventListener("click", (event) => {
+          if (!isMatterMode) {
+            // Switch to Matter.js mode
+            const htmlClock = document.getElementById("html-clock");
+            const matterCanvas = document.getElementById("matter-canvas");
+
+            htmlClock.style.display = "none";
+            matterCanvas.style.display = "block";
+
+            // Stop HTML clock updates
+            clearInterval(clockInterval);
+
+            // Initialize Matter.js with current state
+            initMatterJS();
+
+            isMatterMode = true;
+          }
+        });
+
+        // Note: Window resizing in physics mode is not implemented for simplicity
       };
     </script>
   </body>

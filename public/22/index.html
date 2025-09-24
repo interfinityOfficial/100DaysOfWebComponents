@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 22/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="grid" id="grid"></div>
+      <div class="point-wrapper">
+        <div class="vertical-line" id="vertical-line"></div>
+        <div class="horizontal-line" id="horizontal-line"></div>
+        <div class="point" id="point"></div>
+      </div>
+      <div class="labels">
+        <div class="label-hours" id="label-hours"></div>
+        <div class="label-minutes" id="label-minutes"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMonoBold";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .grid {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(60, 1fr);
+        gap: min(max(0.25vw, 2px), 3px);
+        background-color: rgba(240, 240, 240, 1);
+      }
+
+      .grid-item {
+        background-color: #fff;
+      }
+
+      .point-wrapper,
+      .labels {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+
+        z-index: 1;
+      }
+
+      .point-wrapper {
+        z-index: 2;
+      }
+
+      .vertical-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        translate: -100% 0%;
+        width: min(max(0.25vw, 2px), 3px);
+        height: 100%;
+        background-color: #000;
+      }
+
+      .horizontal-line {
+        position: fixed;
+        top: 0;
+        left: 0;
+        translate: 0% -100%;
+        width: 100%;
+        height: min(max(0.25vw, 2px), 3px);
+        background-color: #000;
+      }
+
+      .point {
+        position: fixed;
+        top: 0;
+        left: 0;
+        translate: calc(-50% - min(max(0.25vw, 2px), 3px) / 2)
+          calc(-50% - min(max(0.25vw, 2px), 3px) / 2);
+        width: min(max(1.25vw, 10px), 15px);
+        aspect-ratio: 1 / 1;
+        border-radius: 100%;
+        background-color: #000;
+
+        outline: min(max(0.25vw, 2px), 3px) solid
+          rgba(0, 0, 0, calc(1 - var(--milliseconds-percent)));
+        outline-offset: calc(
+          var(--milliseconds-percent) * min(max(2vw, 16px), 24px) -
+            min(max(0.25vw, 2px), 3px)
+        );
+      }
+
+      .label-hours,
+      .label-minutes {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: 1fr;
+        gap: min(max(0.25vw, 2px), 3px);
+      }
+
+      .label-minutes {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(12, 1fr);
+      }
+
+      .label-text {
+        padding-left: min(max(0.7vw, 6px), 8px);
+        padding-right: min(max(0.7vw, 6px), 8px);
+        font-family: "SpaceMonoBold", sans-serif;
+        font-size: min(max(1.6vw, 12px), 20px);
+        font-weight: bold;
+        color: rgba(190, 190, 190, 1);
+      }
+    </style>
+
+    <script>
+      const grid = document.getElementById("grid");
+      const labelHours = document.getElementById("label-hours");
+      const labelMinutes = document.getElementById("label-minutes");
+
+      const verticalLine = document.getElementById("vertical-line");
+      const horizontalLine = document.getElementById("horizontal-line");
+      const point = document.getElementById("point");
+
+      for (let i = 0; i < 12 * 60; i++) {
+        const gridItem = document.createElement("div");
+        gridItem.classList.add("grid-item");
+        grid.appendChild(gridItem);
+      }
+
+      for (let i = 0; i < 12; i++) {
+        const labelText = document.createElement("div");
+        labelText.classList.add("label-text");
+        labelText.textContent = i.toString().padStart(2, "0");
+        labelHours.appendChild(labelText);
+      }
+
+      for (let i = 0; i < 12; i++) {
+        const labelText = document.createElement("div");
+        labelText.classList.add("label-text");
+        labelText.textContent = (i * 5).toString().padStart(2, "0");
+        labelMinutes.appendChild(labelText);
+      }
+
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          const milliseconds = now.getMilliseconds();
+          const seconds = now.getSeconds();
+          const minutes = now.getMinutes();
+          const hours = now.getHours();
+
+          let totalSeconds = seconds + milliseconds / 1000;
+          let totalMinutes = minutes + totalSeconds / 60;
+          let totalHours = hours + totalMinutes / 60;
+
+          if (totalHours > 12) {
+            totalHours -= 12;
+          }
+
+          verticalLine.style.left = `${(totalHours / 12) * 100}%`;
+          horizontalLine.style.top = `${(totalMinutes / 60) * 100}%`;
+          point.style.left = `${(totalHours / 12) * 100}%`;
+          point.style.top = `${(totalMinutes / 60) * 100}%`;
+
+          document.documentElement.style.setProperty(
+            "--milliseconds-percent",
+            `${milliseconds / 1000}`
+          );
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

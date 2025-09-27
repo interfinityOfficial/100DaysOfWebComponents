@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 25/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="candle-clock">
+        <div class="candle-clock-board">
+          <div class="candle-clock-marks" id="candle-clock-marks">
+            <div class="candle-clock-mark" id="candle-clock-mark-1">I</div>
+            <div class="candle-clock-mark">II</div>
+            <div class="candle-clock-mark">III</div>
+            <div class="candle-clock-mark">IV</div>
+            <div class="candle-clock-mark">V</div>
+            <div class="candle-clock-mark">VI</div>
+            <div class="candle-clock-mark">VII</div>
+            <div class="candle-clock-mark">VIII</div>
+            <div class="candle-clock-mark">IX</div>
+            <div class="candle-clock-mark">X</div>
+            <div class="candle-clock-mark">XI</div>
+            <div class="candle-clock-mark">XII</div>
+          </div>
+        </div>
+
+        <div class="candle-clock-candle">
+          <div class="candle-clock-candle-body"></div>
+          <div class="candle-clock-candle-flame-1-container">
+            <div class="candle-clock-candle-flame-1"></div>
+          </div>
+          <div class="candle-clock-candle-flame-2-container">
+            <div class="candle-clock-candle-flame-2"></div>
+          </div>
+          <div class="candle-clock-candle-flame-3-container">
+            <div class="candle-clock-candle-flame-3"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      :root {
+        --candle-clock-height: 1;
+      }
+
+      body {
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .candle-clock {
+        width: 100vw;
+        min-height: 100vh;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .candle-clock-candle {
+        position: relative;
+        width: min(max(7vw, 60px), 80px);
+        height: calc(85vh * var(--candle-clock-height));
+        display: flex;
+      }
+
+      .candle-clock-candle-body {
+        background-color: #fff;
+        border-radius: min(max(1vw, 8px), 12px) min(max(1vw, 8px), 12px) 0% 0%;
+        width: 100%;
+        height: 100%;
+
+        z-index: 10;
+      }
+
+      .candle-clock-candle-flame-1-container,
+      .candle-clock-candle-flame-2-container,
+      .candle-clock-candle-flame-3-container {
+        position: absolute;
+        bottom: 101%;
+        left: 50%;
+        translate: -50% 0%;
+        width: 50%;
+        aspect-ratio: 1/1;
+        display: flex;
+        transform-origin: center bottom;
+        animation: candle-flame-animation 4s ease-in-out infinite;
+
+        z-index: 1;
+      }
+
+      .candle-clock-candle-flame-1,
+      .candle-clock-candle-flame-2,
+      .candle-clock-candle-flame-3 {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 50% 10% 50% 0%;
+        transform-origin: center center;
+        rotate: -45deg;
+        border: min(max(0.225vw, 1.5px), 3px) solid #fff;
+        background-color: #000;
+
+        z-index: 1;
+      }
+
+      .candle-clock-candle-flame-1-container {
+        width: 20%;
+        animation-duration: 6s;
+        z-index: 3;
+      }
+
+      .candle-clock-candle-flame-1 {
+        background-color: #fff;
+      }
+
+      .candle-clock-candle-flame-2-container {
+        width: 35%;
+        animation-duration: 5s;
+        z-index: 2;
+      }
+
+      @keyframes candle-flame-animation {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .candle-clock-board {
+        position: fixed;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        height: 100vh;
+        aspect-ratio: 3/4;
+        max-width: 95vw;
+        display: flex;
+        background-color: #000;
+        border-left: min(max(0.225vw, 1.5px), 3px) solid #fff;
+        border-right: min(max(0.225vw, 1.5px), 3px) solid #fff;
+      }
+
+      .candle-clock-marks {
+        position: relative;
+        width: 100%;
+        height: 85vh;
+        margin-top: 15vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .candle-clock-mark {
+        position: relative;
+        width: 90%;
+        color: #fff;
+        font-family: "SFMono";
+        font-size: min(max(1.3vw, 10px), 16px);
+        font-weight: 700;
+        text-align: right;
+        padding-bottom: min(max(0.5vw, 4px), 6px);
+      }
+
+      .candle-clock-marks::before,
+      .candle-clock-mark::before {
+        content: "";
+        position: absolute;
+        bottom: 0%;
+        right: 0%;
+        width: 30%;
+        height: min(max(0.125vw, 1px), 1.5px);
+        background-color: #fff;
+      }
+
+      .candle-clock-marks::before {
+        bottom: 100%;
+        right: 5%;
+        width: 27%;
+      }
+    </style>
+
+    <script>
+      const candleClockMarks = document.getElementById("candle-clock-marks");
+      const candleClockMark = document.getElementById("candle-clock-mark-1");
+
+      let markHeight = candleClockMark.clientHeight;
+      let markSpacing = (candleClockMarks.clientHeight - markHeight * 12) / 13;
+
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          if (hours >= 12) {
+            hours -= 12;
+          }
+
+          let timeRatio =
+            hours / 12 +
+            minutes / 720 +
+            seconds / 43200 +
+            milliseconds / 43200000;
+          console.log(timeRatio * 12);
+          document.documentElement.style.setProperty(
+            "--candle-clock-height",
+            `${
+              1 -
+              (timeRatio * 12 * (markSpacing + markHeight)) /
+                candleClockMarks.clientHeight
+            }`
+          );
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

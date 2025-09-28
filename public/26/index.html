@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 26/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="pendulum-clock">
+        <div class="pendulum-clock-weight-left"></div>
+        <div class="pendulum-clock-weight-right"></div>
+        <div class="pendulum-clock-pendulum"></div>
+        <div class="pendulum-clock-face-border"></div>
+        <div class="pendulum-clock-face">
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(-60deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">I</div>
+          </div>
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(-30deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">II</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(0deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">III</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(30deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">IV</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(60deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">V</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(90deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">VI</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(120deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">VII</div>
+          </div>
+
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(150deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">VIII</div>
+          </div>
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(180deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">IX</div>
+          </div>
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(210deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">X</div>
+          </div>
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(240deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">XI</div>
+          </div>
+          <div
+            class="pendulum-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(270deg)"
+          >
+            <div class="pendulum-clock-face-mark-text">XII</div>
+          </div>
+          <div class="pendulum-clock-hand-center-1"></div>
+          <div class="pendulum-clock-hour-hand"></div>
+          <div class="pendulum-clock-hand-center-2"></div>
+          <div class="pendulum-clock-minute-hand"></div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "Queen";
+        src: url("/assets/Queen.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      :root {
+        --pendulum-clock-hour-angle: -90deg;
+        --pendulum-clock-minute-angle: -90deg;
+      }
+
+      body {
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .pendulum-clock {
+        width: 100vw;
+        min-height: 100vh;
+        background-color: #fff;
+        display: flex;
+      }
+
+      .pendulum-clock-face {
+        position: fixed;
+        top: 10vh;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: min(80vw, 40vh);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: min(max(0.75vw, 1.5px), 3px) solid #000;
+        background-color: #fff;
+
+        z-index: 2;
+      }
+
+      .pendulum-clock-face-border {
+        content: "";
+        position: fixed;
+        top: calc(10vh - min(max(0.75vw, 1.5px), 3px) * 3);
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: calc(min(80vw, 40vh) + min(max(0.75vw, 1.5px), 3px) * 6);
+        aspect-ratio: 1/1;
+        background-color: #fff;
+        border-radius: 50%;
+        border: min(max(0.75vw, 1.5px), 3px) solid #000;
+
+        z-index: 2;
+      }
+
+      .pendulum-clock-face-mark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(0%, -50%);
+        transform-origin: center left;
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .pendulum-clock-face-mark::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 0%;
+        transform: translate(0%, -50%);
+        width: min(max(2.5vw, 6px), 10px);
+        height: min(max(0.75vw, 1.5px), 3px);
+        background-color: #000;
+      }
+
+      .pendulum-clock-face-mark-text {
+        width: calc(min(max(6vw, 14px), 24px) * 2.5);
+        overflow: visible;
+        font-family: "Queen";
+        font-size: min(max(6vw, 14px), 24px);
+        font-weight: 400;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: rotate(90deg);
+      }
+
+      .pendulum-clock-hand-center-1,
+      .pendulum-clock-hand-center-2 {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(max(7.5vw, 18px), 30px);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #fff;
+        border: min(max(0.75vw, 1.5px), 3px) solid #000;
+
+        z-index: 10;
+      }
+
+      .pendulum-clock-hand-center-2 {
+        width: calc(
+          min(max(7.5vw, 18px), 30px) - min(max(0.75vw, 1.5px), 3px) * 7
+        );
+        background-color: #000;
+        z-index: 12;
+      }
+
+      .pendulum-clock-hour-hand,
+      .pendulum-clock-minute-hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: 0% -50%;
+        width: 40%;
+        height: min(max(2.5vw, 6px), 10px);
+        background-color: #fff;
+        background-color: #000;
+        transform-origin: center left;
+
+        z-index: 9;
+        clip-path: polygon(0% 20%, 80% 0%, 100% 50%, 80% 100%, 0% 80%);
+      }
+
+      .pendulum-clock-hour-hand {
+        width: 25%;
+        transform: rotate(var(--pendulum-clock-hour-angle));
+        transition: transform 0.5s ease-in-out;
+
+        z-index: 11;
+      }
+
+      .pendulum-clock-minute-hand {
+        transform: rotate(var(--pendulum-clock-minute-angle));
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .pendulum-clock-weight-left,
+      .pendulum-clock-weight-right {
+        position: fixed;
+        top: calc(10vh + min(80vw, 40vh) / 2 + min(max(0.75vw, 1.5px), 3px));
+        width: min(max(0.5vw, 1.5px), 3px);
+        background-color: #000;
+      }
+
+      .pendulum-clock-weight-left {
+        left: calc(50% - min(80vw, 40vh) / 9);
+        height: calc(50vh - min(80vw, 40vh) / 2 + min(max(0.75vw, 1.5px), 3px));
+      }
+
+      .pendulum-clock-weight-right {
+        height: calc(70vh - min(80vw, 40vh) / 2 + min(max(0.75vw, 1.5px), 3px));
+        right: calc(50% - min(80vw, 40vh) / 9);
+      }
+
+      .pendulum-clock-weight-left::after,
+      .pendulum-clock-weight-right::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: min(max(7vw, 20px), 28px);
+        aspect-ratio: 1/2;
+        background-color: #fff;
+        border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      }
+
+      .pendulum-clock-pendulum {
+        position: fixed;
+        top: calc(10vh + min(80vw, 40vh) / 2 + min(max(0.75vw, 1.5px), 3px));
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: min(max(2.5vw, 6px), 10px);
+        height: calc(70vh - min(80vw, 40vh) / 2 + min(max(0.75vw, 1.5px), 3px));
+        background-color: #fff;
+        transform-origin: top center;
+        border-left: min(max(0.75vw, 1.5px), 3px) solid #000;
+        border-right: min(max(0.75vw, 1.5px), 3px) solid #000;
+
+        animation: pendulum-animation 1s ease-in-out infinite;
+      }
+
+      .pendulum-clock-pendulum::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(20vw, 10vh);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #fff;
+        border: min(max(0.75vw, 1.5px), 3px) solid #000;
+        outline: min(max(1.5vw, 3px), 6px) solid #000;
+        outline-offset: calc(min(max(1.5vw, 3px), 6px) * -2);
+      }
+
+      @keyframes pendulum-animation {
+        0% {
+          transform: rotate(10deg);
+        }
+        50% {
+          transform: rotate(-10deg);
+        }
+        100% {
+          transform: rotate(10deg);
+        }
+      }
+    </style>
+
+    <script>
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          if (hours >= 12) {
+            hours -= 12;
+          }
+
+          document.documentElement.style.setProperty(
+            "--pendulum-clock-hour-angle",
+            `${
+              (hours + minutes / 60 + seconds / 3600 + milliseconds / 3600000) *
+                30 -
+              90
+            }deg`
+          );
+
+          document.documentElement.style.setProperty(
+            "--pendulum-clock-minute-angle",
+            `${(minutes + seconds / 60 + milliseconds / 60000) * 6 - 90}deg`
+          );
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

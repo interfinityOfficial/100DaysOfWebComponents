@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 28/100</title>
+  </head>
+  <body class="show-sundial">
+    <main>
+      <div class="sundial">
+        <div class="sundial-base">
+          <div class="sundial-base-circle-1"></div>
+          <div class="sundial-base-circle-2"></div>
+          <div class="sundial-base-circle-3"></div>
+          <div class="sundial-bottom-circle"></div>
+          <div class="sundial-pointer"></div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(-90deg)"
+          >
+            <div class="sundial-mark-text">XII</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(-72deg)"
+          >
+            <div class="sundial-mark-text">I</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(-54deg)"
+          >
+            <div class="sundial-mark-text">II</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(-36deg)"
+          >
+            <div class="sundial-mark-text">III</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(-18deg)"
+          >
+            <div class="sundial-mark-text">IV</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(0deg)"
+          >
+            <div class="sundial-mark-text">V</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(18deg)"
+          >
+            <div class="sundial-mark-text">VI</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(36deg)"
+          >
+            <div class="sundial-mark-text">VII</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(144deg)"
+          >
+            <div class="sundial-mark-text">V</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(162deg)"
+          >
+            <div class="sundial-mark-text">VI</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(180deg)"
+          >
+            <div class="sundial-mark-text">VII</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(198deg)"
+          >
+            <div class="sundial-mark-text">VIII</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(216deg)"
+          >
+            <div class="sundial-mark-text">IX</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(234deg)"
+          >
+            <div class="sundial-mark-text">X</div>
+          </div>
+          <div
+            class="sundial-mark"
+            style="transform: translate(0%, -50%) rotate(252deg)"
+          >
+            <div class="sundial-mark-text">XI</div>
+          </div>
+          <div class="sundial-shadow-right"></div>
+          <div class="sundial-shadow-left"></div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "NewYork";
+        src: url("/assets/NewYork-Semibold.woff2") format("woff2");
+        font-weight: 600;
+      }
+
+      :root {
+        --sundial-shadow-angle-right: -90deg;
+        --sundial-shadow-angle-left: -90deg;
+      }
+
+      body {
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      /* Sundial */
+      .sundial {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        scale: 0.8;
+        opacity: 0;
+        pointer-events: none;
+        transition: scale 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      }
+
+      .show-sundial {
+        background-color: #fff;
+      }
+
+      .show-sundial .sundial {
+        display: flex;
+        scale: 1;
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .sundial-base {
+        position: relative;
+        width: min(90vw, 90vh);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+
+        border: min(max(1vw, 3px), 6px) solid #000;
+      }
+
+      .sundial-base-circle-1 {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - min(max(6.67vw, 16px), 40px) * 4);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+      }
+
+      .sundial-base-circle-2 {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - min(max(6.67vw, 16px), 40px) * 6);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+      }
+
+      .sundial-base-circle-3 {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - min(max(6.67vw, 16px), 40px) * 8);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+      }
+
+      .sundial-bottom-circle {
+        display: none;
+        position: absolute;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: 35%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #fff;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+      }
+
+      .sundial-pointer {
+        position: absolute;
+        overflow: visible;
+        top: calc(min(max(6.67vw, 16px), 40px) * 2.2);
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: calc(min(max(2.67vw, 8px), 16px) * 3);
+        height: calc(50% - min(max(6.67vw, 16px), 40px) * 2.2);
+
+        z-index: 2;
+      }
+
+      .sundial-pointer::before {
+        content: "";
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(
+          30% 0%,
+          70% 0%,
+          100% 95%,
+          70% 100%,
+          30% 100%,
+          0% 95%
+        );
+        background-color: rgba(200, 200, 200, 1);
+      }
+
+      .sundial-pointer::after {
+        content: "";
+        position: absolute;
+        top: 0%;
+        left: 30%;
+        width: 40%;
+        height: 100%;
+        background-color: #fff;
+        outline: min(max(0.5vw, 1.5px), 3px) solid #000;
+        outline-offset: calc(min(max(0.5vw, 1.5px), 3px) * -1);
+      }
+
+      .sundial-shadow-right {
+        position: absolute;
+        top: calc(min(max(6.67vw, 16px), 40px) * 2.2);
+        left: 50%;
+        height: calc(100% - min(max(6.67vw, 16px), 40px) * 4.4);
+        aspect-ratio: 1/2;
+        background-color: rgba(0, 0, 0, 0.4);
+
+        clip-path: polygon(
+          0% 0%,
+          calc(100% * sin(var(--sundial-shadow-angle-right)))
+            calc(50% - 50% * cos(var(--sundial-shadow-angle-right))),
+          0% 50%
+        );
+
+        transition: clip-path 0.5s ease-in-out;
+      }
+
+      .sundial-shadow-left {
+        position: absolute;
+        top: calc(min(max(6.67vw, 16px), 40px) * 2.2);
+        right: 50%;
+        height: calc(100% - min(max(6.67vw, 16px), 40px) * 4.4);
+        aspect-ratio: 1/2;
+        background-color: rgba(0, 0, 0, 0.4);
+
+        clip-path: polygon(
+          calc(100% - 100% * sin(var(--sundial-shadow-angle-left)))
+            calc(50% - 50% * cos(var(--sundial-shadow-angle-left))),
+          100% 0%,
+          100% 50%
+        );
+
+        transition: clip-path 0.5s ease-in-out;
+      }
+
+      .sundial-mark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(0%, -50%);
+        transform-origin: center left;
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .sundial-mark::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: calc(min(max(6.67vw, 16px), 40px) * 2.5);
+        transform: translate(0%, -50%);
+        width: 50%;
+        height: min(max(0.5vw, 1.5px), 3px);
+        background-color: #000;
+      }
+
+      .sundial-mark-text {
+        width: calc(min(max(6.67vw, 16px), 40px) * 2);
+        overflow: visible;
+        font-family: "NewYork";
+        font-size: min(max(6.67vw, 16px), 40px);
+        font-weight: 600;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: rotate(90deg);
+      }
+    </style>
+
+    <script>
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          let angle = ((hours % 12) + minutes / 60 + seconds / 3600) * 18;
+          if (hours % 12 < 7) {
+            document.documentElement.style.setProperty(
+              "--sundial-shadow-angle-right",
+              angle + "deg"
+            );
+            document.documentElement.style.setProperty(
+              "--sundial-shadow-angle-left",
+              "0deg"
+            );
+          } else {
+            document.documentElement.style.setProperty(
+              "--sundial-shadow-angle-right",
+              "0deg"
+            );
+            document.documentElement.style.setProperty(
+              "--sundial-shadow-angle-left",
+              216 - angle + "deg"
+            );
+          }
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

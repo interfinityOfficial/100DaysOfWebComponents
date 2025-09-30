@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 27/100</title>
+  </head>
+  <body class="show-mechanical-clock">
+    <main>
+      <div class="mechanical-clock">
+        <div class="mechanical-clock-column"></div>
+        <div class="mechanical-clock-base"></div>
+        <div class="mechanical-clock-horizontal">
+          <div class="mechanical-clock-horizontal-weight-left"></div>
+          <div class="mechanical-clock-horizontal-weight-right"></div>
+        </div>
+        <div class="mechanical-clock-face-border"></div>
+        <div class="mechanical-clock-face">
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(-60deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">I</div>
+          </div>
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(-30deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">II</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(0deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">III</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(30deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">IV</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(60deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">V</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(90deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">VI</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(120deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">VII</div>
+          </div>
+
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(150deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">VIII</div>
+          </div>
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(180deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">IX</div>
+          </div>
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(210deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">X</div>
+          </div>
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(240deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">XI</div>
+          </div>
+          <div
+            class="mechanical-clock-face-mark"
+            style="transform: translate(0%, -50%) rotate(270deg)"
+          >
+            <div class="mechanical-clock-face-mark-text">XII</div>
+          </div>
+          <div class="mechanical-clock-center">
+            <svg
+              class="mechanical-clock-center-gear"
+              id="mechanical-clock-center-gear"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 100 100"
+            >
+              <g id="Layer_1-2" data-name="Layer_1">
+                <path
+                  d="M99.99,50.8c0-.27.01-.53.01-.8s0-.54-.01-.8c-10.11-2.14-10.35-4.44-.86-8.51-.1-.51-.2-1.01-.31-1.52-10.32.02-10.99-2.13-2.46-7.93-.19-.47-.39-.93-.59-1.39-10.1,2.08-11.16.13-3.89-7.17-.27-.42-.55-.83-.84-1.24-9.5,4-10.9,2.3-5.16-6.25-.35-.36-.7-.71-1.05-1.05-8.56,5.74-10.25,4.34-6.25-5.16-.41-.29-.82-.56-1.24-.84-7.31,7.26-9.25,6.21-7.17-3.89-.46-.2-.93-.4-1.39-.59-5.8,8.53-7.95,7.86-7.93-2.46-.5-.11-1.01-.21-1.52-.31-4.07,9.49-6.37,9.25-8.51-.86-.27,0-.53-.01-.8-.01s-.54,0-.8.01c-2.14,10.11-4.44,10.35-8.51.86-.51.1-1.01.2-1.52.31.02,10.32-2.13,10.99-7.93,2.46-.47.19-.93.39-1.39.59,2.08,10.1.13,11.16-7.17,3.89-.42.27-.83.55-1.24.84,4,9.5,2.3,10.9-6.25,5.16-.36.35-.71.7-1.05,1.05,5.74,8.56,4.34,10.25-5.16,6.25-.29.41-.56.82-.84,1.24,7.26,7.31,6.21,9.25-3.89,7.17-.2.46-.4.93-.59,1.39,8.53,5.8,7.86,7.95-2.46,7.93-.11.5-.21,1.01-.31,1.52,9.49,4.07,9.25,6.37-.86,8.51,0,.27-.01.53-.01.8s0,.54.01.8c10.11,2.14,10.35,4.44.86,8.51.1.51.2,1.01.31,1.52,10.32-.02,10.99,2.13,2.46,7.93.19.47.39.93.59,1.39,10.1-2.08,11.16-.13,3.89,7.17.27.42.55.83.84,1.24,9.5-4,10.9-2.3,5.16,6.25.35.36.7.71,1.05,1.05,8.56-5.74,10.25-4.34,6.25,5.16.41.29.82.56,1.24.84,7.31-7.26,9.25-6.21,7.17,3.89.46.2.93.4,1.39.59,5.8-8.53,7.95-7.86,7.93,2.46.5.11,1.01.21,1.52.31,4.07-9.49,6.37-9.25,8.51.86.27,0,.53.01.8.01s.54,0,.8-.01c2.14-10.11,4.44-10.35,8.51-.86.51-.1,1.01-.2,1.52-.31-.02-10.32,2.13-10.99,7.93-2.46.47-.19.93-.39,1.39-.59-2.08-10.1-.13-11.16,7.17-3.89.42-.27.83-.55,1.24-.84-4-9.5-2.3-10.9,6.25-5.16.36-.35.71-.7,1.05-1.05-5.74-8.56-4.34-10.25,5.16-6.25.29-.41.56-.82.84-1.24-7.26-7.31-6.21-9.25,3.89-7.17.2-.46.4-.93.59-1.39-8.53-5.8-7.86-7.95,2.46-7.93.11-.5.21-1.01.31-1.52-9.49-4.07-9.25-6.37.86-8.51Z"
+                />
+              </g>
+            </svg>
+          </div>
+          <div class="mechanical-clock-hand-center"></div>
+          <div class="mechanical-clock-hand"></div>
+        </div>
+        <svg
+          class="mechanical-clock-bottom-gear"
+          id="mechanical-clock-bottom-gear"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+        >
+          <g id="Layer_1-2" data-name="Layer_1">
+            <path
+              d="M99.99,50.8c0-.27.01-.53.01-.8s0-.54-.01-.8c-10.11-2.14-10.35-4.44-.86-8.51-.1-.51-.2-1.01-.31-1.52-10.32.02-10.99-2.13-2.46-7.93-.19-.47-.39-.93-.59-1.39-10.1,2.08-11.16.13-3.89-7.17-.27-.42-.55-.83-.84-1.24-9.5,4-10.9,2.3-5.16-6.25-.35-.36-.7-.71-1.05-1.05-8.56,5.74-10.25,4.34-6.25-5.16-.41-.29-.82-.56-1.24-.84-7.31,7.26-9.25,6.21-7.17-3.89-.46-.2-.93-.4-1.39-.59-5.8,8.53-7.95,7.86-7.93-2.46-.5-.11-1.01-.21-1.52-.31-4.07,9.49-6.37,9.25-8.51-.86-.27,0-.53-.01-.8-.01s-.54,0-.8.01c-2.14,10.11-4.44,10.35-8.51.86-.51.1-1.01.2-1.52.31.02,10.32-2.13,10.99-7.93,2.46-.47.19-.93.39-1.39.59,2.08,10.1.13,11.16-7.17,3.89-.42.27-.83.55-1.24.84,4,9.5,2.3,10.9-6.25,5.16-.36.35-.71.7-1.05,1.05,5.74,8.56,4.34,10.25-5.16,6.25-.29.41-.56.82-.84,1.24,7.26,7.31,6.21,9.25-3.89,7.17-.2.46-.4.93-.59,1.39,8.53,5.8,7.86,7.95-2.46,7.93-.11.5-.21,1.01-.31,1.52,9.49,4.07,9.25,6.37-.86,8.51,0,.27-.01.53-.01.8s0,.54.01.8c10.11,2.14,10.35,4.44.86,8.51.1.51.2,1.01.31,1.52,10.32-.02,10.99,2.13,2.46,7.93.19.47.39.93.59,1.39,10.1-2.08,11.16-.13,3.89,7.17.27.42.55.83.84,1.24,9.5-4,10.9-2.3,5.16,6.25.35.36.7.71,1.05,1.05,8.56-5.74,10.25-4.34,6.25,5.16.41.29.82.56,1.24.84,7.31-7.26,9.25-6.21,7.17,3.89.46.2.93.4,1.39.59,5.8-8.53,7.95-7.86,7.93,2.46.5.11,1.01.21,1.52.31,4.07-9.49,6.37-9.25,8.51.86.27,0,.53.01.8.01s.54,0,.8-.01c2.14-10.11,4.44-10.35,8.51-.86.51-.1,1.01-.2,1.52-.31-.02-10.32,2.13-10.99,7.93-2.46.47-.19.93-.39,1.39-.59-2.08-10.1-.13-11.16,7.17-3.89.42-.27.83-.55,1.24-.84-4-9.5-2.3-10.9,6.25-5.16.36-.35.71-.7,1.05-1.05-5.74-8.56-4.34-10.25,5.16-6.25.29-.41.56-.82.84-1.24-7.26-7.31-6.21-9.25,3.89-7.17.2-.46.4-.93.59-1.39-8.53-5.8-7.86-7.95,2.46-7.93.11-.5.21-1.01.31-1.52-9.49-4.07-9.25-6.37.86-8.51Z"
+            />
+          </g>
+        </svg>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "Queen";
+        src: url("/assets/Queen.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      :root {
+        --mechanical-clock-angle: -90deg;
+      }
+
+      body {
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      /* Mechanical Clock */
+      .mechanical-clock {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: min(100vh, 150vw);
+        display: flex;
+        pointer-events: none;
+      }
+
+      .show-mechanical-clock {
+        background-color: #fff;
+      }
+
+      .show-mechanical-clock .mechanical-clock {
+        pointer-events: auto;
+      }
+
+      .mechanical-clock-face {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: min(90vw, 60vh);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+        background-color: #fff;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+        z-index: 2;
+      }
+
+      .show-mechanical-clock .mechanical-clock-face {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .mechanical-clock-face-border {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: calc(min(90vw, 60vh) + min(max(0.5vw, 1.5px), 3px) * 6);
+        aspect-ratio: 1/1;
+        background-color: #fff;
+        border-radius: 50%;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+        z-index: 2;
+      }
+
+      .show-mechanical-clock .mechanical-clock-face-border {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .mechanical-clock-base {
+        position: absolute;
+        left: 50%;
+        bottom: 0%;
+        transform: translate(-50%, 0%);
+        width: min(90vw, 60vh);
+        height: 0%;
+        background-color: #000;
+        transition: height 0.5s ease-in-out;
+      }
+
+      .show-mechanical-clock .mechanical-clock-base {
+        height: min(max(3.33vw, 12px), 20px);
+      }
+
+      .mechanical-clock-column {
+        position: absolute;
+        left: 50%;
+        bottom: 0%;
+        transform: translate(-50%, 0%);
+        width: min(max(20px, 90px), 120px);
+        height: 0%;
+        opacity: 0;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+        transition: height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      }
+
+      .show-mechanical-clock .mechanical-clock-column {
+        height: 100%;
+        opacity: 1;
+      }
+
+      .mechanical-clock-horizontal {
+        position: absolute;
+        left: 50%;
+        top: 5vh;
+        transform: translate(-50%, 0%);
+        width: 0%;
+        height: min(max(3.33vw, 12px), 20px);
+        background-color: #fff;
+        opacity: 0;
+        border-top: min(max(0.5vw, 1.5px), 3px) solid #000;
+        border-bottom: min(max(0.5vw, 1.5px), 3px) solid #000;
+
+        transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      }
+
+      .show-mechanical-clock .mechanical-clock-horizontal {
+        width: min(90vw, 60vh);
+        opacity: 1;
+      }
+
+      .mechanical-clock-horizontal-weight-left,
+      .mechanical-clock-horizontal-weight-right {
+        position: absolute;
+        top: 100%;
+        width: min(max(5.33vw, 24px), 32px);
+        height: 0%;
+        background-color: #fff;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+        transition: top 0.5s ease-in-out, height 0.5s ease-in-out;
+      }
+
+      .show-mechanical-clock .mechanical-clock-horizontal-weight-left,
+      .show-mechanical-clock .mechanical-clock-horizontal-weight-right {
+        top: calc(100% + min(max(3.33vw, 12px), 20px));
+        height: min(max(10.67vw, 48px), 64px);
+      }
+
+      .mechanical-clock-horizontal-weight-left::before,
+      .mechanical-clock-horizontal-weight-right::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: min(max(0.5vw, 1.5px), 3px);
+        height: 0%;
+        background-color: #000;
+        transition: height 0.5s ease-in-out;
+      }
+
+      .show-mechanical-clock .mechanical-clock-horizontal-weight-left::before,
+      .show-mechanical-clock .mechanical-clock-horizontal-weight-right::before {
+        height: min(max(3.33vw, 12px), 20px);
+      }
+
+      .mechanical-clock-horizontal-weight-left {
+        left: 5%;
+      }
+
+      .mechanical-clock-horizontal-weight-right {
+        right: 5%;
+      }
+
+      .mechanical-clock-face-mark {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(0%, -50%);
+        transform-origin: center left;
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .mechanical-clock-face-mark::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 0%;
+        transform: translate(0%, -50%);
+        width: min(max(2.5vw, 9px), 15px);
+        height: min(max(0.5vw, 1.5px), 3px);
+        background-color: #000;
+      }
+
+      .mechanical-clock-face-mark-text {
+        width: calc(min(max(5vw, 20px), 30px) * 2.5);
+        overflow: visible;
+        font-family: "Queen";
+        font-size: min(max(5vw, 20px), 30px);
+        font-weight: 400;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: rotate(90deg);
+      }
+
+      .mechanical-clock-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #fff;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .mechanical-clock-center-gear,
+      .mechanical-clock-bottom-gear {
+        position: relative;
+        overflow: visible;
+        width: 90%;
+        aspect-ratio: 1/1;
+        stroke: #000;
+        stroke-width: calc(var(--ratio) * min(max(0.5vw, 1.5px), 3px));
+        fill: none;
+
+        animation: center-gear-rotation-animation 120s infinite linear;
+      }
+
+      @keyframes center-gear-rotation-animation {
+        0% {
+          rotate: 0deg;
+        }
+
+        50% {
+          rotate: 360deg;
+        }
+
+        100% {
+          rotate: 0deg;
+        }
+      }
+
+      .mechanical-clock-center::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20%;
+        height: 20%;
+        border-radius: 50%;
+        border: min(max(0.5vw, 1.5px), 3px) solid #000;
+      }
+
+      .mechanical-clock-hand-center {
+        content: "";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(max(5vw, 18px), 30px);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: #000;
+
+        z-index: 10;
+      }
+
+      .mechanical-clock-hand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: 0% -50%;
+        width: 30%;
+        height: min(max(1.67vw, 6px), 10px);
+        background-color: #fff;
+        background-color: #000;
+        transform-origin: center left;
+        transform: rotate(var(--mechanical-clock-angle));
+      }
+
+      .mechanical-clock-hand::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 99%;
+        transform: translate(0%, -50%);
+        height: 240%;
+        aspect-ratio: 2/1;
+        background-color: #000;
+        clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+      }
+
+      .mechanical-clock-bottom-gear {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        width: calc(min(90vw, 60vh) * 0.5);
+        aspect-ratio: 1/1;
+        fill: #fff;
+        opacity: 0;
+        transition: top 0.5s ease-in-out, opacity 0.5s ease-in-out,
+          transform 0.5s ease-in-out;
+
+        z-index: 1;
+      }
+
+      .show-mechanical-clock .mechanical-clock-bottom-gear {
+        top: calc(50% + min(90vw, 60vh) * 0.4);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+
+        animation: bottom-gear-rotation-animation 120s infinite linear;
+      }
+
+      @keyframes bottom-gear-rotation-animation {
+        0% {
+          transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        }
+
+        50% {
+          transform: translate(-50%, -50%) scale(1) rotate(-360deg);
+        }
+
+        100% {
+          transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        }
+      }
+    </style>
+
+    <script>
+      const mechanicalClockCenterGear = document.getElementById(
+        "mechanical-clock-center-gear"
+      );
+      const mechanicalClockBottomGear = document.getElementById(
+        "mechanical-clock-bottom-gear"
+      );
+
+      updateGears();
+      window.onresize = () => {
+        updateGears();
+      };
+
+      function updateGears() {
+        let centerGearWidth = mechanicalClockCenterGear.clientWidth;
+        let bottomGearWidth = mechanicalClockBottomGear.clientWidth;
+
+        if (centerGearWidth == 0) {
+          centerGearWidth = 100;
+        }
+        if (bottomGearWidth == 0) {
+          bottomGearWidth = 100;
+        }
+        mechanicalClockCenterGear.style.setProperty(
+          "--ratio",
+          100 / centerGearWidth
+        );
+        mechanicalClockBottomGear.style.setProperty(
+          "--ratio",
+          100 / bottomGearWidth
+        );
+      }
+
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          if (hours >= 12) {
+            hours -= 12;
+          }
+
+          document.documentElement.style.setProperty(
+            "--mechanical-clock-angle",
+            `${
+              (hours / 12 +
+                minutes / 720 +
+                seconds / 43200 +
+                milliseconds / 43200000) *
+                360 -
+              90
+            }deg`
+          );
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

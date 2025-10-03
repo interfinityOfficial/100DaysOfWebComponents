@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 30/100</title>
+  </head>
+  <body class="show-water-clock">
+    <main>
+      <div class="water-clock">
+        <div class="water-clock-enclosure"></div>
+        <div class="water-clock-pipe">
+          <div class="water-clock-water-drop"></div>
+        </div>
+        <div class="water-clock-left">
+          <div class="water-clock-floating-base">
+            <div class="water-clock-floating-base-inner"></div>
+            <div class="water-clock-pointer">
+              <div class="water-clock-arrow"></div>
+            </div>
+          </div>
+        </div>
+        <div class="water-clock-right">
+          <div class="water-clock-right-cylinder">
+            <div
+              class="water-clock-marks water-clock-marks-1"
+              id="water-clock-marks"
+            >
+              <div class="water-clock-marks-column1">
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">VI</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">V</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">IV</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">III</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">II</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">I</div>
+                </div>
+              </div>
+              <div class="water-clock-marks-column2">
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">XII</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">XI</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">X</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">IX</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">VIII</div>
+                </div>
+                <div class="water-clock-mark">
+                  <div class="water-clock-mark-text">VII</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <style>
+    @font-face {
+      font-family: "SFMono";
+      src: url("/assets/SFMono-Bold.woff2") format("woff2");
+      font-weight: 700;
+    }
+
+    :root {
+      --water-clock-height: 100%;
+      --water-blue: 70, 131, 255;
+    }
+
+    /* Water Clock */
+    .water-clock {
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      pointer-events: none;
+    }
+
+    .show-water-clock {
+      background-color: #fff;
+    }
+
+    .show-water-clock .water-clock {
+      pointer-events: auto;
+    }
+
+    .water-clock-enclosure {
+      position: fixed;
+      left: 50%;
+      bottom: 0%;
+      transform: translate(-50%, 0%);
+      width: min(90vw, 45vh);
+      height: calc(min(80vw, 40vh) * 1.4);
+      border-radius: min(max(3vw, 8px), 12px) min(max(3vw, 8px), 12px) 0% 0%;
+      border-top: min(max(1.5vw, 4px), 6px) solid rgba(220, 220, 220, 1);
+      border-left: min(max(1.5vw, 4px), 6px) solid rgba(220, 220, 220, 1);
+      border-right: min(max(1.5vw, 4px), 6px) solid rgba(220, 220, 220, 1);
+      scale: 1.2;
+      opacity: 0;
+      pointer-events: none;
+      transition: scale 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    .show-water-clock .water-clock-enclosure {
+      scale: 1;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .water-clock-left {
+      position: fixed;
+      bottom: 0%;
+      right: calc(50% - min(max(1.5vw, 4px), 6px));
+      width: min(40vw, 20vh);
+      aspect-ratio: 1/2;
+      background-color: transparent;
+      border-left: min(max(1.5vw, 4px), 6px) solid #000;
+      border-right: min(max(1.5vw, 4px), 6px) solid #000;
+      border-bottom: min(max(1.5vw, 4px), 6px) solid #000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+
+      z-index: 2;
+    }
+
+    .show-water-clock .water-clock-left {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .water-clock-left::after {
+      content: "";
+      position: absolute;
+      bottom: 0%;
+      left: 0%;
+      width: 100%;
+      height: 0%;
+      background-color: rgba(var(--water-blue), 1);
+      transition: height 0.5s ease-in-out;
+
+      z-index: 1;
+    }
+
+    .show-water-clock .water-clock-left::after {
+      height: calc(var(--water-clock-height) * 0.75 + 25%);
+    }
+
+    .water-clock-floating-base {
+      position: absolute;
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      background-color: #fff;
+      border-radius: min(max(3vw, 8px), 12px);
+      border: min(max(1.5vw, 4px), 6px) solid #000;
+      transition: top 0.5s ease-in-out;
+
+      z-index: 2;
+    }
+
+    .show-water-clock .water-clock-floating-base {
+      top: calc(75% - var(--water-clock-height) * 0.75);
+    }
+
+    .water-clock-floating-base-inner {
+      width: 100%;
+      aspect-ratio: 2/1;
+    }
+
+    .water-clock-pointer {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      width: min(max(1.5vw, 4px), 6px);
+      height: calc(
+        90vh - min(80vw, 40vh) * 17 / 16 - min(max(1.5vw, 4px), 6px)
+      );
+      background-color: #000;
+      z-index: 3;
+    }
+
+    .water-clock-arrow {
+      position: absolute;
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      translate: min(10vw, 5vh) 0%;
+      width: min(30vw, 15vh);
+      height: min(max(1.5vw, 4px), 6px);
+      background-color: #000;
+      z-index: 3;
+    }
+
+    .water-clock-arrow::before {
+      content: "";
+      position: absolute;
+      top: calc(min(max(1.5vw, 4px), 6px) * -1);
+      left: 99%;
+      height: calc(100% + min(max(1.5vw, 4px), 6px) * 2);
+      aspect-ratio: calc(sqrt(3) / 2);
+      background-color: #000;
+      clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+    }
+
+    .water-clock-pipe {
+      position: fixed;
+      bottom: calc(min(80vw, 40vh) * 1.2);
+      left: 0%;
+      width: calc((100vw - min(80vw, 40vh)) * 0.5 + min(max(2.5vw, 8px), 10px));
+      height: min(max(1.5vw, 4px), 6px);
+      border-top: min(max(1.5vw, 4px), 6px) solid #000;
+      border-bottom: min(max(1.5vw, 4px), 6px) solid #000;
+      background-color: rgba(var(--water-blue), 1);
+      translate: -100% 0%;
+      transition: translate 0.5s ease-in-out;
+    }
+
+    .show-water-clock .water-clock-pipe {
+      translate: 0% 0%;
+    }
+
+    .water-clock-water-drop {
+      position: absolute;
+      top: 0%;
+      left: 100%;
+      width: min(max(1.5vw, 4px), 6px);
+      height: 0%;
+      opacity: 0;
+
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(var(--water-blue), 1),
+        rgba(var(--water-blue), 1) min(max(4.5vw, 12px), 18px),
+        transparent min(max(4.5vw, 12px), 18px),
+        transparent min(max(9vw, 24px), 36px)
+      );
+      background-size: 100% min(max(9vw, 24px), 36px);
+
+      transition: height 1.5s ease-in-out, opacity 0.5s ease-in-out;
+      animation: water-drop-animation 20s linear infinite;
+    }
+
+    .show-water-clock .water-clock-water-drop {
+      height: calc(calc(min(80vw, 40vh) * 1.2) + min(max(1.5vw, 4px), 6px));
+      opacity: 1;
+    }
+
+    @keyframes water-drop-animation {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 0% 100%;
+      }
+    }
+
+    .water-clock-right {
+      position: fixed;
+      bottom: -100%;
+      left: 50%;
+      width: min(40vw, 20vh);
+      height: 100vh;
+      background-color: transparent;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, bottom 0.5s ease-in-out;
+    }
+
+    .show-water-clock .water-clock-right {
+      bottom: 0%;
+      opacity: 1;
+    }
+
+    .water-clock-right-cylinder {
+      position: absolute;
+      overflow: visible;
+      top: 10vh;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      width: min(20vw, 10vh);
+      height: min(60vw, 30vh);
+      background-color: transparent;
+      border-radius: min(max(3vw, 8px), 12px);
+      border: min(max(1.5vw, 4px), 6px) solid #000;
+      display: flex;
+    }
+
+    .water-clock-right-cylinder::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      width: min(max(2.5vw, 8px), 10px);
+      height: calc(90vh - min(60vw, 30vh));
+      background-color: #000;
+    }
+
+    .water-clock-marks {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+
+    .water-clock-marks-column1,
+    .water-clock-marks-column2 {
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      transition: left 0.5s ease-in-out;
+    }
+
+    .water-clock-marks-column2 {
+      left: 100%;
+    }
+
+    .water-clock-marks-2 .water-clock-marks-column1 {
+      left: -100%;
+    }
+
+    .water-clock-marks-2 .water-clock-marks-column2 {
+      left: 0%;
+    }
+
+    .water-clock-mark {
+      position: relative;
+      width: 100%;
+      height: min(max(0.25vw, 1px), 1.5px);
+      background-color: rgba(220, 220, 220, 1);
+    }
+
+    .water-clock-mark-text {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(0%, -50%);
+      padding-left: min(max(1.5vw, 4px), 6px);
+      color: #000;
+      font-family: "SFMono";
+      font-size: min(max(4vw, 10px), 16px);
+      font-weight: 700;
+      text-align: left;
+    }
+  </style>
+
+  <script>
+    function startSmoothClock() {
+      function tick() {
+        const now = new Date();
+        let milliseconds = now.getMilliseconds();
+        let seconds = now.getSeconds();
+        let minutes = now.getMinutes();
+        let hours = now.getHours();
+
+        let percentage =
+          (((hours % 6) + minutes / 60 + seconds / 3600) / 7) * 100;
+        if (hours < 6 || hours % 12 < 6) {
+          document.getElementById("water-clock-marks").classList =
+            "water-clock-marks water-clock-marks-1";
+        } else {
+          document.getElementById("water-clock-marks").classList =
+            "water-clock-marks water-clock-marks-2";
+        }
+        document.documentElement.style.setProperty(
+          "--water-clock-height",
+          percentage + "%"
+        );
+
+        requestAnimationFrame(tick);
+      }
+
+      tick();
+    }
+
+    startSmoothClock();
+  </script>
+</html>

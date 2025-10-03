@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 29/100</title>
+  </head>
+  <body class="show-led-clock">
+    <main>
+      <div class="led-clock">
+        <div class="led-clock-main">
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-1"
+              id="led-clock-display-1"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-9"
+              id="led-clock-display-2"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+          <div class="led-clock-colon"></div>
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-4"
+              id="led-clock-display-3"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-0"
+              id="led-clock-display-4"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+          <div class="led-clock-colon"></div>
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-0"
+              id="led-clock-display-5"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+          <div class="led-clock-display-container">
+            <div
+              class="led-clock-display led-clock-display-0"
+              id="led-clock-display-6"
+            >
+              <div class="led-clock-digit-1"></div>
+              <div class="led-clock-digit-2"></div>
+              <div class="led-clock-digit-3"></div>
+              <div class="led-clock-digit-4"></div>
+              <div class="led-clock-digit-5"></div>
+              <div class="led-clock-digit-6"></div>
+              <div class="led-clock-digit-7"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      /* LED Clock */
+      .led-clock {
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      .show-led-clock {
+        background-color: #000;
+      }
+
+      .show-led-clock .led-clock {
+        pointer-events: auto;
+      }
+
+      .led-clock-main {
+        position: relative;
+        width: 70vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        gap: 1.5vw;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .show-led-clock .led-clock-main {
+        opacity: 1;
+      }
+
+      .led-clock-display-container {
+        width: 100%;
+        aspect-ratio: 1/2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .led-clock-display {
+        position: relative;
+        width: 100%;
+        height: calc(100% - 1.5vw);
+      }
+
+      .led-clock-digit-1,
+      .led-clock-digit-4,
+      .led-clock-digit-7 {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: calc(100% - 3vw);
+        height: 1.5vw;
+        background-color: #fff;
+
+        transition: background-color 0.25s ease-in-out;
+      }
+
+      .led-clock-digit-4 {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .led-clock-digit-7 {
+        top: auto;
+        bottom: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+      }
+
+      .led-clock-digit-2,
+      .led-clock-digit-5 {
+        position: absolute;
+        top: 1.5vw;
+        left: 0%;
+        width: 1.5vw;
+        height: calc((100% - 4.5vw) / 2);
+        background-color: #fff;
+
+        transition: background-color 0.25s ease-in-out;
+      }
+
+      .led-clock-digit-5 {
+        top: auto;
+        bottom: 1.5vw;
+      }
+
+      .led-clock-digit-3,
+      .led-clock-digit-6 {
+        position: absolute;
+        top: 1.5vw;
+        right: 0%;
+        width: 1.5vw;
+        height: calc((100% - 4.5vw) / 2);
+        background-color: #fff;
+
+        transition: background-color 0.25s ease-in-out;
+      }
+
+      .led-clock-digit-6 {
+        top: auto;
+        bottom: 1.5vw;
+      }
+
+      .led-clock-display-1 .led-clock-digit-1,
+      .led-clock-display-1 .led-clock-digit-2,
+      .led-clock-display-1 .led-clock-digit-4,
+      .led-clock-display-1 .led-clock-digit-5,
+      .led-clock-display-1 .led-clock-digit-7 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-2 .led-clock-digit-2,
+      .led-clock-display-2 .led-clock-digit-6 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-3 .led-clock-digit-2,
+      .led-clock-display-3 .led-clock-digit-5 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-4 .led-clock-digit-1,
+      .led-clock-display-4 .led-clock-digit-5,
+      .led-clock-display-4 .led-clock-digit-7 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-5 .led-clock-digit-3,
+      .led-clock-display-5 .led-clock-digit-5 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-6 .led-clock-digit-3 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-7 .led-clock-digit-2,
+      .led-clock-display-7 .led-clock-digit-4,
+      .led-clock-display-7 .led-clock-digit-5,
+      .led-clock-display-7 .led-clock-digit-7 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-9 .led-clock-digit-5,
+      .led-clock-display-9 .led-clock-digit-7 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-display-0 .led-clock-digit-4 {
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .led-clock-colon {
+        position: relative;
+        width: 1.5vw;
+        min-width: 1.5vw;
+        height: 100%;
+      }
+
+      .led-clock-colon::before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 3.75vw);
+        left: 0%;
+        width: 1.5vw;
+        height: 1.5vw;
+        background-color: #fff;
+      }
+
+      .led-clock-colon::after {
+        content: "";
+        position: absolute;
+        bottom: calc(50% - 3.75vw);
+        left: 0%;
+        width: 1.5vw;
+        height: 1.5vw;
+        background-color: #fff;
+      }
+    </style>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        let milliseconds = now.getMilliseconds();
+        let seconds = now.getSeconds();
+        let minutes = now.getMinutes();
+        let hours = now.getHours();
+
+        let timeString =
+          hours.toString().padStart(2, "0") +
+          minutes.toString().padStart(2, "0") +
+          seconds.toString().padStart(2, "0");
+        let display1 = document.getElementById("led-clock-display-1");
+        let display2 = document.getElementById("led-clock-display-2");
+        let display3 = document.getElementById("led-clock-display-3");
+        let display4 = document.getElementById("led-clock-display-4");
+        let display5 = document.getElementById("led-clock-display-5");
+        let display6 = document.getElementById("led-clock-display-6");
+
+        display1.classList =
+          "led-clock-display led-clock-display-" + timeString[0];
+        display2.classList =
+          "led-clock-display led-clock-display-" + timeString[1];
+        display3.classList =
+          "led-clock-display led-clock-display-" + timeString[2];
+        display4.classList =
+          "led-clock-display led-clock-display-" + timeString[3];
+        display5.classList =
+          "led-clock-display led-clock-display-" + timeString[4];
+        display6.classList =
+          "led-clock-display led-clock-display-" + timeString[5];
+
+        const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+        setTimeout(updateClock, millisecondsToNextSecond);
+      }
+
+      updateClock();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 31/100</title>
+  </head>
+  <body class="show-gui-clock">
+    <div class="gui-clock">
+      <div class="gui-clock-mac">
+        <div class="gui-clock-screen">
+          <div class="gui-clock-screen-window">
+            <div class="gui-clock-screen-window-bar">
+              <div class="gui-clock-screen-window-bar-background">
+                <div class="gui-clock-screen-window-bar-line"></div>
+                <div class="gui-clock-screen-window-bar-line"></div>
+              </div>
+              <div class="gui-clock-screen-window-bar-text">Clock</div>
+            </div>
+            <div class="gui-clock-screen-time" id="gui-clock-time">
+              19:50:00
+            </div>
+          </div>
+        </div>
+        <div class="gui-clock-disk-slot"></div>
+        <div class="gui-clock-logo"></div>
+      </div>
+    </div>
+  </body>
+
+  <style>
+    @font-face {
+      font-family: "Chicago";
+      src: url("/assets/Chicago.woff2") format("woff2");
+      font-weight: 400;
+    }
+
+    :root {
+      --mac-beige: 230, 219, 190;
+      --mac-beige-dark: 206, 195, 166;
+    }
+
+    /* GUI Clock */
+    .gui-clock {
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .show-gui-clock {
+      background-color: #fff;
+    }
+
+    .show-gui-clock .gui-clock {
+      pointer-events: auto;
+    }
+
+    .gui-clock-mac {
+      position: relative;
+      width: min(80vw, 40vh);
+      aspect-ratio: 3/4;
+      background-color: rgba(var(--mac-beige-dark), 1);
+      border-radius: min(max(5vw, 12px), 20px);
+      border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      translate: 0% -10%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, translate 0.5s ease-in-out;
+
+      z-index: 1;
+    }
+
+    .show-gui-clock .gui-clock-mac {
+      opacity: 1;
+      translate: 0% 0%;
+    }
+
+    .gui-clock-mac::after {
+      content: "";
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 90%;
+
+      background-color: rgba(var(--mac-beige), 1);
+      border-radius: min(max(5vw, 12px), 20px);
+      /* border: min(max(0.75vw, 1.5px), 3px) solid #000; */
+    }
+
+    .gui-clock-screen {
+      width: calc(100% - min(max(10vw, 15px), 40px) * 2);
+      margin-top: calc(
+        min(max(10vw, 15px), 40px) - min(max(0.75vw, 1.5px), 3px)
+      );
+      aspect-ratio: 4/3;
+      background-color: #fff;
+      border-radius: min(max(1.25vw, 3px), 5px);
+      border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      z-index: 2;
+    }
+
+    .gui-clock-screen-window {
+      background-color: #fff;
+      border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: scale(0);
+      transform-origin: center center;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .show-gui-clock .gui-clock-screen-window {
+      transform: scale(1);
+    }
+
+    .gui-clock-screen-window-bar {
+      position: relative;
+      width: 100%;
+      border-bottom: min(max(0.75vw, 1.5px), 3px) solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .gui-clock-screen-window-bar-background {
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+
+      z-index: 1;
+    }
+
+    .gui-clock-screen-window-bar-line {
+      width: calc(100% - min(max(0.5vw, 1px), 2px) * 2);
+      height: min(max(0.75vw, 1.5px), 3px);
+      background-color: #000;
+      z-index: 1;
+    }
+
+    .gui-clock-screen-window-bar-text {
+      font-family: "Chicago";
+      width: fit-content;
+      padding-left: min(max(0.5vw, 1px), 2px);
+      padding-right: min(max(0.5vw, 1px), 2px);
+      font-size: min(max(3.75vw, 8px), 15px);
+      font-weight: 400;
+      color: #000;
+      background-color: #fff;
+      text-align: center;
+
+      z-index: 2;
+    }
+
+    .gui-clock-screen-time {
+      padding-left: min(max(1vw, 2px), 4px);
+      padding-right: min(max(1vw, 2px), 4px);
+      font-family: "Chicago";
+      font-size: min(max(7.5vw, 16px), 30px);
+      font-weight: 400;
+      color: #000;
+      text-align: center;
+    }
+
+    .gui-clock-disk-slot {
+      position: absolute;
+      bottom: 30%;
+      right: min(max(10vw, 15px), 40px);
+      width: 40%;
+      height: min(max(0.75vw, 1.5px), 3px);
+      background-color: #000;
+      border-radius: min(max(0.75vw, 1.5px), 3px);
+
+      z-index: 2;
+    }
+
+    .gui-clock-disk-slot::after {
+      content: "";
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      transform: translate(0%, calc(-50% + min(max(0.75vw, 1.5px), 3px) / 2));
+      width: 25%;
+      height: min(max(3.75vw, 7.5px), 15px);
+      border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      border-radius: min(max(0.75vw, 1.5px), 3px);
+    }
+
+    .gui-clock-logo {
+      position: absolute;
+      bottom: calc(10% + min(max(10vw, 15px), 40px));
+      left: min(max(10vw, 15px), 40px);
+      width: min(max(3.75vw, 7.5px), 15px);
+      aspect-ratio: 1/1;
+      border: min(max(0.75vw, 1.5px), 3px) solid #000;
+      border-radius: min(max(0.75vw, 1.5px), 3px);
+
+      z-index: 2;
+    }
+  </style>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let milliseconds = now.getMilliseconds();
+      let seconds = now.getSeconds();
+      let minutes = now.getMinutes();
+      let hours = now.getHours();
+
+      let timeString =
+        hours.toString().padStart(2, "0") +
+        ":" +
+        minutes.toString().padStart(2, "0") +
+        ":" +
+        seconds.toString().padStart(2, "0");
+      document.getElementById("gui-clock-time").textContent = timeString;
+
+      const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+      setTimeout(updateClock, millisecondsToNextSecond);
+    }
+
+    updateClock();
+  </script>
+</html>

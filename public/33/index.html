@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 33/100</title>
+  </head>
+  <body class="show-quantum-clock">
+    <div class="quantum-clock">
+      <div class="quantum-clock-main" id="quantum-clock-main">
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-1"
+          data-value="0"
+        >
+          0
+        </div>
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-2"
+          data-value="0"
+        >
+          0
+        </div>
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-3"
+          data-value="0"
+        >
+          0
+        </div>
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-4"
+          data-value="0"
+        >
+          0
+        </div>
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-5"
+          data-value="0"
+        >
+          0
+        </div>
+        <div
+          class="quantum-clock-digit"
+          id="quantum-clock-digit-6"
+          data-value="0"
+        >
+          0
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <style>
+    @font-face {
+      font-family: "SpaceMono";
+      src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+      font-weight: 700;
+    }
+
+    /* Quantum Clock */
+    .quantum-clock {
+      position: fixed;
+      top: 0%;
+      left: 0%;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .show-quantum-clock {
+      background-color: #000;
+    }
+
+    .show-quantum-clock .quantum-clock {
+      pointer-events: auto;
+    }
+
+    .quantum-clock-main {
+      display: flex;
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+      gap: min(max(2vw, 4px), 9px);
+    }
+
+    .quantum-clock-digit {
+      font-family: "SpaceMono";
+      font-size: min(max(20vw, 40px), 90px);
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      line-height: 0.8;
+
+      transform: scale(0);
+      opacity: 0;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+
+    .show-quantum-clock .quantum-clock-digit {
+      transform: scale(1);
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let milliseconds = now.getMilliseconds();
+      let seconds = now.getSeconds();
+      let minutes = now.getMinutes();
+      let hours = now.getHours();
+
+      let timeString =
+        hours.toString().padStart(2, "0") +
+        minutes.toString().padStart(2, "0") +
+        seconds.toString().padStart(2, "0");
+      let display1 = document.getElementById("quantum-clock-digit-1");
+      let display2 = document.getElementById("quantum-clock-digit-2");
+      let display3 = document.getElementById("quantum-clock-digit-3");
+      let display4 = document.getElementById("quantum-clock-digit-4");
+      let display5 = document.getElementById("quantum-clock-digit-5");
+      let display6 = document.getElementById("quantum-clock-digit-6");
+
+      display1.setAttribute("data-value", timeString[0]);
+      display2.setAttribute("data-value", timeString[1]);
+      display3.setAttribute("data-value", timeString[2]);
+      display4.setAttribute("data-value", timeString[3]);
+      display5.setAttribute("data-value", timeString[4]);
+      display6.setAttribute("data-value", timeString[5]);
+
+      const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+      setTimeout(updateClock, millisecondsToNextSecond);
+    }
+
+    updateClock();
+
+    // Quantum Clock
+    const quantumClockMain = document.getElementById("quantum-clock-main");
+
+    const quantumDigit1 = document.getElementById("quantum-clock-digit-1");
+    const quantumDigit2 = document.getElementById("quantum-clock-digit-2");
+    const quantumDigit3 = document.getElementById("quantum-clock-digit-3");
+    const quantumDigit4 = document.getElementById("quantum-clock-digit-4");
+    const quantumDigit5 = document.getElementById("quantum-clock-digit-5");
+    const quantumDigit6 = document.getElementById("quantum-clock-digit-6");
+
+    let interval;
+
+    function getRandomDigit() {
+      let digit = Math.floor(Math.random() * 11);
+      if (digit == 10) {
+        digit = "?";
+      }
+      return digit;
+    }
+
+    function startFlicker() {
+      interval = setInterval(() => {
+        quantumDigit1.textContent = getRandomDigit();
+        quantumDigit2.textContent = getRandomDigit();
+        quantumDigit3.textContent = getRandomDigit();
+        quantumDigit4.textContent = getRandomDigit();
+        quantumDigit5.textContent = getRandomDigit();
+        quantumDigit6.textContent = getRandomDigit();
+      }, 50);
+    }
+
+    function stopFlicker() {
+      clearInterval(interval);
+      quantumDigit1.textContent = quantumDigit1.getAttribute("data-value");
+      quantumDigit2.textContent = quantumDigit2.getAttribute("data-value");
+      quantumDigit3.textContent = quantumDigit3.getAttribute("data-value");
+      quantumDigit4.textContent = quantumDigit4.getAttribute("data-value");
+      quantumDigit5.textContent = quantumDigit5.getAttribute("data-value");
+      quantumDigit6.textContent = quantumDigit6.getAttribute("data-value");
+    }
+
+    quantumClockMain.onmouseenter = () => {
+      stopFlicker();
+    };
+
+    quantumClockMain.onmouseleave = () => {
+      startFlicker();
+    };
+
+    startFlicker();
+  </script>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 36/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="toggle-indicator"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 200px;
+        height: 100px;
+        border-radius: 100px;
+        background-color: rgba(50, 50, 50, 1);
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-indicator {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translate(0%, -50%);
+        width: 80px;
+        height: 80px;
+        border-radius: 80px;
+        background-color: #fff;
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-indicator::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        background-color: rgba(50, 50, 50, 1);
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-on {
+        background-color: #fff;
+      }
+
+      .toggle-on .toggle-indicator {
+        width: 20px;
+        border-radius: 10px;
+        left: calc(100% - 60px);
+        background-color: rgba(50, 50, 50, 1);
+      }
+
+      .toggle-on .toggle-indicator::after {
+        width: 0px;
+        height: 0px;
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById("toggle");
+
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("toggle-on");
+      });
+    </script>
+  </body>
+</html>

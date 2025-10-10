@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 37/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="login">
+        <div class="title">Login</div>
+        <div class="inputs" id="inputs">
+          <input class="empty-input" type="text" placeholder="Empty" />
+          <input class="username-input" type="text" placeholder="Username" />
+          <input
+            class="password-input"
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <button type="button" class="button" id="button">
+          <div class="button-texts">
+            <div class="button-text-placeholder">Continue</div>
+            <div class="button-text-1">Continue</div>
+            <div class="button-text-2">Submit</div>
+          </div>
+        </button>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: calc(100vw - 40px);
+        padding: 20px;
+        max-width: 500px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+      }
+
+      .login {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+      }
+
+      .title {
+        color: #fff;
+        font-size: 60px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      .inputs {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        transform-style: preserve-3d;
+        transform: rotateX(0deg);
+
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .empty-input,
+      .username-input,
+      .password-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(100% - 20px);
+        border: none;
+        outline: 3px solid #fff;
+        outline-offset: -3px;
+        border-radius: 0px;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        font-size: 20px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        text-align: center;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      .empty-input {
+        position: relative;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .password-input {
+        transform: rotateX(180deg);
+      }
+
+      .inputs-password {
+        transform: rotateX(180deg);
+      }
+
+      .button {
+        position: relative;
+        cursor: pointer;
+        width: 100%;
+        border: none;
+        background-color: #fff;
+        border-radius: 0px;
+        padding: 10px;
+        margin-bottom: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+
+        transition: background-color 0.25s ease-in-out;
+      }
+
+      .button:hover {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      .button-texts {
+        position: relative;
+        display: flex;
+        transform-style: preserve-3d;
+        transform: rotateX(0deg);
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .button-text-placeholder,
+      .button-text-1,
+      .button-text-2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        color: #000;
+        font-size: 20px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .button-text-placeholder {
+        position: relative;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .button-text-2 {
+        transform: rotateX(180deg);
+      }
+
+      .button-submit .button-texts {
+        transform: rotateX(180deg);
+      }
+    </style>
+
+    <script>
+      const inputs = document.getElementById("inputs");
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", () => {
+        inputs.classList.toggle("inputs-password");
+        if (button.classList.contains("button-submit")) {
+          location.href = "";
+        } else {
+          button.classList.add("button-submit");
+        }
+      });
+    </script>
+  </body>
+</html>

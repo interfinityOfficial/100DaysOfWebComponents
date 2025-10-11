@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 38/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="texts">
+        <div class="text">TO SERVER</div>
+        <div class="dot-section">
+          <div class="dot"></div>
+        </div>
+        <div class="text">UPLOADING</div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .texts {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .text {
+        color: #fff;
+        font-size: 20px;
+        padding: 20px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+      }
+
+      .dot-section {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+
+      .dot {
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+
+        animation: dot-animation 1.5s ease-in-out infinite;
+      }
+
+      @keyframes dot-animation {
+        0% {
+          top: 0%;
+        }
+
+        50% {
+          top: 100%;
+        }
+
+        100% {
+          top: 0%;
+        }
+      }
+    </style>
+  </body>
+</html>

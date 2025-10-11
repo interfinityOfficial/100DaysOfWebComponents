@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 39/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="progressBar" id="progressBar"></div>
+      <div class="progress-text" id="progress-text">0%</div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 300px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .progressBar {
+        width: calc(100% - 40px);
+        height: 60px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .progressBarItem {
+        width: 5%;
+        height: 2px;
+        background-color: #fff;
+        transition: height 0.5s ease-in-out;
+      }
+
+      .progressBarItem-active {
+        height: 100%;
+      }
+
+      .progress-text {
+        color: #fff;
+        font-size: 24px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+      }
+    </style>
+
+    <script>
+      const progressBar = document.getElementById("progressBar");
+      for (let i = 0; i < 20; i++) {
+        const progressBarItem = document.createElement("div");
+        progressBarItem.classList.add("progressBarItem");
+        progressBarItem.id = `progressBarItem-${i + 1}`;
+        progressBar.appendChild(progressBarItem);
+      }
+
+      var progress = 0;
+      let interval = setInterval(() => {
+        progress++;
+        document
+          .getElementById(`progressBarItem-${progress}`)
+          .classList.add("progressBarItem-active");
+        document.getElementById("progress-text").textContent = `${
+          progress * 5
+        }%`;
+        if (progress >= 20) {
+          progress = 0;
+          clearInterval(interval);
+        }
+      }, 400);
+    </script>
+  </body>
+</html>

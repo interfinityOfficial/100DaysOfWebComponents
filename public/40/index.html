@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 40/100</title>
+  </head>
+  <body>
+    <main>
+      <button type="button" class="button" id="button">
+        <div class="button-background"></div>
+        <div class="button-text">Get Started</div>
+        <svg
+          class="button-icon"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 12.5093 17.5529"
+        >
+          <g>
+            <rect height="17.5529" opacity="0" width="12.5093" x="0" y="0" />
+            <path
+              d="M12.5093 8.77158C12.5031 8.37216 12.3588 8.03887 12.0366 7.72645L4.52897 0.371912C4.27244 0.12205 3.97065 0 3.60184 0C2.874 0 2.28152 0.579605 2.28152 1.31101C2.28152 1.67005 2.42886 2.00335 2.6938 2.26873L9.37463 8.76847L2.6938 15.2744C2.43197 15.5367 2.28152 15.8664 2.28152 16.2353C2.28152 16.9635 2.874 17.5463 3.60184 17.5463C3.96444 17.5463 4.27244 17.4242 4.52897 17.1677L12.0366 9.8167C12.3619 9.49762 12.5093 9.16788 12.5093 8.77158Z"
+            />
+          </g>
+        </svg>
+      </button>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      :root {
+        --mouse-x: 50%;
+        --mouse-y: 50%;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 300px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .button {
+        position: relative;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100px;
+        outline: 3px solid #fff;
+        outline-offset: -3px;
+        gap: 10px;
+        padding: 15px;
+        padding-left: 25px;
+        padding-right: 20px;
+
+        transition: outline 0.3s ease-in-out, outline-offset 0.3s ease-in-out;
+      }
+
+      .button:hover {
+        outline: 6px solid transparent;
+        outline-offset: 6px;
+      }
+
+      .button-text {
+        color: #fff;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        z-index: 2;
+
+        transition: color 0.3s ease-in-out;
+      }
+
+      .button:hover .button-text {
+        color: #000;
+      }
+
+      .button-icon {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+        z-index: 2;
+
+        transition: fill 0.3s ease-in-out;
+      }
+
+      .button:hover .button-icon {
+        fill: #000;
+      }
+
+      .button-background {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        transform-origin: var(--mouse-x) var(--mouse-y);
+        scale: 0;
+        z-index: 1;
+        border-radius: 100px;
+
+        transition: scale 0.3s ease-in-out;
+      }
+
+      .button:hover .button-background {
+        scale: 1;
+      }
+    </style>
+
+    <script>
+      const button = document.getElementById("button");
+
+      button.onmouseenter = (event) => {
+        const rect = button.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+
+        document.documentElement.style.setProperty("--mouse-x", `${x * 100}%`);
+        document.documentElement.style.setProperty("--mouse-y", `${y * 100}%`);
+      };
+
+      button.onmousemove = (event) => {
+        const rect = button.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+
+        document.documentElement.style.setProperty("--mouse-x", `${x * 100}%`);
+        document.documentElement.style.setProperty("--mouse-y", `${y * 100}%`);
+      };
+
+      //   button.onmouseleave = () => {
+      //     document.documentElement.style.setProperty("--mouse-x", "50%");
+      //     document.documentElement.style.setProperty("--mouse-y", "50%");
+      //   };
+    </script>
+  </body>
+</html>

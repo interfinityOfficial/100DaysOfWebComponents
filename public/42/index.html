@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 42/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown-item placeholder" id="dropdown-placeholder">
+          September
+        </div>
+        <div class="dropdown-content" id="dropdown-content">
+          <div class="dropdown-item">January</div>
+          <div class="dropdown-item">February</div>
+          <div class="dropdown-item">March</div>
+          <div class="dropdown-item">April</div>
+          <div class="dropdown-item">May</div>
+          <div class="dropdown-item">June</div>
+          <div class="dropdown-item">July</div>
+          <div class="dropdown-item">August</div>
+          <div class="dropdown-item">September</div>
+          <div class="dropdown-item">October</div>
+          <div class="dropdown-item">November</div>
+          <div class="dropdown-item">December</div>
+        </div>
+        <svg
+          class="dropdown-icon"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 12.5093 17.5529"
+        >
+          <g>
+            <rect height="17.5529" opacity="0" width="12.5093" x="0" y="0" />
+            <path
+              d="M12.5093 8.77158C12.5031 8.37216 12.3588 8.03887 12.0366 7.72645L4.52897 0.371912C4.27244 0.12205 3.97065 0 3.60184 0C2.874 0 2.28152 0.579605 2.28152 1.31101C2.28152 1.67005 2.42886 2.00335 2.6938 2.26873L9.37463 8.76847L2.6938 15.2744C2.43197 15.5367 2.28152 15.8664 2.28152 16.2353C2.28152 16.9635 2.874 17.5463 3.60184 17.5463C3.96444 17.5463 4.27244 17.4242 4.52897 17.1677L12.0366 9.8167C12.3619 9.49762 12.5093 9.16788 12.5093 8.77158Z"
+            />
+          </g>
+        </svg>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      :root {
+        --dropdown-height: 44px;
+        --dropdown-top: 0px;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 300px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .dropdown {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        height: var(--dropdown-height);
+
+        margin-top: max(5vw, 20px);
+        outline: 3px solid #fff;
+        outline-offset: 6px;
+        border-radius: 22px;
+
+        transition: height 0.5s ease-in-out;
+      }
+
+      .dropdown-icon {
+        position: absolute;
+        top: 14px;
+        right: 10px;
+        width: 16px;
+        height: 16px;
+        fill: #fff;
+
+        transition: right 0.5s ease-in-out;
+      }
+
+      .dropdown.open .dropdown-icon {
+        right: -16px;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        top: var(--dropdown-top);
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        transition: top 0.5s ease-in-out;
+      }
+
+      .dropdown-item {
+        position: relative;
+        cursor: pointer;
+        color: #fff;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 10px;
+        padding-left: 15px;
+        padding-right: 35px;
+
+        transition: color 0.25s ease-in-out;
+      }
+
+      .dropdown-item::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 22px;
+        background-color: rgba(255, 255, 255, 0.15);
+        scale: 0.7;
+        opacity: 0%;
+        transition: scale 0.25s ease-in-out, opacity 0.25s ease-in-out;
+      }
+
+      .dropdown-item:hover::after {
+        scale: 1;
+        opacity: 100%;
+      }
+
+      .placeholder {
+        visibility: hidden;
+        pointer-events: none;
+      }
+    </style>
+
+    <script>
+      let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let month = new Date().getMonth();
+      let monthName = months[month];
+      const dropdown = document.getElementById("dropdown");
+      const dropdownContent = document.getElementById("dropdown-content");
+      const dropdownItem = document.getElementById("dropdown-item");
+      const dropdownPlaceholder = document.getElementById(
+        "dropdown-placeholder"
+      );
+
+      function updateDropdownHeight() {
+        if (dropdown.classList.contains("open")) {
+          document.documentElement.style.setProperty(
+            "--dropdown-height",
+            `${dropdownContent.offsetHeight}px`
+          );
+        } else {
+          document.documentElement.style.setProperty(
+            "--dropdown-height",
+            `${dropdownPlaceholder.offsetHeight}px`
+          );
+        }
+      }
+
+      const observer = new ResizeObserver(() => {
+        updateDropdownHeight();
+      });
+
+      for (const index in dropdownContent.children) {
+        dropdownContent.children[index].onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (dropdown.classList.contains("open")) {
+            monthName = dropdownContent.children[index].textContent;
+            document.documentElement.style.setProperty(
+              "--dropdown-top",
+              `${index * dropdownPlaceholder.offsetHeight * -1}px`
+            );
+          } else {
+            document.documentElement.style.setProperty(
+              "--dropdown-top",
+              `${0}px`
+            );
+          }
+          dropdown.classList.toggle("open");
+          updateDropdownHeight();
+        };
+      }
+
+      document.documentElement.style.setProperty(
+        "--dropdown-top",
+        `${month * -44}px`
+      );
+
+      updateDropdownHeight();
+      observer.observe(dropdownContent);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 43/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="progress-text" id="progress-text">0%</div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        max-width: 300px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .progress-bar {
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .progress-bar-digit,
+      .progress-text {
+        color: #fff;
+        font-size: min(max(4vw, 16px), 48px);
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+      }
+    </style>
+
+    <script>
+      const progressBar = document.getElementById("progress-bar");
+      const string = "UPLOAD_COMPLETED";
+      for (let i = 0; i < string.length; i++) {
+        const progressBarItem = document.createElement("div");
+        progressBarItem.classList.add("progress-bar-digit");
+        progressBarItem.id = `progress-bar-digit-${i + 1}`;
+        progressBarItem.setAttribute("data-value", string[i]);
+        progressBarItem.textContent = string[i];
+        progressBar.appendChild(progressBarItem);
+      }
+
+      var progress = 0;
+      let interval = setInterval(() => {
+        progress++;
+        document.getElementById("progress-text").textContent = `${Math.round(
+          progress * (100 / string.length)
+        )}%`;
+        if (progress >= string.length) {
+          clearInterval(interval);
+        }
+      }, 400);
+
+      let interval2;
+
+      function getRandomDigit() {
+        let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ-?!";
+        let digit = letters[Math.floor(Math.random() * letters.length)];
+        return digit;
+      }
+
+      function startFlicker() {
+        interval2 = setInterval(() => {
+          for (let i = 0; i < string.length; i++) {
+            if (i > progress) {
+              document.getElementById(
+                `progress-bar-digit-${i + 1}`
+              ).textContent = getRandomDigit();
+            } else {
+              document.getElementById(
+                `progress-bar-digit-${i + 1}`
+              ).textContent = document
+                .getElementById(`progress-bar-digit-${i + 1}`)
+                .getAttribute("data-value");
+            }
+          }
+        }, 50);
+      }
+
+      startFlicker();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 45/100</title>
+  </head>
+  <body>
+    <main>
+      <button class="main-button" id="alert-main">SELF DESTRUCT</button>
+      <div class="alert-box" id="alert-box">
+        <div class="alert-text" id="alert-text"></div>
+        <div class="alert-buttons">
+          <button class="alert-button" id="alert-dismiss">NO</button>
+          <button class="alert-button" id="alert-action">STILL NO</button>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "Tiny5";
+        src: url("/assets/Tiny5.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .alert-box {
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 40px);
+        max-width: 400px;
+        background-color: #fff;
+        z-index: 15;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        opacity: 0;
+
+        transition: opacity 0.3s ease-in-out, top 0.3s ease-in-out;
+      }
+
+      .show-alert .alert-box {
+        pointer-events: auto;
+        top: 50%;
+        opacity: 1;
+      }
+
+      .alert-text {
+        font-family: "Tiny5";
+        font-size: 24px;
+        color: #000;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .alert-buttons {
+        width: calc(100% - 40px);
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .main-button,
+      .alert-button {
+        width: 100%;
+        padding: 10px;
+        cursor: pointer;
+        background-color: transparent;
+        color: #000;
+        border: 3px solid #000;
+        font-family: "Tiny5";
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      }
+
+      .main-button {
+        color: #fff;
+        border: 3px solid #fff;
+      }
+
+      .main-button:hover {
+        background-color: #fff;
+        color: #000;
+      }
+
+      .alert-button:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    </style>
+    <script>
+      const alertMain = document.getElementById("alert-main");
+      const alertBox = document.getElementById("alert-box");
+      const alertText = document.getElementById("alert-text");
+      const alertButtons = document.getElementById("alert-buttons");
+      const alertDismiss = document.getElementById("alert-dismiss");
+      const alertAction = document.getElementById("alert-action");
+      let alertActionFunction = null;
+
+      alertMain.addEventListener("click", () => {
+        alertBox.classList.add("show-alert");
+        showAlert(
+          "ARE YOU SURE?<br />THIS ACTION IS IRREVERSIBLE",
+          "NO",
+          "STILL NO",
+          () => {
+            console.log("There you go");
+          }
+        );
+      });
+
+      alertDismiss.addEventListener("click", () => {
+        document.body.classList = "";
+      });
+
+      alertAction.addEventListener("click", () => {
+        document.body.classList = "";
+        if (alertActionFunction) {
+          alertActionFunction();
+        }
+      });
+
+      function showAlert(
+        text,
+        dismissText = "Dismiss",
+        actionText = "Confirm",
+        action = null
+      ) {
+        alertText.innerHTML = text;
+        document.body.classList = "show-alert";
+        alertDismiss.textContent = dismissText;
+        alertAction.textContent = actionText;
+        if (action) {
+          alertAction.style.display = "flex";
+          alertActionFunction = action;
+        } else {
+          alertAction.style.display = "none";
+          alertActionFunction = null;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 44/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="toggle-line-1"></div>
+        <div class="toggle-line-2"></div>
+        <div class="toggle-line-3"></div>
+        <div class="toggle-line-4"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 200px;
+        height: 100px;
+        background-color: rgba(235, 235, 235, 1);
+      }
+
+      .toggle-line-1,
+      .toggle-line-2,
+      .toggle-line-3,
+      .toggle-line-4 {
+        position: absolute;
+        width: 50%;
+        height: 2px;
+        transform: translate(0%, -50%);
+        background-color: #000;
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-line-1 {
+        top: 20%;
+        left: 0;
+      }
+
+      .toggle-line-2 {
+        top: 40%;
+        left: 0;
+      }
+
+      .toggle-line-3 {
+        top: 60%;
+        left: 0;
+      }
+
+      .toggle-line-4 {
+        top: 80%;
+        left: 0;
+      }
+
+      .toggle-on .toggle-line-1,
+      .toggle-on .toggle-line-2,
+      .toggle-on .toggle-line-3,
+      .toggle-on .toggle-line-4 {
+        left: 50%;
+        height: 40%;
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById("toggle");
+
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("toggle-on");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 44/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="upload-container">
+        <div class="uploading">
+          <div class="pixel-1"></div>
+          <div class="pixel-2"></div>
+          <div class="pixel-3"></div>
+          <div class="pixel-4"></div>
+          <div class="pixel-5"></div>
+        </div>
+        <div class="upload-text">UPLOADING</div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .upload-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .upload-text {
+        color: #fff;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        font-size: 32px;
+      }
+
+      .uploading {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pixel-1,
+      .pixel-2,
+      .pixel-3,
+      .pixel-4,
+      .pixel-5 {
+        width: 20%;
+        height: 20%;
+        background-color: #fff;
+      }
+
+      .pixel-1 {
+        position: absolute;
+        top: 40%;
+        left: 0%;
+
+        animation: pixel-1-animation 5s ease-in-out infinite 1.25s;
+      }
+
+      @keyframes pixel-1-animation {
+        0% {
+          top: 40%;
+          left: 0%;
+        }
+        12.5% {
+          top: 60%;
+          left: 20%;
+        }
+        25% {
+          top: 20%;
+          left: 20%;
+        }
+        37.5% {
+          top: 20%;
+          left: 60%;
+        }
+        50% {
+          top: 60%;
+          left: 60%;
+        }
+        62.5% {
+          top: 60%;
+          left: 20%;
+        }
+        75% {
+          top: 40%;
+          left: 0%;
+        }
+        100% {
+          top: 40%;
+          left: 0%;
+        }
+      }
+
+      .pixel-2 {
+        position: absolute;
+        top: 20%;
+        left: 20%;
+
+        animation: pixel-2-animation 5s ease-in-out infinite 1.25s;
+      }
+
+      @keyframes pixel-2-animation {
+        0% {
+          top: 20%;
+          left: 20%;
+        }
+        12.5% {
+          top: 20%;
+          left: 20%;
+        }
+        25% {
+          top: 20%;
+          left: 60%;
+        }
+        37.5% {
+          top: 60%;
+          left: 60%;
+        }
+        50% {
+          top: 60%;
+          left: 20%;
+        }
+        62.5% {
+          top: 20%;
+          left: 20%;
+        }
+        75% {
+          top: 20%;
+          left: 20%;
+        }
+        100% {
+          top: 20%;
+          left: 20%;
+        }
+      }
+
+      .pixel-3 {
+        position: absolute;
+        top: 20%;
+        left: 60%;
+
+        animation: pixel-3-animation 5s ease-in-out infinite 1.25s;
+      }
+
+      @keyframes pixel-3-animation {
+        0% {
+          top: 20%;
+          left: 60%;
+        }
+        12.5% {
+          top: 20%;
+          left: 60%;
+        }
+        25% {
+          top: 60%;
+          left: 60%;
+        }
+        37.5% {
+          top: 60%;
+          left: 20%;
+        }
+        50% {
+          top: 20%;
+          left: 20%;
+        }
+        62.5% {
+          top: 20%;
+          left: 60%;
+        }
+        75% {
+          top: 20%;
+          left: 60%;
+        }
+        100% {
+          top: 20%;
+          left: 60%;
+        }
+      }
+
+      .pixel-4 {
+        position: absolute;
+        top: 40%;
+        left: 80%;
+
+        animation: pixel-4-animation 5s ease-in-out infinite 1.25s;
+      }
+
+      @keyframes pixel-4-animation {
+        0% {
+          top: 40%;
+          left: 80%;
+        }
+        12.5% {
+          top: 60%;
+          left: 60%;
+        }
+        25% {
+          top: 60%;
+          left: 20%;
+        }
+        37.5% {
+          top: 20%;
+          left: 20%;
+        }
+        50% {
+          top: 20%;
+          left: 60%;
+        }
+        62.5% {
+          top: 60%;
+          left: 60%;
+        }
+        75% {
+          top: 40%;
+          left: 80%;
+        }
+        100% {
+          top: 40%;
+          left: 80%;
+        }
+      }
+
+      .pixel-5 {
+        position: absolute;
+        top: 0%;
+        left: 40%;
+        height: 120%;
+
+        animation: pixel-5-animation 5s ease-in-out infinite 1.25s;
+      }
+
+      @keyframes pixel-5-animation {
+        0% {
+          top: 0%;
+          height: 120%;
+          opacity: 100%;
+        }
+        12.5% {
+          top: -40%;
+          height: 0%;
+          opacity: 0%;
+        }
+        62.5% {
+          top: 140%;
+          height: 0%;
+          opacity: 0%;
+        }
+        75% {
+          top: 0%;
+          height: 120%;
+          opacity: 100%;
+        }
+        100% {
+          top: 0%;
+          height: 120%;
+          opacity: 100%;
+        }
+      }
+    </style>
+  </body>
+</html>

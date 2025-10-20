@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 47/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="pixel-1"></div>
+        <div class="pixel-2"></div>
+        <div class="pixel-3"></div>
+        <div class="pixel-4"></div>
+        <div class="pixel-5"></div>
+        <div class="pixel-6"></div>
+        <div class="pixel-7"></div>
+        <div class="pixel-8"></div>
+        <div class="pixel-9"></div>
+        <div class="pixel-0"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+
+        height: 100px;
+        aspect-ratio: 12/5;
+        background-color: rgba(30, 30, 30, 1);
+      }
+
+      .pixel-1,
+      .pixel-2,
+      .pixel-3,
+      .pixel-4,
+      .pixel-5,
+      .pixel-6,
+      .pixel-7,
+      .pixel-8,
+      .pixel-9,
+      .pixel-0 {
+        position: absolute;
+        height: 20%;
+        aspect-ratio: 1/1;
+        background-color: #fff;
+        transition: transform 0.5s ease-in-out,
+          background-color 0.5s ease-in-out;
+      }
+
+      .pixel-1 {
+        top: 0%;
+        left: 0%;
+      }
+
+      .pixel-2 {
+        top: 0%;
+        transform: translate(400%, 0%);
+      }
+
+      .pixel-3 {
+        top: 20%;
+        transform: translate(100%, 0%);
+      }
+
+      .pixel-4 {
+        top: 20%;
+        transform: translate(300%, 0%);
+      }
+
+      .pixel-5,
+      .pixel-0 {
+        top: 40%;
+        transform: translate(200%, 0%);
+      }
+
+      .pixel-6 {
+        top: 60%;
+        transform: translate(100%, 0%);
+      }
+
+      .pixel-7 {
+        top: 60%;
+        transform: translate(300%, 0%);
+      }
+
+      .pixel-8 {
+        top: 80%;
+        transform: translate(0%, 0%);
+      }
+
+      .pixel-9 {
+        top: 80%;
+        transform: translate(400%, 0%);
+      }
+
+      .toggle-on .pixel-1,
+      .toggle-on .pixel-2,
+      .toggle-on .pixel-3,
+      .toggle-on .pixel-4,
+      .toggle-on .pixel-5,
+      .toggle-on .pixel-6,
+      .toggle-on .pixel-7,
+      .toggle-on .pixel-8,
+      .toggle-on .pixel-9,
+      .toggle-on .pixel-0 {
+        background-color: #fff;
+      }
+
+      .toggle-on .pixel-1,
+      .toggle-on .pixel-2 {
+        transform: translate(1100%, 0%);
+      }
+
+      .toggle-on .pixel-3,
+      .toggle-on .pixel-4 {
+        transform: translate(1000%, 0%);
+      }
+
+      .toggle-on .pixel-5 {
+        transform: translate(900%, 0%);
+      }
+
+      .toggle-on .pixel-0 {
+        transform: translate(500%, 0%);
+      }
+
+      .toggle-on .pixel-6 {
+        transform: translate(600%, 0%);
+      }
+
+      .toggle-on .pixel-7 {
+        transform: translate(800%, 0%);
+      }
+
+      .toggle-on .pixel-8,
+      .toggle-on .pixel-9 {
+        transform: translate(700%, 0%);
+      }
+    </style>
+  </body>
+
+  <script>
+    const toggle = document.getElementById("toggle");
+
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("toggle-on");
+    });
+  </script>
+</html>

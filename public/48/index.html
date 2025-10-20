@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 48/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="play-button" id="play-button">
+        <div class="line-1"></div>
+        <div class="line-2"></div>
+        <div class="line-3"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .play-button {
+        position: relative;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+      }
+
+      .line-1,
+      .line-2,
+      .line-3 {
+        position: absolute;
+        width: 20%;
+        height: 100%;
+        border-radius: 1000px;
+        background-color: #fff;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .line-1 {
+        top: 0%;
+        left: 10.7%;
+      }
+
+      .line-2 {
+        height: 60%;
+        top: 0%;
+        left: 69.3%;
+      }
+
+      .line-3 {
+        height: 60%;
+        top: 40%;
+        left: 69.3%;
+      }
+
+      .paused .line-1 {
+        left: 10.7%;
+      }
+
+      .paused .line-2 {
+        top: -40%;
+        left: 80%;
+        height: 100%;
+        transform-origin: 50% 90%;
+        transform: rotate(-60deg);
+      }
+
+      .paused .line-3 {
+        top: 40%;
+        left: 80%;
+        height: 100%;
+        transform-origin: 50% 10%;
+        transform: rotate(60deg);
+      }
+    </style>
+
+    <script>
+      const playButton = document.getElementById("play-button");
+
+      playButton.addEventListener("click", () => {
+        playButton.classList.toggle("paused");
+      });
+    </script>
+  </body>
+</html>

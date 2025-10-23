@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 51/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="rect-1"></div>
+        <div class="rect-2"></div>
+        <div class="rect-3"></div>
+        <div class="rect-4"></div>
+        <div class="rect-5"></div>
+        <div class="rect-6"></div>
+        <div class="rect-7"></div>
+        <div class="rect-8"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 100px;
+        aspect-ratio: 28/35;
+      }
+
+      .rect-1,
+      .rect-2,
+      .rect-3,
+      .rect-4,
+      .rect-5,
+      .rect-6,
+      .rect-7,
+      .rect-8 {
+        position: absolute;
+        background-color: #000;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .rect-1,
+      .rect-2,
+      .rect-3 {
+        height: calc(11 / 35 * 100%);
+        aspect-ratio: 5/11;
+      }
+
+      .rect-4,
+      .rect-5,
+      .rect-6,
+      .rect-7,
+      .rect-8 {
+        width: calc(11 / 28 * 100%);
+        aspect-ratio: 11/5;
+      }
+
+      .rect-1 {
+        top: 0%;
+        left: 0%;
+      }
+
+      .rect-2 {
+        top: calc(12 / 35 * 100%);
+        left: 0%;
+      }
+
+      .rect-3 {
+        top: calc(24 / 35 * 100%);
+        left: 0%;
+      }
+
+      .rect-4 {
+        top: calc(18 / 35 * 100%);
+        left: calc(6 / 28 * 100%);
+      }
+
+      .rect-5 {
+        top: calc(12 / 35 * 100%);
+        left: calc(12 / 28 * 100%);
+      }
+
+      .rect-6 {
+        top: calc(6 / 35 * 100%);
+        left: calc(17 / 28 * 100%);
+      }
+
+      .rect-7 {
+        top: calc(24 / 35 * 100%);
+        left: calc(12 / 28 * 100%);
+      }
+
+      .rect-8 {
+        top: calc(30 / 35 * 100%);
+        left: calc(17 / 28 * 100%);
+      }
+
+      .toggle-n .rect-1 {
+        top: 0%;
+        left: calc(23 / 28 * 100%);
+      }
+
+      .toggle-n .rect-4 {
+        left: calc(11 / 28 * 100%);
+      }
+
+      .toggle-n .rect-5 {
+        left: calc(6 / 28 * 100%);
+      }
+
+      .toggle-n .rect-6 {
+        left: 0%;
+      }
+
+      .toggle-n .rect-7 {
+        left: calc(17 / 28 * 100%);
+      }
+
+      .toggle-n .rect-8 {
+        rotate: -90deg;
+        transform-origin: top right;
+        left: calc(12 / 28 * 100%);
+        top: calc(12 / 35 * 100%);
+      }
+    </style>
+
+    <script>
+      let toggle = document.getElementById("toggle");
+
+      toggle.onclick = () => {
+        toggle.classList.toggle("toggle-n");
+      };
+    </script>
+  </body>
+</html>

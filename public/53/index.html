@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 53/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="rect-1"></div>
+        <div class="rect-2"></div>
+        <div class="rect-3"></div>
+        <div class="rect-4"></div>
+        <div class="rect-5"></div>
+        <div class="rect-6"></div>
+        <div class="rect-7"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 100px;
+        aspect-ratio: 29/29;
+      }
+
+      .rect-1,
+      .rect-2,
+      .rect-3,
+      .rect-4,
+      .rect-5,
+      .rect-6,
+      .rect-7 {
+        position: absolute;
+        background-color: #000;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .rect-2,
+      .rect-3 {
+        height: calc(11 / 29 * 100%);
+        aspect-ratio: 5/11;
+      }
+
+      .rect-1,
+      .rect-4,
+      .rect-5,
+      .rect-6,
+      .rect-7 {
+        width: calc(11 / 29 * 100%);
+        aspect-ratio: 11/5;
+      }
+
+      .rect-1 {
+        top: calc(0 / 29 * 100%);
+        left: 0%;
+      }
+
+      .rect-2 {
+        top: calc(6 / 29 * 100%);
+        left: 0%;
+      }
+
+      .rect-3 {
+        top: calc(18 / 29 * 100%);
+        left: 0%;
+      }
+
+      .rect-4 {
+        top: calc(0 / 29 * 100%);
+        left: calc(12 / 29 * 100%);
+      }
+
+      .rect-5 {
+        top: calc(12 / 29 * 100%);
+        left: calc(6 / 29 * 100%);
+      }
+
+      .rect-6 {
+        top: calc(24 / 29 * 100%);
+        left: calc(6 / 29 * 100%);
+      }
+
+      .rect-7 {
+        top: calc(24 / 29 * 100%);
+        left: calc(18 / 29 * 100%);
+      }
+
+      .toggle-n .rect-5 {
+        top: calc(24 / 29 * 100%);
+      }
+
+      .toggle-n .rect-6 {
+        rotate: -90deg;
+        transform-origin: top right;
+        left: calc(7 / 29 * 100%);
+        top: calc(18 / 29 * 100%);
+      }
+
+      .toggle-n .rect-7 {
+        rotate: -90deg;
+        transform-origin: top right;
+        left: calc(7 / 29 * 100%);
+        top: calc(6 / 29 * 100%);
+      }
+    </style>
+
+    <script>
+      let toggle = document.getElementById("toggle");
+
+      toggle.onclick = () => {
+        toggle.classList.toggle("toggle-n");
+      };
+    </script>
+  </body>
+</html>

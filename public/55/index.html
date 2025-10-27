@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 55/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="features" id="features">
+        <div class="feature-text-1" id="feature-text-1">Feature 1</div>
+        <div class="feature-text-2" id="feature-text-2">Feature 2</div>
+        <div class="feature-image" id="feature-image">
+          <div class="feature-image-1">Image 1</div>
+          <div class="feature-image-2">Image 2</div>
+          <div class="feature-image-3">Image 3</div>
+          <div class="feature-image-4">Image 4</div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      :root {
+        --scroll-progress: 1;
+      }
+
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      main {
+        height: 400vh;
+      }
+
+      .features {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+      }
+
+      .feature-text-1,
+      .feature-text-2 {
+        position: absolute;
+        font-family: "SpaceMono", sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        top: 50%;
+      }
+
+      .feature-text-1 {
+        left: calc((100vw - 100vh) / 2);
+        transform: translate(-50%, -50%);
+      }
+
+      .feature-text-2 {
+        right: calc((100vw - 100vh) / 2);
+        transform: translate(50%, -50%);
+      }
+
+      .feature-image {
+        position: absolute;
+        top: 0%;
+        width: calc(100vh - 40px);
+        height: calc(100vh - 40px);
+        margin: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        outline: 3px solid #000;
+        outline-offset: -3px;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .feature-image-1,
+      .feature-image-2,
+      .feature-image-3,
+      .feature-image-4 {
+        height: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "SpaceMono", sans-serif;
+        font-weight: 700;
+        font-size: 30px;
+        color: #000;
+        background-color: #fff;
+      }
+
+      .feature-image-2 {
+        color: #fff;
+        background-color: #000;
+      }
+
+      .feature-image-4 {
+        color: #fff;
+        background-color: #000;
+      }
+    </style>
+
+    <script>
+      let features = document.getElementById("features");
+      let featureText1 = document.getElementById("feature-text-1");
+      let featureText2 = document.getElementById("feature-text-2");
+      let featureImage = document.getElementById("feature-image");
+
+      let docHeight = document.documentElement.clientHeight * 1;
+
+      function updateScroll() {
+        docHeight = document.documentElement.clientHeight * 1;
+
+        whichFeature = Math.floor(window.scrollY / docHeight);
+        scrollProgress = window.scrollY % docHeight;
+        totalProgress = window.scrollY / (docHeight * 4);
+
+        featureImage.scrollLeft = totalProgress * featureImage.scrollWidth;
+
+        if (whichFeature === 0) {
+          featureText1.textContent = "Feature 1";
+          featureText2.textContent = "Feature 2";
+          featureImage.style.left = `${
+            (document.documentElement.clientWidth -
+              document.documentElement.clientHeight) *
+            (1 - scrollProgress / docHeight)
+          }px`;
+        } else if (whichFeature === 1) {
+          featureText1.textContent = "Feature 3";
+          featureText2.textContent = "Feature 2";
+          featureImage.style.left = `${
+            (document.documentElement.clientWidth -
+              document.documentElement.clientHeight) *
+            (scrollProgress / docHeight)
+          }px`;
+        } else if (whichFeature === 2) {
+          featureText1.textContent = "Feature 3";
+          featureText2.textContent = "Feature 4";
+          featureImage.style.left = `${
+            (document.documentElement.clientWidth -
+              document.documentElement.clientHeight) *
+            (1 - scrollProgress / docHeight)
+          }px`;
+        } else if (whichFeature === 3) {
+          featureText1.textContent = "Feature 5";
+          featureText2.textContent = "Feature 4";
+          featureImage.style.left = `${
+            (document.documentElement.clientWidth -
+              document.documentElement.clientHeight) *
+            (scrollProgress / docHeight)
+          }px`;
+        }
+      }
+
+      window.onscroll = () => {
+        updateScroll();
+      };
+
+      window.onresize = () => {
+        updateScroll();
+      };
+
+      updateScroll();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 56/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="toggle-indicator" id="toggle-indicator">
+          <div class="circle"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 200px;
+        height: 100px;
+        outline: 8px solid #fff;
+      }
+
+      .toggle-indicator {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        background-color: #fff;
+        transform-origin: center;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        border-radius: 100px;
+        outline: 8px solid #000;
+        opacity: 1;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .line {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 76px;
+        border-radius: 8px;
+        background-color: #000;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-on .toggle-indicator {
+        left: calc(100% - 100px);
+        rotate: 180deg;
+      }
+
+      .toggle-on .circle {
+        opacity: 0;
+      }
+
+      .toggle-on .line {
+        opacity: 1;
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById("toggle");
+
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("toggle-on");
+      });
+    </script>
+  </body>
+</html>

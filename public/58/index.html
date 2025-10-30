@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 57/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="clock-circle">
+        <div class="clock-text" id="clock-text">12:00:00</div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .clock-text {
+        cursor: default;
+        font-family: "SpaceMono", sans-serif;
+        font-weight: 700;
+        font-size: min(10vw, 10vh);
+        color: #000;
+        transition: letter-spacing 0.5s ease-in-out,
+          text-indent 0.5s ease-in-out;
+      }
+
+      .clock-circle {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(75vw, 75vh);
+        aspect-ratio: 1 / 1;
+        border: min(1.2vw, 1.2vh) solid rgba(0, 0, 0, 0.1);
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: border 0.5s ease-in-out;
+      }
+
+      .clock-circle:hover {
+        border: min(1.2vw, 1.2vh) solid rgba(0, 0, 0, 1);
+      }
+
+      .clock-circle:hover .clock-text {
+        text-indent: min(2vw, 2vh);
+        letter-spacing: min(2vw, 2vh);
+      }
+    </style>
+
+    <script>
+      let clockText = document.getElementById("clock-text");
+
+      function startSmoothClock() {
+        function tick() {
+          const now = new Date();
+          let milliseconds = now.getMilliseconds();
+          let seconds = now.getSeconds();
+          let minutes = now.getMinutes();
+          let hours = now.getHours();
+
+          clockText.textContent = `${hours
+            .toString()
+            .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+            .toString()
+            .padStart(2, "0")}`;
+          clockText.style.transform = `rotate(${
+            (seconds + milliseconds / 1000) * 6 - 90
+          }deg)`;
+
+          requestAnimationFrame(tick);
+        }
+
+        tick();
+      }
+
+      startSmoothClock();
+    </script>
+  </body>
+</html>

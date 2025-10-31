@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 59/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="download-link" id="download-link">
+        <div class="download-text" id="download-text">Download</div>
+        <div class="download-hover-spacer"></div>
+        <div class="download-hover-part" id="download-hover-part">
+          <span> from the App Store</span>
+          <svg
+            class="download-icon"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 15.0935 14.716"
+          >
+            <g>
+              <rect height="14.716" opacity="0" width="15.0935" x="0" y="0" />
+              <path
+                d="M0.339226 14.3914C0.772622 14.815 1.37789 14.8398 1.85093 14.3721L11.3482 4.88455L13.3316 2.73963C13.7533 2.30037 13.7287 1.75194 13.3554 1.38319C12.9804 1.00116 12.417 0.959757 11.9805 1.38846L9.83377 3.37011L0.346257 12.8691C-0.13909 13.358-0.0888959 13.9686 0.339226 14.3914ZM12.606 7.33652L12.606 10.9805C12.606 11.5705 13.0812 12.0695 13.6599 12.0695C14.2341 12.0695 14.7296 11.5892 14.7296 10.9502L14.7234 1.15332C14.7234 0.472656 14.2732 0.0144564 13.5828 0.0144564L3.77614 0.0144564C3.12556 0.0144564 2.66482 0.501953 2.66482 1.07441C2.66482 1.64511 3.1656 2.11405 3.74586 2.11405L7.2234 2.11405L12.8404 1.91171Z"
+              />
+            </g>
+          </svg>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .download-link {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: min(10vw, 10vh);
+        /* background-color: rgba(245, 245, 245, 1); */
+      }
+
+      .download-text,
+      .download-hover-part {
+        font-family: "SFMono", sans-serif;
+        font-weight: 500;
+        font-size: min(3vw, 3vh);
+      }
+
+      .download-text {
+        color: #000;
+      }
+
+      .download-hover-spacer {
+        width: 0px;
+        height: 100%;
+        transition: width 0.5s ease-in-out;
+      }
+
+      .download-link:hover .download-hover-spacer {
+        width: var(--download-hover-part-width, 0px);
+      }
+
+      .download-hover-part {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0%;
+        color: rgba(70, 131, 255, 1);
+        transition: all 0.5s ease-in-out;
+      }
+
+      .download-hover-part span {
+        white-space: pre;
+      }
+
+      .download-link:hover .download-hover-part {
+        left: calc(50% + var(--download-hover-x, 0px));
+        transform: translate(-50%, -50%);
+        opacity: 100%;
+      }
+
+      .download-icon {
+        width: min(2.2vw, 2.2vh);
+        fill: rgba(70, 131, 255, 1);
+      }
+    </style>
+
+    <script>
+      const downloadLink = document.getElementById("download-link");
+      const downloadText = document.getElementById("download-text");
+      const downloadHoverPart = document.getElementById("download-hover-part");
+
+      function updateElements() {
+        document.documentElement.style.setProperty(
+          "--download-hover-part-width",
+          `${downloadHoverPart.clientWidth}px`
+        );
+        document.documentElement.style.setProperty(
+          "--download-hover-x",
+          `${downloadText.clientWidth / 2}px`
+        );
+      }
+
+      window.onresize = () => {
+        updateElements();
+      };
+
+      const resizeObserver = new ResizeObserver(() => {
+        updateElements();
+      });
+
+      resizeObserver.observe(downloadLink);
+      resizeObserver.observe(downloadText);
+      resizeObserver.observe(downloadHoverPart);
+
+      window.onload = () => {
+        updateElements();
+      };
+    </script>
+  </body>
+</html>
+1

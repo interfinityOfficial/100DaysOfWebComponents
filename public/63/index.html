@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 62/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="cards show-card-1" id="cards">
+        <div class="card card-1" id="card-1">
+          <div class="title">Card 1</div>
+        </div>
+        <div class="card card-2" id="card-2">
+          <div class="title">Card 2</div>
+        </div>
+        <div class="card card-3" id="card-3">
+          <div class="title">Card 3</div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .cards {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 95vh;
+        width: 100vw;
+        max-width: 600px;
+      }
+
+      .card {
+        position: absolute;
+        cursor: pointer;
+        top: calc(100% - 100px);
+        left: 0;
+        width: calc(100% - 6px);
+        height: 100px;
+        background-color: #fff;
+        border-radius: 15px 15px 0 0;
+        border-top: 3px solid #000;
+        border-left: 3px solid #000;
+        border-right: 3px solid #000;
+        transition: top 0.5s ease-in-out, height 0.5s ease-in-out,
+          background-color 0.25s ease-in-out;
+      }
+
+      .card:hover {
+        background-color: rgba(235, 235, 235, 1);
+      }
+
+      .show-card-1 .card-1 {
+        top: 0;
+        height: 100%;
+      }
+
+      .show-card-1 .card-2 {
+        top: calc(100% - 150px);
+        height: 100%;
+      }
+
+      .show-card-2 .card-1,
+      .show-card-3 .card-1 {
+        top: 0;
+        height: 100%;
+      }
+
+      .show-card-2 .card-2,
+      .show-card-3 .card-2 {
+        top: 50px;
+        height: calc(100% - 50px);
+      }
+
+      .show-card-3 .card-3 {
+        top: 100px;
+        height: calc(100% - 100px);
+      }
+
+      .title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: #000;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .show-card-1 .card-1 .title,
+      .show-card-2 .card-2 .title,
+      .show-card-3 .card-3 .title {
+        height: 50px;
+        font-size: 25px;
+      }
+    </style>
+
+    <script>
+      const cards = document.getElementById("cards");
+      const card1 = document.getElementById("card-1");
+      const card2 = document.getElementById("card-2");
+      const card3 = document.getElementById("card-3");
+
+      card1.addEventListener("click", () => {
+        cards.classList = "cards show-card-1";
+      });
+      card2.addEventListener("click", () => {
+        cards.classList = "cards show-card-2";
+      });
+      card3.addEventListener("click", () => {
+        cards.classList = "cards show-card-3";
+      });
+    </script>
+  </body>
+</html>

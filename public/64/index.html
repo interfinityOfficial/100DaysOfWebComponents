@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/lib/typed.js"></script>
+    <title>Day 64/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="alert">
+        <div class="alert-circle">!</div>
+        <div class="alert-text"><span id="alert-text"></span></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .alert {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: calc(100% - 40px);
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .alert-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #ee1c25;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        color: #fff;
+      }
+
+      .alert-text {
+        min-height: 29.5px;
+        font-family: "SpaceMono";
+        font-weight: 700;
+        text-align: center;
+        font-size: 20px;
+        color: #000;
+      }
+    </style>
+
+    <script>
+      const typed = new Typed("#alert-text", {
+        strings: ["This content has been banned."],
+        typeSpeed: 100,
+        showCursor: true,
+        cursorChar: "|",
+      });
+    </script>
+  </body>
+</html>

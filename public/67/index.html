@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Day 66/100</title>
+    <title>Day 65/100</title>
   </head>
   <body>
     <main>
-      <div class="xmark-circle" id="xmark-circle">
+      <div class="questionmark-circle" id="questionmark-circle">
         <svg
-          class="xmark-circle-icon"
+          class="questionmark-circle-icon"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 50 50"
         >
-          <circle class="xmark-circle-inner" cx="25" cy="25" r="23" />
+          <circle class="questionmark-circle-inner" cx="25" cy="25" r="23" />
         </svg>
-        <div class="xmark">
-          <div class="x-1"></div>
-          <div class="x-2"></div>
-        </div>
+        <svg
+          class="questionmark-icon"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 10.44 20"
+        >
+          <path
+            class="questionmark-icon-line"
+            d="M5.02,13.69v-1.11c0-1.53.48-2.29,2.24-3.56,1.96-1.43,2.68-2.55,2.68-4.16C9.94,2.38,7.92.5,5.24.5,2.98.5,1.21,1.94.66,3.88c-.12.42-.16.73-.16.94"
+          />
+          <circle class="questionmark-icon-circle" cx="5.02" cy="20" r="1.75" />
+        </svg>
       </div>
     </main>
 
@@ -44,7 +53,7 @@
         background-color: #fff;
       }
 
-      .xmark-circle {
+      .questionmark-circle {
         position: relative;
         cursor: pointer;
         width: 60px;
@@ -53,7 +62,7 @@
         transition: all 0.5s ease-in-out;
       }
 
-      .xmark-circle::before {
+      .questionmark-circle::before {
         content: "";
         position: absolute;
         top: 0;
@@ -68,7 +77,7 @@
         transition: opacity 0.5s 0.5s ease-in-out;
       }
 
-      .xmark-circle-icon {
+      .questionmark-circle-icon {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -79,7 +88,7 @@
         overflow: visible;
       }
 
-      .xmark-circle-inner {
+      .questionmark-circle-inner {
         fill: none;
         transform-origin: center;
         rotate: -90deg;
@@ -93,59 +102,66 @@
           opacity 0.2s 0.8s ease-in-out;
       }
 
-      .xmark-icon {
+      .questionmark-icon {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 20px;
-        height: 20px;
+        height: 28px;
         z-index: 2;
         overflow: visible;
       }
 
-      .x-1,
-      .x-2 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        width: 5px;
-        height: 5px;
+      .questionmark-icon-line {
+        fill: none;
+        stroke: #000;
+        stroke-width: 3.5px;
+        stroke-linecap: round;
+        stroke-dasharray: 40;
+        stroke-dashoffset: 55;
         opacity: 0;
-        border-radius: 100px;
-        background-color: #000;
-        transition: width 0.5s ease-in-out, opacity 0.2s 0.1s ease-in-out;
+        transition: stroke-dashoffset 0.5s ease-in-out,
+          opacity 0.2s 0.3s ease-in-out;
       }
 
-      .x-2 {
-        transform: translate(-50%, -50%) rotate(-45deg);
+      .questionmark-icon-circle {
+        fill: #000;
+        opacity: 0;
+        scale: 0;
+        transform-origin: center center;
+        transition: opacity 0.3s ease-in-out, scale 0.3s ease-in-out;
       }
 
-      .xmark-circle-selected::before {
+      .questionmark-circle-selected::before {
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
       }
 
-      .xmark-circle-selected .xmark-circle-inner {
+      .questionmark-circle-selected .questionmark-circle-inner {
         stroke-dashoffset: 0;
         opacity: 1;
         transition: stroke-dashoffset 1s ease-in-out, opacity 0.2s ease-in-out;
       }
 
-      .xmark-circle-selected .x-1,
-      .xmark-circle-selected .x-2 {
-        width: 50%;
+      .questionmark-circle-selected .questionmark-icon-line {
+        stroke-dashoffset: 80;
         opacity: 1;
-        transition: width 0.5s 0.3s ease-in-out, opacity 0.2s 0.3s ease-in-out;
+        transition: stroke-dashoffset 0.5s 0.5s ease-in-out,
+          opacity 0.2s 0.5s ease-in-out;
+      }
+
+      .questionmark-circle-selected .questionmark-icon-circle {
+        opacity: 1;
+        scale: 1;
+        transition: opacity 0.3s 0.7s ease-in-out, scale 0.3s 0.7s ease-in-out;
       }
     </style>
 
     <script>
-      const xmarkCircle = document.getElementById("xmark-circle");
+      const questionmarkCircle = document.getElementById("questionmark-circle");
 
-      xmarkCircle.addEventListener("click", () => {
-        xmarkCircle.classList.toggle("xmark-circle-selected");
+      questionmarkCircle.addEventListener("click", () => {
+        questionmarkCircle.classList.toggle("questionmark-circle-selected");
       });
     </script>
   </body>

@@ -7,19 +7,18 @@
   </head>
   <body>
     <main>
-      <div class="exmark-circle" id="exmark-circle">
+      <div class="offmark-circle" id="offmark-circle">
         <svg
-          class="exmark-circle-icon"
+          class="offmark-circle-icon"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 50 50"
         >
-          <circle class="exmark-circle-inner" cx="25" cy="25" r="23" />
+          <circle class="offmark-circle-inner" cx="25" cy="25" r="23" />
         </svg>
-        <div class="exmark-icon">
-          <div class="exmark-icon-line"></div>
-          <div class="exmark-icon-circle"></div>
+        <div class="offmark-icon">
+          <div class="offmark-icon-line"></div>
         </div>
       </div>
     </main>
@@ -44,7 +43,7 @@
         background-color: #fff;
       }
 
-      .exmark-circle {
+      .offmark-circle {
         position: relative;
         cursor: pointer;
         width: 60px;
@@ -53,7 +52,7 @@
         transition: all 0.5s ease-in-out;
       }
 
-      .exmark-circle::before {
+      .offmark-circle::before {
         content: "";
         position: absolute;
         top: 0;
@@ -68,7 +67,7 @@
         transition: opacity 0.5s 0.5s ease-in-out;
       }
 
-      .exmark-circle-icon {
+      .offmark-circle-icon {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -79,7 +78,7 @@
         overflow: visible;
       }
 
-      .exmark-circle-inner {
+      .offmark-circle-inner {
         fill: none;
         transform-origin: center;
         rotate: -90deg;
@@ -93,7 +92,7 @@
           opacity 0.2s 0.8s ease-in-out;
       }
 
-      .exmark-icon {
+      .offmark-icon {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -104,62 +103,42 @@
         overflow: visible;
       }
 
-      .exmark-icon-line {
+      .offmark-icon-line {
         position: absolute;
-        top: 0%;
+        top: 50%;
         left: 50%;
-        transform: translate(-50%, 0%);
+        transform: translate(-50%, -50%);
         width: 4.8px;
         height: 4.8px;
         border-radius: 1000px;
         background-color: #000;
         opacity: 0;
-        transition: height 0.5s ease-in-out, opacity 0.2s 0.3s ease-in-out;
+        transition: width 0.5s 0.2s ease-in-out, opacity 0.2s 0.5s ease-in-out;
       }
 
-      .exmark-icon-circle {
-        position: absolute;
-        bottom: 0%;
-        left: calc(50% - 2.4px);
-        transform-origin: center center;
-        width: 4.8px;
-        height: 4.8px;
-        border-radius: 1000px;
-        background-color: #000;
-        opacity: 0;
-        scale: 0;
-        transition: opacity 0.2s 0.3s ease-in-out, scale 0.3s ease-in-out;
-      }
-
-      .exmark-circle-selected::before {
+      .offmark-circle-selected::before {
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
       }
 
-      .exmark-circle-selected .exmark-circle-inner {
+      .offmark-circle-selected .offmark-circle-inner {
         stroke-dashoffset: 0;
         opacity: 1;
         transition: stroke-dashoffset 1s ease-in-out, opacity 0.2s ease-in-out;
       }
 
-      .exmark-circle-selected .exmark-icon-line {
-        height: calc(100% - 9.6px);
+      .offmark-circle-selected .offmark-icon-line {
+        width: calc(100%);
         opacity: 1;
-        transition: height 0.5s 0.5s ease-in-out, opacity 0.2s 0.5s ease-in-out;
-      }
-
-      .exmark-circle-selected .exmark-icon-circle {
-        opacity: 1;
-        scale: 1;
-        transition: opacity 0.3s 0.7s ease-in-out, scale 0.3s 0.7s ease-in-out;
+        transition: width 0.5s 0.3s ease-in-out, opacity 0.2s 0.3s ease-in-out;
       }
     </style>
 
     <script>
-      const exmarkCircle = document.getElementById("exmark-circle");
+      const offmarkCircle = document.getElementById("offmark-circle");
 
-      exmarkCircle.addEventListener("click", () => {
-        exmarkCircle.classList.toggle("exmark-circle-selected");
+      offmarkCircle.addEventListener("click", () => {
+        offmarkCircle.classList.toggle("offmark-circle-selected");
       });
     </script>
   </body>

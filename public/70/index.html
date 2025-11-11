@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 70/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="morse-code">
+        <div class="dot-dash dot-dash-1" id="dot-dash-1"></div>
+        <div class="dot-dash dot-dash-2" id="dot-dash-2"></div>
+        <div class="dot-dash dot-dash-3" id="dot-dash-3"></div>
+        <div class="dot-dash dot-dash-4" id="dot-dash-4"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .morse-code {
+        display: flex;
+        flex-direction: row;
+
+        gap: 10px;
+        width: calc(100vw - 20px);
+        padding-left: 10px;
+        padding-right: 10px;
+        max-width: 440px;
+      }
+
+      .dot-dash {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background-color: #fff;
+        scale: 0.6;
+        opacity: 0;
+        border-radius: 0px;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .dot {
+        scale: 1;
+        opacity: 1;
+        border-radius: 1000px;
+      }
+
+      .dash {
+        scale: 1;
+        opacity: 1;
+        border-radius: 0px;
+      }
+    </style>
+
+    <script>
+      const morseCode = {
+        A: ".-",
+        B: "-...",
+        C: "-.-.",
+        D: "-..",
+        E: ".",
+        F: "..-.",
+        G: "--.",
+        H: "....",
+        I: "..",
+        J: ".---",
+        K: "-.-",
+        L: ".-..",
+        M: "--",
+        N: "-.",
+        O: "---",
+        P: ".--.",
+        Q: "--.-",
+        R: ".-.",
+        S: "...",
+        T: "-",
+        U: "..-",
+        V: "...-",
+        W: ".--",
+        X: "-..-",
+        Y: "-.--",
+        Z: "--..",
+      };
+
+      const dotDash1 = document.getElementById("dot-dash-1");
+      const dotDash2 = document.getElementById("dot-dash-2");
+      const dotDash3 = document.getElementById("dot-dash-3");
+      const dotDash4 = document.getElementById("dot-dash-4");
+
+      let lastPressed = null;
+
+      document.addEventListener("keydown", (e) => {
+        if (lastPressed && e.timeStamp - lastPressed < 600) {
+          return;
+        }
+        lastPressed = e.timeStamp;
+        let key = e.key.toUpperCase();
+        console.log(key);
+        if (!Object.keys(morseCode).includes(key)) {
+          return;
+        }
+        let morse = morseCode[key];
+        if (morse.length == 1) {
+          dotDash1.classList = "dot-dash dot-dash-1";
+          dotDash2.classList =
+            "dot-dash dot-dash-2 " + (morse == "." ? "dot" : "dash");
+          dotDash3.classList = "dot-dash dot-dash-3";
+          dotDash4.classList = "dot-dash dot-dash-4";
+        } else if (morse.length == 2) {
+          dotDash1.classList = "dot-dash dot-dash-1";
+          dotDash2.classList =
+            "dot-dash dot-dash-2 " + (morse[0] == "." ? "dot" : "dash");
+          dotDash3.classList =
+            "dot-dash dot-dash-3 " + (morse[1] == "." ? "dot" : "dash");
+          dotDash4.classList = "dot-dash dot-dash-4";
+        } else if (morse.length == 3) {
+          dotDash1.classList =
+            "dot-dash dot-dash-1 " + (morse[0] == "." ? "dot" : "dash");
+          dotDash2.classList =
+            "dot-dash dot-dash-2 " + (morse[1] == "." ? "dot" : "dash");
+          dotDash3.classList =
+            "dot-dash dot-dash-3 " + (morse[2] == "." ? "dot" : "dash");
+          dotDash4.classList = "dot-dash dot-dash-4";
+        } else if (morse.length == 4) {
+          dotDash1.classList =
+            "dot-dash dot-dash-1 " + (morse[0] == "." ? "dot" : "dash");
+          dotDash2.classList =
+            "dot-dash dot-dash-2 " + (morse[1] == "." ? "dot" : "dash");
+          dotDash3.classList =
+            "dot-dash dot-dash-3 " + (morse[2] == "." ? "dot" : "dash");
+          dotDash4.classList =
+            "dot-dash dot-dash-4 " + (morse[3] == "." ? "dot" : "dash");
+        }
+      });
+    </script>
+  </body>
+</html>

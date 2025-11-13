@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <script src="/lib/figlet.js"></script>
+    <title>Day 71/100</title>
+  </head>
+  <body>
+    <main>
+      <div id="ascii-art">
+        <div class="ascii-line" id="ascii-line-1"></div>
+        <div class="ascii-line" id="ascii-line-2"></div>
+        <div class="ascii-line" id="ascii-line-3"></div>
+        <div class="ascii-line" id="ascii-line-4"></div>
+        <div class="ascii-line" id="ascii-line-5"></div>
+        <div class="ascii-line" id="ascii-line-6"></div>
+        <div class="ascii-line" id="ascii-line-7"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      body {
+        background-color: #000;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      #ascii-art {
+        text-align: center;
+      }
+
+      .ascii-line {
+        font-size: min(1.2vw, 16px);
+        line-height: 1.2;
+        font-family: "SFMono", monospace;
+        font-weight: 700;
+        white-space: pre;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+      }
+    </style>
+
+    <script>
+      figlet.defaults({ fontPath: "/assets/" });
+
+      function updateASCIITime(time) {
+        figlet.text(
+          time,
+          {
+            font: "marquee",
+          },
+          function (err, data) {
+            if (err) {
+              console.error(err);
+            } else {
+              const lines = data.split("\n");
+              document.getElementById("ascii-line-1").textContent = lines[0];
+              document.getElementById("ascii-line-2").textContent = lines[1];
+              document.getElementById("ascii-line-3").textContent = lines[2];
+              document.getElementById("ascii-line-4").textContent = lines[3];
+              document.getElementById("ascii-line-5").textContent = lines[4];
+              document.getElementById("ascii-line-6").textContent = lines[5];
+              document.getElementById("ascii-line-7").textContent = lines[6];
+            }
+          }
+        );
+      }
+
+      function updateClock() {
+        const now = new Date();
+        let milliseconds = now.getMilliseconds();
+        let seconds = now.getSeconds();
+        let minutes = now.getMinutes();
+        let hours = now.getHours();
+
+        if (hours > 12) {
+          hours -= 12;
+        }
+
+        const time = `${hours.toString().padStart(2, "0")}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        updateASCIITime(time);
+
+        const millisecondsToNextSecond = 1000 - now.getMilliseconds();
+        setTimeout(updateClock, millisecondsToNextSecond);
+      }
+
+      updateClock();
+    </script>
+  </body>
+</html>

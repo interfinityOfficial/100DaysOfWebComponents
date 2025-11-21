@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 80/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="square-container" id="square-container">
+        <div class="square" id="square"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        background-color: #000;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .square-container {
+        position: relative;
+        width: 100vw;
+        height: 100px;
+        background-color: rgba(20, 20, 20, 1);
+      }
+
+      .square {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+        transition: all 0.5s ease-in-out;
+      }
+    </style>
+
+    <script>
+      const squareContainer = document.getElementById("square-container");
+      const square = document.getElementById("square");
+
+      let animating = false;
+
+      squareContainer.addEventListener("click", (e) => {
+        const x = e.clientX;
+        if (animating) return;
+        animating = true;
+        let left = Math.max(
+          0,
+          Math.min(
+            x - square.offsetWidth / 2,
+            squareContainer.offsetWidth - square.offsetWidth
+          )
+        );
+        let angle;
+        if (square.style.rotate) {
+          angle = parseFloat(square.style.rotate.split("deg")[0]);
+        } else {
+          angle = 0;
+        }
+
+        square.style.left = `${left}px`;
+        square.style.rotate = `${angle + 180}deg`;
+        setTimeout(() => {
+          animating = false;
+        }, 500);
+      });
+    </script>
+  </body>
+</html>

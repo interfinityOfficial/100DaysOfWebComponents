@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 81/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="slider" id="slider">
+        <div class="slider-handle" id="slider-handle"></div>
+        <div class="slider-track" id="slider-track"></div>
+      </div>
+    </main>
+
+    <style>
+      :root {
+        --slider-value: 0;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgb(
+          calc(var(--slider-value) * 255),
+          calc(var(--slider-value) * 255),
+          calc(var(--slider-value) * 255)
+        );
+      }
+
+      .slider {
+        position: relative;
+        width: 200px;
+        height: 50px;
+        background-color: #fff;
+        outline: 5px solid #000;
+      }
+
+      .slider-handle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: calc(100% - 5px);
+        margin: 2.5px;
+        background-color: #000;
+      }
+
+      .slider-track {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <script>
+      const slider = document.getElementById("slider");
+      const sliderHandle = document.getElementById("slider-handle");
+      const sliderTrack = document.getElementById("slider-track");
+
+      let isDragging = false;
+
+      slider.addEventListener("click", (e) => {
+        const x = e.clientX - slider.offsetLeft;
+        sliderHandle.style.left = `${x}px`;
+      });
+
+      slider.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        const x = e.clientX - slider.offsetLeft;
+        isDragging = true;
+        let left = Math.max(
+          0,
+          Math.min(x, slider.offsetWidth - sliderHandle.offsetWidth - 5)
+        );
+        sliderHandle.style.left = `${left}px`;
+        document.documentElement.style.setProperty(
+          "--slider-value",
+          `${left / (slider.offsetWidth - sliderHandle.offsetWidth - 5)}`
+        );
+      });
+
+      document.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        isDragging = false;
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        e.preventDefault();
+        if (isDragging) {
+          const x = e.clientX - slider.offsetLeft;
+          let left = Math.max(
+            0,
+            Math.min(x, slider.offsetWidth - sliderHandle.offsetWidth - 5)
+          );
+          sliderHandle.style.left = `${left}px`;
+          document.documentElement.style.setProperty(
+            "--slider-value",
+            `${left / (slider.offsetWidth - sliderHandle.offsetWidth - 5)}`
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

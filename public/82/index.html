@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 82/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="circle">
+        <div class="circle-outer"></div>
+        <div class="circle-inner"></div>
+        <div class="square-1"></div>
+        <div class="square-2"></div>
+        <div class="square-3"></div>
+        <div class="square-4"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .circle {
+        position: relative;
+        width: 100px;
+        height: 100px;
+      }
+
+      .circle-outer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50px;
+        background-color: #000;
+        transform-origin: center center;
+
+        animation: circle-animation 8s ease-in-out infinite;
+      }
+
+      .circle-inner {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        background-color: #fff;
+        transform-origin: center center;
+
+        animation: circle-inner-animation 8s ease-in-out infinite;
+      }
+
+      .square-1,
+      .square-2,
+      .square-3,
+      .square-4 {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-color: #fff;
+      }
+
+      .square-1 {
+        top: 25px;
+        left: 25px;
+        transform-origin: bottom right;
+        border-radius: 100% 0 0 0;
+
+        animation: square-1-animation 8s ease-in-out infinite;
+      }
+
+      .square-2 {
+        top: 25px;
+        left: 50px;
+        transform-origin: bottom left;
+        border-radius: 0 100% 0 0;
+
+        animation: square-2-animation 8s ease-in-out infinite;
+      }
+
+      .square-3 {
+        top: 50px;
+        left: 25px;
+        transform-origin: top right;
+        border-radius: 0 0 0 100%;
+
+        animation: square-3-animation 8s ease-in-out infinite;
+      }
+
+      .square-4 {
+        top: 50px;
+        left: 50px;
+        transform-origin: top left;
+        border-radius: 0 0 100% 0;
+
+        animation: square-4-animation 8s ease-in-out infinite;
+      }
+
+      @keyframes square-1-animation {
+        0% {
+          top: 25px;
+          left: 25px;
+          border-radius: 100% 0 0 0;
+          scale: 1;
+        }
+
+        10% {
+          scale: 1.5;
+        }
+
+        20% {
+          scale: 1;
+        }
+
+        30% {
+          scale: 1.5;
+        }
+
+        40% {
+          top: 25px;
+          left: 25px;
+          border-radius: 100% 0 0 0;
+          background-color: #fff;
+          scale: 1;
+        }
+
+        50% {
+          top: 0px;
+          left: 0px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        60% {
+          top: 0px;
+          left: 75px;
+        }
+
+        70% {
+          top: 75px;
+          left: 75px;
+        }
+
+        80% {
+          top: 75px;
+          left: 0px;
+        }
+
+        90% {
+          top: 0px;
+          left: 0px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        100% {
+          top: 25px;
+          left: 25px;
+          border-radius: 100% 0 0 0;
+          background-color: #fff;
+        }
+      }
+
+      @keyframes square-2-animation {
+        0% {
+          top: 25px;
+          left: 50px;
+          border-radius: 0 100% 0 0;
+          scale: 1;
+        }
+
+        10% {
+          scale: 1.5;
+        }
+
+        20% {
+          scale: 1;
+        }
+
+        30% {
+          scale: 1.5;
+        }
+
+        40% {
+          top: 25px;
+          left: 50px;
+          border-radius: 0 100% 0 0;
+          background-color: #fff;
+          scale: 1;
+        }
+
+        50% {
+          top: 0px;
+          left: 75px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        60% {
+          top: 75px;
+          left: 75px;
+        }
+
+        70% {
+          top: 75px;
+          left: 0px;
+        }
+
+        80% {
+          top: 0px;
+          left: 0px;
+        }
+
+        90% {
+          top: 0px;
+          left: 75px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        100% {
+          top: 25px;
+          left: 50px;
+          border-radius: 0 100% 0 0;
+          background-color: #fff;
+        }
+      }
+
+      @keyframes square-3-animation {
+        0% {
+          top: 50px;
+          left: 25px;
+          border-radius: 0 0 0 100%;
+          scale: 1;
+        }
+
+        10% {
+          scale: 1.5;
+        }
+
+        20% {
+          scale: 1;
+        }
+
+        30% {
+          scale: 1.5;
+        }
+
+        40% {
+          top: 50px;
+          left: 25px;
+          border-radius: 0 0 0 100%;
+          background-color: #fff;
+          scale: 1;
+        }
+
+        50% {
+          top: 75px;
+          left: 0px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        60% {
+          top: 0px;
+          left: 0px;
+        }
+
+        70% {
+          top: 0px;
+          left: 75px;
+        }
+
+        80% {
+          top: 75px;
+          left: 75px;
+        }
+
+        90% {
+          top: 75px;
+          left: 0px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        100% {
+          top: 50px;
+          left: 25px;
+          border-radius: 0 0 0 100%;
+          background-color: #fff;
+        }
+      }
+
+      @keyframes square-4-animation {
+        0% {
+          top: 50px;
+          left: 50px;
+          border-radius: 0 0 100% 0;
+          scale: 1;
+        }
+
+        10% {
+          scale: 1.5;
+        }
+
+        20% {
+          scale: 1;
+        }
+
+        30% {
+          scale: 1.5;
+        }
+
+        40% {
+          top: 50px;
+          left: 50px;
+          border-radius: 0 0 100% 0;
+          background-color: #fff;
+          scale: 1;
+        }
+
+        50% {
+          top: 75px;
+          left: 75px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        60% {
+          top: 75px;
+          left: 0px;
+        }
+
+        70% {
+          top: 0px;
+          left: 0px;
+        }
+
+        80% {
+          top: 0px;
+          left: 75px;
+        }
+
+        90% {
+          top: 75px;
+          left: 75px;
+          border-radius: 0 0 0 0;
+          background-color: #000;
+        }
+
+        100% {
+          top: 50px;
+          left: 50px;
+          border-radius: 0 0 100% 0;
+          background-color: #fff;
+        }
+      }
+
+      @keyframes circle-inner-animation {
+        0% {
+          scale: 1;
+        }
+
+        10% {
+          scale: 1.5;
+        }
+
+        20% {
+          scale: 1;
+        }
+
+        30% {
+          scale: 1.5;
+        }
+
+        40% {
+          scale: 1;
+        }
+
+        40.1% {
+          scale: 0;
+        }
+
+        100% {
+          scale: 0;
+        }
+      }
+
+      @keyframes circle-animation {
+        0% {
+          opacity: 1;
+        }
+
+        40% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+
+        90% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </body>
+</html>

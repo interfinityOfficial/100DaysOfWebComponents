@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 85/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="pendulum pendulum-left"></div>
+      <div class="pendulum pendulum-1"></div>
+      <div class="pendulum pendulum-2"></div>
+      <div class="pendulum pendulum-3"></div>
+      <div class="pendulum pendulum-right"></div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .pendulum {
+        position: fixed;
+        top: 0%;
+        width: 50px;
+        height: 50%;
+        transform-origin: top center;
+      }
+
+      .pendulum::before {
+        content: "";
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        width: 2px;
+        height: 100%;
+        background-color: rgba(40, 40, 40, 1);
+      }
+
+      .pendulum::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 25px;
+      }
+
+      .pendulum-left {
+        left: 50%;
+        transform: translate(-250%, 0%);
+        rotate: 10deg;
+
+        animation: pendulum-left-animation 2s infinite;
+      }
+
+      .pendulum-1 {
+        left: 50%;
+        transform: translate(-150%, 0%);
+      }
+
+      .pendulum-2 {
+        left: 50%;
+        transform: translate(-50%, 0%);
+      }
+
+      .pendulum-3 {
+        left: 50%;
+        transform: translate(50%, 0%);
+      }
+
+      .pendulum-right {
+        left: 50%;
+        transform: translate(150%, 0%);
+
+        animation: pendulum-right-animation 2s infinite;
+      }
+
+      @keyframes pendulum-left-animation {
+        0% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+        25% {
+          rotate: 10deg;
+          animation-timing-function: ease-in;
+        }
+        50% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+        100% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+      }
+
+      @keyframes pendulum-right-animation {
+        0% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+        50% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+        75% {
+          rotate: -10deg;
+          animation-timing-function: ease-in;
+        }
+        100% {
+          rotate: 0deg;
+          animation-timing-function: ease-out;
+        }
+      }
+    </style>
+  </body>
+</html>

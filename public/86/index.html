@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 86/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="cubes">
+        <div class="cube cube-1" id="cube-1"></div>
+        <div class="cube cube-2" id="cube-2"></div>
+        <div class="cube cube-3" id="cube-3"></div>
+        <div class="cube cube-4" id="cube-4"></div>
+        <div class="cube cube-5" id="cube-5"></div>
+        <div class="cube cube-6" id="cube-6"></div>
+      </div>
+
+      <style>
+        body {
+          margin: 0;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100vw;
+          height: 100vh;
+          background-color: #000;
+        }
+
+        .cubes {
+          display: flex;
+        }
+
+        .cube {
+          width: 50px;
+          height: 50px;
+          outline: 3px solid #fff;
+          outline-offset: -3px;
+          border-radius: 8px;
+        }
+
+        .cube-1 {
+          opacity: 0;
+          background-color: #fff;
+        }
+
+        .cube-2 {
+          opacity: 0;
+          width: 25px;
+        }
+
+        .cube-3 {
+          opacity: 0;
+          width: 25px;
+        }
+
+        .cube-4 {
+          opacity: 0;
+        }
+
+        .cube-5 {
+          opacity: 0;
+          width: 100px;
+        }
+
+        .cube-6 {
+          opacity: 0;
+          background-color: #fff;
+        }
+
+        @keyframes fade-in {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes move-in-left {
+          0% {
+            opacity: 0;
+            transform: translateX(-20vw);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0%);
+          }
+        }
+
+        @keyframes move-in-right {
+          0% {
+            opacity: 0;
+            transform: translateX(20vw);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0%);
+          }
+        }
+      </style>
+
+      <script>
+        const cube1 = document.getElementById("cube-1");
+        const cube2 = document.getElementById("cube-2");
+        const cube3 = document.getElementById("cube-3");
+        const cube4 = document.getElementById("cube-4");
+        const cube5 = document.getElementById("cube-5");
+        const cube6 = document.getElementById("cube-6");
+
+        cube4.style.animation = "fade-in 1s ease-in-out";
+        cube4.style.opacity = 1;
+        setTimeout(() => {
+          cube3.style.animation = "move-in-left 1s ease-in-out";
+          cube3.style.opacity = 1;
+          setTimeout(() => {
+            cube5.style.animation = "move-in-right 1s ease-in-out";
+            cube5.style.opacity = 1;
+            setTimeout(() => {
+              cube2.style.animation = "move-in-left 1s ease-in-out";
+              cube2.style.opacity = 1;
+              setTimeout(() => {
+                cube6.style.animation = "move-in-right 1s ease-in-out";
+                cube6.style.opacity = 1;
+                setTimeout(() => {
+                  cube1.style.animation = "move-in-left 1s ease-in-out";
+                  cube1.style.opacity = 1;
+                }, 1000);
+              }, 1000);
+            }, 1000);
+          }, 1000);
+        }, 1000);
+      </script>
+    </main>
+  </body>
+</html>

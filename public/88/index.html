@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 88/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="toggle-indicator">
+          <div class="toggle-indicator-back"></div>
+          <div class="toggle-indicator-front"></div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 200px;
+        height: 100px;
+        outline: 10px solid rgba(235, 235, 235, 1);
+        outline-offset: -10px;
+      }
+
+      .toggle::before {
+        content: "";
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(235, 235, 235, 1);
+      }
+
+      .toggle-indicator {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100px;
+        height: 100px;
+        transform: perspective(2000px);
+        transform-style: preserve-3d;
+        transform-origin: center right;
+
+        transition: all 0.5s ease-in-out;
+      }
+
+      .toggle-indicator-front,
+      .toggle-indicator-back {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100px;
+        height: 100px;
+        backface-visibility: hidden;
+      }
+
+      .toggle-indicator-front {
+        background-color: rgba(180, 180, 180, 1);
+      }
+
+      .toggle-indicator-back {
+        background-color: #000;
+        transform: rotateY(180deg);
+      }
+
+      .toggle-on .toggle-indicator {
+        transform: rotateY(180deg);
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById("toggle");
+
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("toggle-on");
+      });
+    </script>
+  </body>
+</html>

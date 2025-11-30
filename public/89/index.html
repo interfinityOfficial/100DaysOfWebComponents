@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <script src="/lib/figlet.js"></script>
+    <title>Day 72/100</title>
+  </head>
+  <body>
+    <main>
+      <div id="ascii-art">
+        <div class="ascii-line" id="ascii-line"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Medium.woff2") format("woff2");
+        font-weight: 500;
+      }
+
+      @font-face {
+        font-family: "SFMono";
+        src: url("/assets/SFMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+      }
+
+      body {
+        background-color: #fff;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      #ascii-art {
+        text-align: center;
+      }
+
+      .ascii-line {
+        font-size: max(min(1.2vw, 16px), 6px);
+        line-height: 1.2;
+        font-family: "SFMono", monospace;
+        font-weight: 700;
+        white-space: pre;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        color: #ee1c25;
+      }
+    </style>
+
+    <script>
+      const asciiLine = document.getElementById("ascii-line");
+
+      figlet.defaults({ fontPath: "/assets/" });
+
+      figlet.text(
+        "HIDDEN",
+        {
+          font: "poison",
+        },
+        function (err, data) {
+          if (err) {
+            console.error(err);
+          } else {
+            let lineContent = data;
+
+            let typingInterval = setInterval(function () {
+              if (lineContent.length > 0) {
+                asciiLine.innerHTML += lineContent[0];
+                lineContent = lineContent.slice(1);
+              } else {
+                clearInterval(typingInterval);
+              }
+            }, 20);
+          }
+        }
+      );
+    </script>
+  </body>
+</html>

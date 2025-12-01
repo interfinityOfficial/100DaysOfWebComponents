@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 90/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="switch" id="switch">
+        <div class="switch-inner"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #fff;
+      }
+
+      .switch {
+        position: relative;
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        border-radius: 30px;
+        background-color: transparent;
+        outline: 10px solid #000;
+        outline-offset: -10px;
+        overflow: hidden;
+      }
+
+      .switch-inner {
+        position: absolute;
+        top: calc(50% - 30px);
+        left: calc(50% - 30px);
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background-color: #000;
+        opacity: 0;
+        transform-origin: center center;
+        transform: scale(2) rotate(135deg);
+        transition: all 0.5s ease-in-out;
+      }
+
+      .switch:hover .switch-inner {
+        opacity: 0.2;
+      }
+
+      .switch-on .switch-inner,
+      .switch-on:hover .switch-inner {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    </style>
+
+    <script>
+      const switchElement = document.getElementById("switch");
+
+      switchElement.addEventListener("click", () => {
+        switchElement.classList.toggle("switch-on");
+      });
+    </script>
+  </body>
+</html>

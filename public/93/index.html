@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 93/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="square square-1"></div>
+        <div class="square square-2"></div>
+        <div class="square square-3"></div>
+        <div class="square square-4"></div>
+
+        <div class="square-center"></div>
+      </div>
+    </main>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #000;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        width: 90px;
+        aspect-ratio: 1/1;
+
+        transition: all 0.3s ease-in-out;
+      }
+
+      .square {
+        position: absolute;
+        background-color: #fff;
+        width: 30px;
+        height: 30px;
+        transition: all 0.3s 0.3s ease-in-out;
+      }
+
+      .square-1 {
+        top: 0px;
+        left: 0px;
+      }
+      .square-2 {
+        top: 0px;
+        right: 0px;
+      }
+      .square-3 {
+        bottom: 0px;
+        left: 0px;
+      }
+      .square-4 {
+        bottom: 0px;
+        right: 0px;
+      }
+
+      .square-center {
+        position: absolute;
+        background-color: #000;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        outline: 10px solid #000;
+        outline-offset: -10px;
+        width: 30px;
+        aspect-ratio: 1/1;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .toggle-on {
+        background-color: #fff;
+
+        transition: all 0.3s 0.3s ease-in-out;
+      }
+
+      .toggle-on .square-center {
+        width: 60px;
+        background-color: #fff;
+
+        transition: all 0.3s 0.3s ease-in-out;
+      }
+
+      .toggle-on .square-1 {
+        width: 90px;
+        transition: all 0.3s ease-in-out;
+      }
+      .toggle-on .square-2 {
+        height: 90px;
+        transition: all 0.3s ease-in-out;
+      }
+      .toggle-on .square-3 {
+        height: 90px;
+        transition: all 0.3s ease-in-out;
+      }
+      .toggle-on .square-4 {
+        width: 90px;
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+
+    <script>
+      let toggle = document.getElementById("toggle");
+
+      toggle.onclick = () => {
+        toggle.classList.toggle("toggle-on");
+      };
+    </script>
+  </body>
+</html>

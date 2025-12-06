@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 95/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="menu menu-1" id="menu">
+        <div class="item item-1" id="item-1">HOME</div>
+        <div class="item item-2" id="item-2">ABOUT</div>
+        <div class="dot"></div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #000;
+      }
+
+      .menu {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .item {
+        cursor: pointer;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        font-size: 20px;
+        color: #fff;
+        opacity: 0.5;
+        text-align: center;
+        transition: opacity 0.25s ease-in-out;
+      }
+
+      .item:hover {
+        opacity: 1;
+      }
+
+      .menu-1 .item-1 {
+        opacity: 1;
+      }
+
+      .menu-2 .item-2 {
+        opacity: 1;
+      }
+
+      .dot {
+        position: absolute;
+        left: calc(25% - 8px);
+        top: -40%;
+        width: calc(25% + 8px);
+        height: 8px;
+        transform-origin: right center;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .menu-1 .dot {
+        rotate: 0deg;
+      }
+
+      .menu-2 .dot {
+        rotate: 180deg;
+      }
+
+      .dot:after {
+        content: "";
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 100%;
+        background-color: #fff;
+      }
+    </style>
+
+    <script>
+      const menu = document.getElementById("menu");
+      const item1 = document.getElementById("item-1");
+      const item2 = document.getElementById("item-2");
+
+      item1.addEventListener("click", () => {
+        menu.classList = "menu menu-1";
+      });
+
+      item2.addEventListener("click", () => {
+        menu.classList = "menu menu-2";
+      });
+    </script>
+  </body>
+</html>

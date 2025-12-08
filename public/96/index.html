@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 96/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="toggle" id="toggle">
+        <div class="toggle-space" id="toggle-space"></div>
+        <div class="toggle-1" id="toggle-1">
+          <span>OFF</span>
+        </div>
+        <div class="toggle-2" id="toggle-2">
+          <span>ON</span>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #000;
+      }
+
+      .toggle {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 1000px;
+        outline: 3.5px solid #fff;
+        outline-offset: -0.5px;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .toggle:hover,
+      .toggle-on {
+        background-color: #fff;
+      }
+
+      .toggle-1,
+      .toggle-2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-family: "SpaceMono";
+        font-size: 22px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1;
+        transform-origin: top left;
+        transition: translate 0.5s ease-in-out, color 0.3s ease-in-out,
+          scale 0.5s ease-in-out, opacity 0.5s ease-in-out;
+      }
+
+      .toggle:hover .toggle-1,
+      .toggle:hover .toggle-2,
+      .toggle-on .toggle-1,
+      .toggle-on .toggle-2 {
+        color: #000;
+      }
+
+      .toggle-1 {
+        scale: 1;
+        opacity: 1;
+      }
+
+      .toggle-2 {
+        scale: 3;
+        opacity: 0;
+      }
+
+      .toggle-on .toggle-1 {
+        scale: 0;
+        opacity: 0;
+      }
+
+      .toggle-on .toggle-2 {
+        scale: 1;
+        opacity: 1;
+      }
+    </style>
+
+    <script>
+      let toggle = document.getElementById("toggle");
+      let toggleSpace = document.getElementById("toggle-space");
+      let toggle1 = document.getElementById("toggle-1");
+      let toggle2 = document.getElementById("toggle-2");
+
+      function updateToggleSpace() {
+        const width = Math.max(toggle1.offsetWidth, toggle2.offsetWidth);
+        const height = Math.max(toggle1.offsetHeight, toggle2.offsetHeight);
+        toggleSpace.style.width = `${width + height * 1.25}px`;
+        toggleSpace.style.height = `${height * 2}px`;
+      }
+
+      document.onresize = () => {
+        updateToggleSpace();
+      };
+      updateToggleSpace();
+
+      toggle.onclick = () => {
+        toggle.classList.toggle("toggle-on");
+      };
+    </script>
+  </body>
+</html>

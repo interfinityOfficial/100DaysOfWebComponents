@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/icon.png" />
+    <title>Day 98/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="tabbar tabbar-1" id="tabbar">
+        <div class="tab-selector"></div>
+        <div class="tab-item tab-item-1" id="tab-item-1">Home</div>
+        <div class="tab-item tab-item-2" id="tab-item-2">Events</div>
+        <div class="tab-item tab-item-3" id="tab-item-3">Profile</div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SpaceMono";
+        src: url("/assets/SpaceMono-Bold.woff2") format("woff2");
+        font-weight: 700;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-tap-highlight-color: transparent;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      .tabbar {
+        max-width: calc(100vw - 20px);
+        margin: 10px;
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-radius: 1000px;
+        outline: 3px solid #fff;
+      }
+
+      .tab-item {
+        position: relative;
+        color: #fff;
+        padding: 24px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        font-size: 18px;
+        font-family: "SpaceMono", monospace;
+        font-weight: 700;
+        text-align: center;
+        cursor: pointer;
+        transition: color 0.5s ease-in-out;
+      }
+
+      .tab-selector {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0px;
+        width: calc(100% / 3 - 12px);
+        height: calc(100% - 12px);
+        border-radius: 1000px;
+        background-color: #fff;
+        transition: left 0.5s ease-in-out, width 0.25s ease-in-out,
+          height 0.25s ease-in-out, translate 0.5s ease-in-out,
+          opacity 0.5s ease-in-out;
+      }
+
+      .tabbar-hover-1 .tab-selector,
+      .tabbar-hover-2 .tab-selector,
+      .tabbar-hover-3 .tab-selector {
+        width: calc(100% / 3 - 12px + 30px);
+        height: calc(100% - 12px + 30px);
+        translate: -15px 0%;
+        opacity: 0.3;
+      }
+
+      .tabbar-1 .tab-selector {
+        left: 6px;
+      }
+      .tabbar-2 .tab-selector {
+        left: calc(100% / 3 + 6px);
+      }
+      .tabbar-3 .tab-selector {
+        left: calc(100% / 3 * 2 + 6px);
+      }
+
+      .tabbar-hover-1 .tab-selector {
+        left: 6px;
+      }
+      .tabbar-hover-2 .tab-selector {
+        left: calc(100% / 3 + 6px);
+      }
+      .tabbar-hover-3 .tab-selector {
+        left: calc(100% / 3 * 2 + 6px);
+      }
+
+      .tabbar-1.tabbar-hover-1 .tab-selector,
+      .tabbar-2.tabbar-hover-2 .tab-selector,
+      .tabbar-3.tabbar-hover-3 .tab-selector {
+        width: calc(100% / 3 - 12px);
+        height: calc(100% - 12px);
+        translate: 0% 0%;
+        opacity: 1;
+      }
+
+      .tabbar-1 .tab-item-1,
+      .tabbar-2 .tab-item-2,
+      .tabbar-3 .tab-item-3 {
+        color: #000;
+      }
+
+      .tabbar-hover-1 .tab-item,
+      .tabbar-hover-2 .tab-item,
+      .tabbar-hover-3 .tab-item {
+        color: #fff;
+      }
+
+      .tabbar-1.tabbar-hover-1 .tab-item-1,
+      .tabbar-2.tabbar-hover-2 .tab-item-2,
+      .tabbar-3.tabbar-hover-3 .tab-item-3 {
+        color: #000;
+      }
+    </style>
+
+    <script>
+      const tabbar = document.getElementById("tabbar");
+      const tabitem1 = document.getElementById("tab-item-1");
+      const tabitem2 = document.getElementById("tab-item-2");
+      const tabitem3 = document.getElementById("tab-item-3");
+
+      tabbar.addEventListener("mousemove", (e) => {
+        const rect = tabbar.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const width = rect.width;
+        const selectorPercent = (x / width) * 100;
+        if (selectorPercent < 33.33) {
+          tabbar.classList.add("tabbar-hover-1");
+          tabbar.classList.remove("tabbar-hover-2", "tabbar-hover-3");
+        } else if (selectorPercent < 66.66) {
+          tabbar.classList.add("tabbar-hover-2");
+          tabbar.classList.remove("tabbar-hover-1", "tabbar-hover-3");
+        } else {
+          tabbar.classList.add("tabbar-hover-3");
+          tabbar.classList.remove("tabbar-hover-1", "tabbar-hover-2");
+        }
+      });
+
+      tabbar.addEventListener("mouseleave", () => {
+        tabbar.classList.remove(
+          "tabbar-hover-1",
+          "tabbar-hover-2",
+          "tabbar-hover-3"
+        );
+      });
+
+      tabitem1.addEventListener("click", () => {
+        tabbar.classList = "tabbar tabbar-1";
+      });
+
+      tabitem2.addEventListener("click", () => {
+        tabbar.classList = "tabbar tabbar-2";
+      });
+
+      tabitem3.addEventListener("click", () => {
+        tabbar.classList = "tabbar tabbar-3";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 100/100</title>
+  </head>
+  <body>
+    <main>
+      <div class="text">
+        <div class="square" id="square"></div>
+        <div class="circle circle-1" id="circle-1"></div>
+        <div class="circle circle-2" id="circle-2"></div>
+        <div class="logo">
+          &lt;<span class="logo-blue">100-days</span>&gt;<br />
+          &nbsp;<span class="logo-black">of</span><br />
+          &nbsp;<span class="logo-black">Web</span><br />
+          &nbsp;<span class="logo-black">Components</span><br />
+          &lt;/<span class="logo-blue">100-days</span>&gt;<br />
+        </div>
+      </div>
+    </main>
+
+    <style>
+      @font-face {
+        font-family: "SFMonoBold";
+        src: url("/assets/SFMono-Bold.woff2") format("woff2");
+        font-weight: bold;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        user-select: none;
+        -webkit-user-select: none;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .text {
+        position: relative;
+        cursor: pointer;
+        width: 340px;
+        height: 100px;
+        display: flex;
+      }
+
+      .text::before {
+        content: "";
+        position: fixed;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        opacity: 0;
+        background-color: #fff;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      .text:hover::before {
+        opacity: 1;
+        transition: opacity 0.5s 0.5s ease-in-out;
+      }
+
+      .square,
+      .circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: #fff;
+      }
+
+      .square {
+        top: 0;
+        left: 0;
+        width: 50px;
+        margin-left: 50px;
+        transform-origin: bottom right;
+        transition: all 0.5s 0.5s ease-in-out;
+      }
+
+      .circle {
+        top: 0;
+        left: 120px;
+        border-radius: 50px;
+
+        transition: all 0.5s 0.5s ease-in-out;
+      }
+
+      .circle-2 {
+        top: 0;
+        left: 240px;
+        background-color: transparent;
+        outline: 25px solid #4683ff;
+        outline-offset: -25px;
+
+        transition: left 0.5s 0.5s ease-in-out, scale 0.5s ease-in-out;
+      }
+
+      .text:hover .square {
+        left: 20px;
+        rotate: 90deg;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .text:hover .circle-1 {
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+      }
+
+      .text:hover .circle-2 {
+        left: 120px;
+        scale: 0;
+        transition: left 0.5s ease-in-out, scale 0.5s 0.5s ease-in-out;
+      }
+
+      .logo {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        width: fit-content;
+        font-family: "SFMonoBold", sans-serif;
+        line-height: normal;
+        font-weight: bold;
+        font-size: min(6.8vw, 30px);
+        text-align: left;
+        color: rgba(200, 200, 200, 1);
+        transform-origin: center center;
+
+        scale: 0;
+        transition: scale 0.5s ease-in-out;
+      }
+
+      .logo-blue {
+        color: rgba(70, 131, 255, 1);
+      }
+
+      .logo-black {
+        color: rgba(0, 0, 0, 1);
+      }
+
+      .text:hover .logo {
+        scale: 1;
+        transition: scale 0.5s 0.5s ease-in-out;
+      }
+    </style>
+  </body>
+</html>
